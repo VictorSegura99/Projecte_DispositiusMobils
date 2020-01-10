@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "736702034205",
+    "firebase_url": "https://selectorgameapp.firebaseio.com",
+    "project_id": "selectorgameapp",
+    "storage_bucket": "selectorgameapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:736702034205:android:ba8df49fba5ef52726b1f4",
+        "android_client_info": {
+          "package_name": "selector.games.finalproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "736702034205-o4qjfhiaenl9f4tuuf3pauv8s8dbkqaa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAC_GejM7yCnvJ_BXGIhliAbkN5b3wzxQI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "736702034205-o4qjfhiaenl9f4tuuf3pauv8s8dbkqaa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
