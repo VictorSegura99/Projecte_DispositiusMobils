@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:finalproject/mainpage.dart';
+import 'package:finalproject/explorer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -60,7 +60,7 @@ class _RegisterPageState extends State<RegisterPage> {
       Map<String, dynamic> data = {'name' : nameController.text, 'password' : passwordController.text};
       Firestore.instance.collection(emailController.text).document('BaseInfo').setData(data);
       Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-      MainPage()), (Route<dynamic> route) => false);
+      GamesExplorer()), (Route<dynamic> route) => false);
     }
     else {
       String text;

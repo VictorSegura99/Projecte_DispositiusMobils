@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finalproject/register.dart';
 import 'package:flutter/material.dart';
-import 'package:finalproject/mainpage.dart';
+import 'package:finalproject/explorer.dart';
 
 class LogIn extends StatefulWidget {
   @override
@@ -34,7 +34,7 @@ class _LogInState extends State<LogIn> {
   }
   if (success) {
     Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-    MainPage()), (Route<dynamic> route) => false);
+    GamesExplorer()), (Route<dynamic> route) => false);
   } 
   else {
     showDialog(

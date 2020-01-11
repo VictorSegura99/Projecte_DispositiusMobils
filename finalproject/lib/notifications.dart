@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:finalproject/main.dart';
 
-class MainPage extends StatefulWidget {
+class Notifications extends StatefulWidget {
   @override
-  _MainPageState createState() => _MainPageState();
+  _NotificationsState createState() => _NotificationsState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _NotificationsState extends State<Notifications> {
 
  @override
  void initState() {
@@ -20,7 +20,7 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('MainPage'),
+        title: Text('Notifications'),
       ),
       body: Column(
         children: <Widget>[
@@ -28,7 +28,7 @@ class _MainPageState extends State<MainPage> {
             flex: 80,
             child: Container(color: Colors.blue,)
           ),
-          SelectorGamesApp.mainbottombar(BarActive.Home),
+          SelectorGamesApp.mainbottombar(BarActive.Noti, context),
         ],
       ),
     );
