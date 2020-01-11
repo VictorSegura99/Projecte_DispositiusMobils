@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:finalproject/register.dart';
 import 'package:flutter/material.dart';
 import 'package:unique_identifier/unique_identifier.dart';
 
@@ -86,7 +87,11 @@ class _LogInState extends State<LogIn> {
                       child: Text('Register Now'),
                       color: Colors.red,
                       onPressed: () {
-
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) {
+                              return RegisterPage(); 
+                            },
+                          ));
                       },
                     ),
                   ),
