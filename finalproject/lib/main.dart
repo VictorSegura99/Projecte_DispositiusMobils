@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:unique_identifier/unique_identifier.dart';
 
@@ -12,27 +13,27 @@ class SelectorGamesApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MainPage(),
+      home: LogIn(),
     );
   }
 }
 
-class MainPage extends StatefulWidget {
+class LogIn extends StatefulWidget {
   @override
-  _MainPageState createState() => _MainPageState();
+  _LogInState createState() => _LogInState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _LogInState extends State<LogIn> {
 
- String deviceID = 'Unknown';
-  
+  String deviceID = 'Unknown';
+  bool new_account = false;
  @override
  void initState() {
    super.initState();
-   initUniqueIdentifierState();
+   getdeviceid();
  }
 
- Future<void> initUniqueIdentifierState() async {
+ Future<void> getdeviceid() async {
    String _deviceID;
     _deviceID = await UniqueIdentifier.serial;
    setState(() {
@@ -42,14 +43,94 @@ class _MainPageState extends State<MainPage> {
 
  @override
  Widget build(BuildContext context) {
-    return Scaffold(
-       appBar: AppBar(
-         title: Text('Main Page'),
-       ),
-       body: Center(
-         child: Text('ID: $deviceID\n'),
-       ),
-     );
+      TextEditingController emailController;
+      TextEditingController passwordController;
+      return Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          title: Text('Log In Selector Games App'),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.fromLTRB(20,10,40,0),
+          child: Column(
+            children: <Widget>[
+              TextField(
+                decoration: InputDecoration(
+                  hintText: 'Enter your email',
+                  labelText: 'Email',
+                  icon: Icon(
+                    Icons.email,
+                    size: 27,
+                    color: Colors.blue,
+                  ),
+                ),
+              controller: emailController,
+              ),
+              TextField(
+                decoration: InputDecoration(
+                  hintText: 'Enter your password',
+                  labelText: 'Password',
+                  icon: Icon(
+                    Icons.screen_lock_portrait,
+                    size: 27,
+                    color: Colors.blue,
+                  ),
+                ),
+              controller: emailController,
+              ),
+              Row(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(60,15,0,0),
+                    child: FlatButton(
+                      child: Text('Register Now'),
+                      color: Colors.red,
+                      onPressed: () {
+
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(35,15,0,0),
+                    child: FlatButton(
+                      child: Text('Log In'),
+                      color: Colors.blue,
+                      onPressed: () {
+
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      );
+
+      /*TextEditingController nameController;
+      TextEditingController emailController;
+      TextEditingController passwordController;
+      widget = Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          title: Text('Welcome to the Selector Games App'),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.fromLTRB(20,10,40,0),
+          child: TextField(
+            decoration: InputDecoration(
+              hintText: 'Enter your name for the application',
+              labelText: 'Name',
+              icon: Icon(
+                Icons.account_circle,
+                size: 27,
+                color: Colors.blue,
+              ),
+            ),
+            controller: nameController,
+          ),
+        ),
+      );*/
  }
 
 }
