@@ -81,6 +81,7 @@ class _LogInState extends State<LogIn> {
               controller: emailController,
               ),
               TextField(
+                obscureText: true,
                 decoration: InputDecoration(
                   hintText: 'Enter your password',
                   labelText: 'Password',

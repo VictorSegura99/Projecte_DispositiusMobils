@@ -133,6 +133,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 controller: emailController,
               ),
               TextField(
+                obscureText: true,
                 decoration: InputDecoration(
                   hintText: 'Enter your password',
                   labelText: 'Password',
@@ -145,6 +146,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 controller: passwordController,
               ),
               TextField(
+                obscureText: true,
                 decoration: InputDecoration(
                   hintText: 'Enter your password again',
                   labelText: 'Repeat Password',
