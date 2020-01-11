@@ -21,6 +21,9 @@ class _FavState extends State<Fav> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('Favourite Games'),
+        actions: <Widget>[
+          SelectorGamesApp.settings(context),
+        ],
       ),
       body: Column(
         children: <Widget>[

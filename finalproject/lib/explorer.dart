@@ -21,6 +21,9 @@ class _GamesExplorerState extends State<GamesExplorer> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('Games Explorer'),
+        actions: <Widget>[
+          SelectorGamesApp.settings(context),
+        ],
       ),
       body: Column(
         children: <Widget>[

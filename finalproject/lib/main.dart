@@ -3,6 +3,7 @@ import 'package:finalproject/fav.dart';
 import 'package:finalproject/login.dart';
 import 'package:finalproject/notifications.dart';
 import 'package:finalproject/peoplefav.dart';
+import 'package:finalproject/settings.dart';
 import 'package:flutter/material.dart';
 
   enum BarActive {
@@ -15,6 +16,22 @@ import 'package:flutter/material.dart';
 void main() => runApp(SelectorGamesApp());
 
 class SelectorGamesApp extends StatelessWidget {
+
+  static settings(context) {
+    return IconButton(
+            icon: Icon(
+              Icons.settings,
+              size: 35,
+            ),
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) {
+                  return Settings(); 
+                },
+              ));
+            }
+    );
+  }
 
   static Expanded mainbottombar(BarActive active, contex) {
     return Expanded(
@@ -84,6 +101,8 @@ class SelectorGamesApp extends StatelessWidget {
             ),
           );
 }
+
+
 
   @override
   Widget build(BuildContext context) {
