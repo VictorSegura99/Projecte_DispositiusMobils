@@ -28,7 +28,7 @@ class _MainPageState extends State<MainPage> {
             flex: 80,
             child: Container(color: Colors.blue,)
           ),
-          SelectorGamesApp.mainbottombar(),
+          SelectorGamesApp.mainbottombar(BarActive.Home),
         ],
       ),
     );

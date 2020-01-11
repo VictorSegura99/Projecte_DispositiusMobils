@@ -1,12 +1,18 @@
 import 'package:finalproject/login.dart';
 import 'package:flutter/material.dart';
 
+  enum BarActive {
+    Home,
+    Favs,
+    People,
+    Noti
+  }
+
 void main() => runApp(SelectorGamesApp());
 
 class SelectorGamesApp extends StatelessWidget {
-  // This widget is the root of your application.
 
-  static Expanded mainbottombar() {
+  static Expanded mainbottombar(BarActive active) {
     return Expanded(
             flex: 10,
             child: Container(
@@ -20,7 +26,7 @@ class SelectorGamesApp extends StatelessWidget {
                         Icons.sort,
                         size: 40,
                       ),
-                      color: Colors.red,
+                      color: (active == BarActive.Home) ? Colors.red : Colors.blue,
                       onPressed: () {
 
                       },
@@ -30,7 +36,7 @@ class SelectorGamesApp extends StatelessWidget {
                     flex: 1,
                     child: IconButton(
                       icon: Icon(
-                        Icons.favorite_border,
+                        (active == BarActive.Favs) ? Icons.favorite : Icons.favorite_border,
                         size: 40,
                       ),
                       color: Colors.red,
@@ -43,7 +49,7 @@ class SelectorGamesApp extends StatelessWidget {
                     flex: 1,
                     child: IconButton(
                       icon: Icon(
-                        Icons.people_outline,
+                        (active == BarActive.People) ? Icons.people : Icons.people_outline,
                         size: 40,
                       ),
                       color: Colors.red,
@@ -56,7 +62,7 @@ class SelectorGamesApp extends StatelessWidget {
                     flex: 1,
                     child: IconButton(
                       icon: Icon(
-                        Icons.notifications_none,
+                        (active == BarActive.Noti) ? Icons.notifications : Icons.notifications_none,
                         size: 40,
                       ),
                       color: Colors.red,
