@@ -13,6 +13,8 @@ class _LogInState extends State<LogIn> {
 
  @override
  void initState() {
+   emailController = new TextEditingController();
+   passwordController = new TextEditingController();
    super.initState();
  }
 

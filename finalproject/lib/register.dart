@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -13,6 +15,41 @@ class _RegisterPageState extends State<RegisterPage> {
     TextEditingController passwordController;
     TextEditingController passwordController2;
     TextEditingController codeController;
+    int code;
+    bool canRegister = false;
+
+ @override
+ void initState() {
+   emailController = new TextEditingController();
+   nameController = new TextEditingController();
+   passwordController = new TextEditingController();
+   passwordController2 = new TextEditingController();
+   codeController = new TextEditingController();
+   super.initState();
+ }
+
+  Future<void> canregister() async {
+    if (nameController.text.isNotEmpty && emailController.text.isNotEmpty 
+        && passwordController.text.isNotEmpty && passwordController2.text.isNotEmpty) 
+    {
+      if (passwordController.text.compareTo(passwordController2.text) == 0) {
+        if (EmailValidator.validate(emailController.text)) {
+          DocumentReference documentReference = Firestore.instance.collection(emailController.text).document('BaseInfo');
+          if (documentReference.snapshots() != null) {
+              DocumentSnapshot doc = await documentReference.snapshots().first;
+              if (doc.exists) {
+                canRegister = false;
+                return;
+              }
+              canRegister = true;
+              return;
+          }
+        }
+      }
+    }
+    canRegister = false;
+    return;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +138,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                         actions: <Widget>[
                           FlatButton(
-                            child: Text('ACCEPT'),
+                            child: Text('CONFIRM'),
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
@@ -109,7 +146,10 @@ class _RegisterPageState extends State<RegisterPage> {
                           FlatButton(
                             child: Text('CANCEL'),
                             onPressed: () {
-                              Navigator.of(context).pop();
+                              canregister();
+                              if (canRegister) {
+                                Navigator.of(context).pop();
+                              }
                             },
                           )
                         ],
@@ -123,4 +163,5 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       );
   }
+
 }
