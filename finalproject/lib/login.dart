@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finalproject/register.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +17,41 @@ class _LogInState extends State<LogIn> {
    emailController = new TextEditingController();
    passwordController = new TextEditingController();
    super.initState();
+ }
+
+ Future<void> readpassword(String email, String password) async {
+  bool success = false;
+  QuerySnapshot querySnapshot = await Firestore.instance.collection(email).getDocuments();
+  var list = querySnapshot.documents;
+  for (int i = 0; i < list.length; ++i) {
+    if (list[i].exists && list[i].documentID == 'BaseInfo') {
+      if (password == list[i].data['password']) {
+       success = true;
+        break;
+      }
+    }
+  }
+  if (success) {
+
+  } 
+  else {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => AlertDialog(
+          title: Text('Error'),
+          content: Text('Email or Password incorrect'),
+          actions: <Widget>[
+            FlatButton(
+            child: Text('CONFIRM'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            ),
+          ],
+        ),
+      );
+  } 
  }
 
  @override
@@ -76,7 +112,7 @@ class _LogInState extends State<LogIn> {
                       child: Text('Log In'),
                       color: Colors.blue,
                       onPressed: () {
-
+                        readpassword(emailController.text, passwordController.text);
                       },
                     ),
                   ),
