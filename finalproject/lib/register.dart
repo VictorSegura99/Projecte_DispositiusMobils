@@ -15,7 +15,6 @@ class _RegisterPageState extends State<RegisterPage> {
     TextEditingController passwordController;
     TextEditingController passwordController2;
     TextEditingController codeController;
-    int code;
 
  @override
  void initState() {
@@ -57,40 +56,8 @@ class _RegisterPageState extends State<RegisterPage> {
     }
 
     if (canRegister) {
-        showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (context) => AlertDialog(
-          title: Text('Security Check'),
-          content: Column(
-            children: <Widget>[
-              Text('An email has been sent to your email, please enter the code below'),
-              TextField(
-                controller: codeController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  hintText: "Enter the code",
-                  labelText: 'Code'
-                ),
-              ),
-            ],
-          ),
-          actions: <Widget>[
-            FlatButton(
-              child: Text('CONFIRM'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            FlatButton(
-              child: Text('CANCEL'),
-              onPressed: () {
-                Navigator.of(context).pop(); 
-              },
-            )
-          ],
-        ),
-      );
+      Map<String, dynamic> data = {'name' : nameController.text, 'password' : passwordController.text};
+      Firestore.instance.collection(emailController.text).document('BaseInfo').setData(data);
     }
     else {
       String text;
@@ -140,7 +107,7 @@ class _RegisterPageState extends State<RegisterPage> {
               TextField(
                 decoration: InputDecoration(
                   hintText: 'Enter your name for the application',
-                  labelText: 'Name',
+                  labelText: 'UserName',
                   icon: Icon(
                     Icons.account_circle,
                     size: 27,
