@@ -16,7 +16,6 @@ class _RegisterPageState extends State<RegisterPage> {
     TextEditingController passwordController2;
     TextEditingController codeController;
     int code;
-    bool canRegister = false;
 
  @override
  void initState() {
@@ -29,26 +28,101 @@ class _RegisterPageState extends State<RegisterPage> {
  }
 
   Future<void> canregister() async {
+    bool canRegister = false;
+    bool empty = false;
+    bool password = false;
+    bool email = false;
+
     if (nameController.text.isNotEmpty && emailController.text.isNotEmpty 
         && passwordController.text.isNotEmpty && passwordController2.text.isNotEmpty) 
     {
       if (passwordController.text.compareTo(passwordController2.text) == 0) {
         if (EmailValidator.validate(emailController.text)) {
           DocumentReference documentReference = Firestore.instance.collection(emailController.text).document('BaseInfo');
-          if (documentReference.snapshots() != null) {
-              DocumentSnapshot doc = await documentReference.snapshots().first;
-              if (doc.exists) {
-                canRegister = false;
-                return;
-              }
-              canRegister = true;
-              return;
+          DocumentSnapshot doc = await documentReference.snapshots().first;
+          if (!doc.exists) {
+            canRegister = true;
           }
         }
+        else {
+          email = true;
+        }
+      }
+      else {
+        password = true;
       }
     }
-    canRegister = false;
-    return;
+    else {
+      empty = true;
+    }
+
+    if (canRegister) {
+        showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => AlertDialog(
+          title: Text('Security Check'),
+          content: Column(
+            children: <Widget>[
+              Text('An email has been sent to your email, please enter the code below'),
+              TextField(
+                controller: codeController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  hintText: "Enter the code",
+                  labelText: 'Code'
+                ),
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('CONFIRM'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            FlatButton(
+              child: Text('CANCEL'),
+              onPressed: () {
+                Navigator.of(context).pop(); 
+              },
+            )
+          ],
+        ),
+      );
+    }
+    else {
+      String text;
+      if (empty) {
+        text = 'At least one input text is empty';
+      }
+      else if (password) {
+        text = 'Password is not the same';
+      }
+      else if (email) {
+        text = 'Email does not exist';
+      }
+      else {
+        text = 'This email is already registered';
+      }
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => AlertDialog(
+          title: Text('Error'),
+          content: Text(text),
+          actions: <Widget>[
+            FlatButton(
+            child: Text('CONFIRM'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            ),
+          ],
+        ),
+      );
+    }
   }
 
   @override
@@ -118,43 +192,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: Text('Register'),
                   color: Colors.red,
                   onPressed: () {
-                    showDialog(
-                      context: context,
-                      barrierDismissible: false,
-                      builder: (context) => AlertDialog(
-                        title: Text('Security Check'),
-                        content: Column(
-                          children: <Widget>[
-                            Text('An email has been sent to your email, please enter the code below'),
-                            TextField(
-                              controller: codeController,
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                hintText: "Enter the code",
-                                labelText: 'Code'
-                              ),
-                            ),
-                          ],
-                        ),
-                        actions: <Widget>[
-                          FlatButton(
-                            child: Text('CONFIRM'),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                          FlatButton(
-                            child: Text('CANCEL'),
-                            onPressed: () {
-                              canregister();
-                              if (canRegister) {
-                                Navigator.of(context).pop();
-                              }
-                            },
-                          )
-                        ],
-                      ),
-                    );
+                    canregister();
                   },
                 ),
               ),
