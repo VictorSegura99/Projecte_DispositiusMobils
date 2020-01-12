@@ -59,6 +59,33 @@ class _PeopleFavState extends State<PeopleFav> {
                         if (docs[index].documentID == 'Mails' || docs[index].documentID == 'Number' || docs[index].documentID == userData.userEmail) {
                           return Container();
                         }
+                        Widget widgetFavs;
+                        if (data['numFavs'] > 9) {
+                          widgetFavs = Padding(
+                            padding: const EdgeInsets.fromLTRB(10, 9, 0, 0),
+                            child: Text(
+                              data['numFavs'].toString(),
+                              style: TextStyle(
+                                color: Color.fromRGBO(255, 255, 255, 0.9),
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600
+                              ),
+                            ),
+                          );
+                        }
+                        else {
+                          widgetFavs = Padding(
+                            padding: const EdgeInsets.fromLTRB(15, 9, 0, 0),
+                            child: Text(
+                              data['numFavs'].toString(),
+                              style: TextStyle(
+                                color: Color.fromRGBO(255, 255, 255, 0.9),
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600
+                              ),
+                            ),
+                          );
+                        }
                         return Padding(
                           padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
                           child: Container(
@@ -101,20 +128,15 @@ class _PeopleFavState extends State<PeopleFav> {
                               ),
                               Padding(
                                 padding: EdgeInsets.only(left: 10),
-                                child: Text(
-                                  data['numFavs'],
-                                  style: TextStyle(
-                                    color: Colors.black87,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w600
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(left: 3),
-                                child: Icon(
-                                  Icons.favorite,
-                                  color: Colors.red,
+                                child: Stack(
+                                  children: <Widget>[
+                                    Icon(
+                                      Icons.favorite,
+                                      color: Colors.red,
+                                      size: 40,
+                                    ),
+                                    widgetFavs,
+                                  ],
                                 ),
                               ),
                               Padding(
