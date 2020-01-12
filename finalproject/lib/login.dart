@@ -22,12 +22,12 @@ class _LogInState extends State<LogIn> {
 
  Future<void> readpassword(String email, String password) async {
   bool success = false;
-  QuerySnapshot querySnapshot = await Firestore.instance.collection(email).getDocuments();
+  QuerySnapshot querySnapshot = await Firestore.instance.collection('Users').getDocuments();
   var list = querySnapshot.documents;
   for (int i = 0; i < list.length; ++i) {
-    if (list[i].exists && list[i].documentID == 'BaseInfo') {
+    if (list[i].exists && list[i].documentID == email) {
       if (password == list[i].data['password']) {
-       success = true;
+        success = true;
         break;
       }
     }

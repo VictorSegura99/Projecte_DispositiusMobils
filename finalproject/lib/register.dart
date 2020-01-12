@@ -38,7 +38,7 @@ class _RegisterPageState extends State<RegisterPage> {
     {
       if (passwordController.text.compareTo(passwordController2.text) == 0) {
         if (EmailValidator.validate(emailController.text)) {
-          DocumentReference documentReference = Firestore.instance.collection(emailController.text).document('BaseInfo');
+          DocumentReference documentReference = Firestore.instance.collection('Users').document(emailController.text);
           DocumentSnapshot doc = await documentReference.snapshots().first;
           if (!doc.exists) {
             canRegister = true;
@@ -58,9 +58,14 @@ class _RegisterPageState extends State<RegisterPage> {
 
     if (canRegister) {
       Map<String, dynamic> data = {'name' : nameController.text, 'password' : passwordController.text};
-      Firestore.instance.collection(emailController.text).document('BaseInfo').setData(data);
+      Firestore.instance.collection('Users').document(emailController.text).setData(data);
+      DocumentSnapshot docNum = await Firestore.instance.collection('Users').document('Number').get();
+      int num = docNum.data['Num'];
+      Firestore.instance.collection('Users').document('Number').updateData({'Num' : num + 1});
+      ++num;
+      Firestore.instance.collection('Users').document('Mails').updateData({'mail$num' : emailController.text});
       Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-      GamesExplorer()), (Route<dynamic> route) => false);
+      GamesExplorer()), (Route<dynamic> route) => false); 
     }
     else {
       String text;
