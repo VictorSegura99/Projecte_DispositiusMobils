@@ -32,6 +32,7 @@ class _RegisterPageState extends State<RegisterPage> {
     bool empty = false;
     bool password = false;
     bool email = false;
+    bool name = false;
 
     if (nameController.text.isNotEmpty && emailController.text.isNotEmpty 
         && passwordController.text.isNotEmpty && passwordController2.text.isNotEmpty) 
@@ -41,7 +42,22 @@ class _RegisterPageState extends State<RegisterPage> {
           DocumentReference documentReference = Firestore.instance.collection('Users').document(emailController.text);
           DocumentSnapshot doc = await documentReference.snapshots().first;
           if (!doc.exists) {
-            canRegister = true;
+            DocumentSnapshot docNum = await Firestore.instance.collection('Users').document('Number').get();
+            int num = docNum.data['Num'];
+            DocumentSnapshot documents = await Firestore.instance.collection('Users').document('Mails').get();
+            List<String> emails = new List<String>();
+            for (int i = 1; i <= num; ++i) {
+              emails.add(documents.data['mail$i']);
+            }
+            for (int i = 0; i < emails.length; ++i) {
+              if ((await Firestore.instance.collection('Users').document(emails[i]).get()).data['name'] == nameController.text) {
+                name = true;
+                break;
+              }
+            }
+            if (!name) {
+              canRegister = true;
+            }
           }
         }
         else {
@@ -77,6 +93,9 @@ class _RegisterPageState extends State<RegisterPage> {
       }
       else if (email) {
         text = 'Email does not exist';
+      }
+      else if (name) {
+        text = 'This user name is already used';
       }
       else {
         text = 'This email is already registered';
