@@ -116,18 +116,18 @@ class _PeopleFavState extends State<PeopleFav> {
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsets.only(left: 10),
+                                padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                                 child: Text(
                                   data['name'],
                                   style: TextStyle(
                                     color: Colors.black87,
-                                    fontSize: 23,
+                                    fontSize: 24,
                                     fontWeight: FontWeight.w400
                                   ),
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsets.only(left: 10),
+                                padding: EdgeInsets.fromLTRB(3, 0, 0, 0),
                                 child: Stack(
                                   children: <Widget>[
                                     Icon(
@@ -139,13 +139,33 @@ class _PeopleFavState extends State<PeopleFav> {
                                   ],
                                 ),
                               ),
-                              Padding(
-                                padding: EdgeInsets.only(left: 10),
-                                child: FlatButton(
-                                  child: Text("See Favs"),
-                                  onPressed: () {
-
-                                  },
+                              Expanded(
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(right: 13),
+                                    child: OutlineButton(
+                                      child: Container(
+                                        width: 60,
+                                        child: Row(
+                                          children: <Widget>[
+                                            Text('Watch'),
+                                            Icon(Icons.favorite_border, size: 20)
+                                          ],
+                                        ),
+                                      ),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      color: Colors.black,
+                                      focusColor: Colors.black,
+                                      borderSide: BorderSide(width: 2),
+                                      highlightedBorderColor: Colors.black,
+                                      onPressed: () {
+                                        
+                                      },
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
