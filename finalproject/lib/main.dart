@@ -8,6 +8,35 @@ import 'package:flutter/material.dart';
 
 import 'userData.dart';
 
+class SlideRightRoute extends PageRouteBuilder {
+  final Widget page;
+  final double directionH;
+  final double directionV;
+  SlideRightRoute(this.directionH, this.directionV, {this.page})
+      : super(
+          pageBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+          ) =>
+              page,
+          transitionsBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+            Widget child,
+          ) =>
+              SlideTransition(
+                position: Tween<Offset>(
+                  begin: Offset(directionH, directionV),
+                  end: Offset.zero,
+                ).animate(animation),
+                child: child,
+              ),
+        );
+}
+
+
 enum BarActive { Home, Favs, People, Noti }
 
 void main() => runApp(SelectorGamesApp());
@@ -27,17 +56,13 @@ class SelectorGamesApp extends StatelessWidget {
       ),
       onPressed: () {
         if (!inSettings) {
-          Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) {
-                  return Settings(userData); 
-                },
-              ));
+          Navigator.push(context, SlideRightRoute(0, 1, page: Settings(userData)));
         }
       },
     );
   }
 
-  static Expanded mainbottombar(BarActive active, contex, UserData userData) {
+  static Expanded mainbottombar(BarActive active, context, UserData userData) {
     return Expanded(
       flex: 10,
       child: Container(
@@ -57,10 +82,7 @@ class SelectorGamesApp extends StatelessWidget {
                       (active == BarActive.Home) ? Colors.blue : Colors.white,
                   onPressed: () {
                     if (active != BarActive.Home) {
-                      Navigator.of(contex).pushAndRemoveUntil(
-                          MaterialPageRoute(
-                              builder: (context) => GamesExplorer(userData)),
-                          (Route<dynamic> route) => false);
+                        Navigator.pushAndRemoveUntil(context, SlideRightRoute(-1, 0, page: GamesExplorer(userData)), (Route<dynamic> route) => false);
                     }
                   },
                 ),
@@ -78,9 +100,12 @@ class SelectorGamesApp extends StatelessWidget {
                       (active == BarActive.Favs) ? Colors.blue : Colors.white,
                   onPressed: () {
                     if (active != BarActive.Favs) {
-                      Navigator.of(contex).pushAndRemoveUntil(
-                          MaterialPageRoute(builder: (context) => Fav(userData)),
-                          (Route<dynamic> route) => false);
+                      if (active == BarActive.Home) {
+                        Navigator.pushAndRemoveUntil(context, SlideRightRoute(1, 0, page: Fav(userData)), (Route<dynamic> route) => false);
+                      }
+                      else {
+                        Navigator.pushAndRemoveUntil(context, SlideRightRoute(-1, 0, page: Fav(userData)), (Route<dynamic> route) => false);
+                      }
                     }
                   },
                 ),
@@ -98,9 +123,12 @@ class SelectorGamesApp extends StatelessWidget {
                       (active == BarActive.People) ? Colors.blue : Colors.white,
                   onPressed: () {
                     if (active != BarActive.People) {
-                      Navigator.of(contex).pushAndRemoveUntil(
-                          MaterialPageRoute(builder: (context) => PeopleFav(userData)),
-                          (Route<dynamic> route) => false);
+                      if (active == BarActive.Noti) {
+                        Navigator.pushAndRemoveUntil(context, SlideRightRoute(-1, 0, page: PeopleFav(userData)), (Route<dynamic> route) => false);
+                      }
+                      else {
+                        Navigator.pushAndRemoveUntil(context, SlideRightRoute(1, 0, page: PeopleFav(userData)), (Route<dynamic> route) => false);
+                      }
                     }
                   },
                 ),
@@ -118,10 +146,7 @@ class SelectorGamesApp extends StatelessWidget {
                       (active == BarActive.Noti) ? Colors.blue : Colors.white,
                   onPressed: () {
                     if (active != BarActive.Noti) {
-                      Navigator.of(contex).pushAndRemoveUntil(
-                          MaterialPageRoute(
-                              builder: (context) => Notifications(userData)),
-                          (Route<dynamic> route) => false);
+                      Navigator.pushAndRemoveUntil(context, SlideRightRoute(1, 0, page: Notifications(userData)), (Route<dynamic> route) => false);
                     }
                   },
                 ),
