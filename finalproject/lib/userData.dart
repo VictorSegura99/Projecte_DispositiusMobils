@@ -5,6 +5,6 @@ class UserData {
   String userName;
   String userPassword;
   String userProfilePicture;
-
+  int numFavs;
 }
 

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'main.dart';
 import 'userData.dart';
@@ -37,10 +38,105 @@ class _PeopleFavState extends State<PeopleFav> {
       body: Column(
         children: <Widget>[
           Expanded(
-              flex: 80,
-              child: Container(
+            flex: 80,
+            child: Stack(
+              children: <Widget>[
+                Container(
                 color: Colors.black54,
-              )),
+                ),
+                StreamBuilder(
+                  stream: Firestore.instance.collection('Users').snapshots(),
+                  builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (!snapshot.hasData) {
+                      print('object');
+                      return Center(child: CircularProgressIndicator());
+                    }
+                    List<DocumentSnapshot> docs = snapshot.data.documents;
+                    return ListView.builder(
+                      itemCount: docs.length,
+                      itemBuilder: (context, index) {
+                        Map<String, dynamic> data = docs[index].data;
+                        if (docs[index].documentID == 'Mails' || docs[index].documentID == 'Number' || docs[index].documentID == userData.userEmail) {
+                          return Container();
+                        }
+                        return Padding(
+                          padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
+                          child: Container(
+                          height: 60,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: Colors.white70,
+                          ),
+                          child: Row(
+                            children: <Widget>[
+                              Padding(
+                                padding: EdgeInsets.only(left: 10),
+                                child: Container(
+                                  width: 40,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: Colors.black54, 
+                                      width: 2.0,
+                                    ),
+                                    shape: BoxShape.circle,
+                                    color: Colors.blue,
+                                    image: DecorationImage(
+                                      fit: BoxFit.fill,
+                                      image: ExactAssetImage((data['profilePicture'] == 'none') ? 'assets/default_image.png' : data['profilePicture']),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(left: 10),
+                                child: Text(
+                                  data['name'],
+                                  style: TextStyle(
+                                    color: Colors.black87,
+                                    fontSize: 23,
+                                    fontWeight: FontWeight.w400
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(left: 10),
+                                child: Text(
+                                  data['numFavs'],
+                                  style: TextStyle(
+                                    color: Colors.black87,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(left: 3),
+                                child: Icon(
+                                  Icons.favorite,
+                                  color: Colors.red,
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(left: 10),
+                                child: FlatButton(
+                                  child: Text("See Favs"),
+                                  onPressed: () {
+
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                          ), 
+                        );
+                      },
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
           SelectorGamesApp.mainbottombar(BarActive.People, context, userData),
         ],
       ),

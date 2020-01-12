@@ -110,6 +110,7 @@ class _RegisterPageState extends State<RegisterPage> {
       userData.userEmail = emailController.text;
       userData.userPassword = passwordController.text;
       userData.userProfilePicture = 'assets/default_image.png';
+      userData.numFavs = 0;
 
       Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
       GamesExplorer(userData)), (Route<dynamic> route) => false); 

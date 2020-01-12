@@ -35,6 +35,7 @@ class _LogInState extends State<LogIn> {
           userData.userName = list[i].data['name'];
           userData.userProfilePicture = (list[i].data['profilePicture'] == 'none') ? 'assets/default_image.png' : list[i].data['profilePicture'];
           userData.userEmail = email;
+          userData.numFavs = list[i].data['numFavs'];
           success = true;
           break;
         }
