@@ -1,18 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:finalproject/explorer.dart';
-import 'package:finalproject/game.dart';
-import 'package:finalproject/settings.dart';
-import 'package:finalproject/userData.dart';
+import 'explorer.dart';
+import 'game.dart';
+import 'userData.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class RegisterPage extends StatefulWidget {
+
   @override
   _RegisterPageState createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+
   TextEditingController nameController;
   TextEditingController emailController;
   TextEditingController passwordController;
@@ -104,14 +105,14 @@ class _RegisterPageState extends State<RegisterPage> {
       ++num;
       Firestore.instance.collection('Users').document('Mails').updateData({'mail$num' : emailController.text});
       Game.loadgames();
-
-      UserData.userName = nameController.text;
-      UserData.userEmail = emailController.text;
-      UserData.userPassword = passwordController.text;
-      UserData.userProfilePicture = 'assets/default_image.png';
+      UserData userData = new UserData();
+      userData.userName = nameController.text;
+      userData.userEmail = emailController.text;
+      userData.userPassword = passwordController.text;
+      userData.userProfilePicture = 'assets/default_image.png';
 
       Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-      GamesExplorer()), (Route<dynamic> route) => false); 
+      GamesExplorer(userData)), (Route<dynamic> route) => false); 
     }
     else {
       String text;

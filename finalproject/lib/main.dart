@@ -1,11 +1,12 @@
-import 'package:finalproject/explorer.dart';
-import 'package:finalproject/fav.dart';
-import 'package:finalproject/login.dart';
-import 'package:finalproject/notifications.dart';
-import 'package:finalproject/peoplefav.dart';
-import 'package:finalproject/settings.dart';
-import 'package:finalproject/userData.dart';
+import 'explorer.dart';
+import 'fav.dart';
+import 'login.dart';
+import 'notifications.dart';
+import 'peoplefav.dart';
+import 'settings.dart';
 import 'package:flutter/material.dart';
+
+import 'userData.dart';
 
 enum BarActive { Home, Favs, People, Noti }
 
@@ -13,28 +14,30 @@ void main() => runApp(SelectorGamesApp());
 
 class SelectorGamesApp extends StatelessWidget {
   
-  static settings(context) {
+  static settings(context, UserData userData, {inSettings = false}) {
     return FlatButton(
       child: Container(
         height: 40,
         child: ClipOval(
           child: Image.asset(
-                (UserData.userProfilePicture != null) ? UserData.userProfilePicture : 'assets/default_image.png',
+                userData.userProfilePicture,
                 fit: BoxFit.cover,
             ),
         ),
       ),
       onPressed: () {
-        Navigator.of(context).push(MaterialPageRoute(
+        if (!inSettings) {
+          Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) {
-                  return Settings(); 
+                  return Settings(userData); 
                 },
               ));
+        }
       },
     );
   }
 
-  static Expanded mainbottombar(BarActive active, contex) {
+  static Expanded mainbottombar(BarActive active, contex, UserData userData) {
     return Expanded(
       flex: 10,
       child: Container(
@@ -56,7 +59,7 @@ class SelectorGamesApp extends StatelessWidget {
                     if (active != BarActive.Home) {
                       Navigator.of(contex).pushAndRemoveUntil(
                           MaterialPageRoute(
-                              builder: (context) => GamesExplorer()),
+                              builder: (context) => GamesExplorer(userData)),
                           (Route<dynamic> route) => false);
                     }
                   },
@@ -76,7 +79,7 @@ class SelectorGamesApp extends StatelessWidget {
                   onPressed: () {
                     if (active != BarActive.Favs) {
                       Navigator.of(contex).pushAndRemoveUntil(
-                          MaterialPageRoute(builder: (context) => Fav()),
+                          MaterialPageRoute(builder: (context) => Fav(userData)),
                           (Route<dynamic> route) => false);
                     }
                   },
@@ -96,7 +99,7 @@ class SelectorGamesApp extends StatelessWidget {
                   onPressed: () {
                     if (active != BarActive.People) {
                       Navigator.of(contex).pushAndRemoveUntil(
-                          MaterialPageRoute(builder: (context) => PeopleFav()),
+                          MaterialPageRoute(builder: (context) => PeopleFav(userData)),
                           (Route<dynamic> route) => false);
                     }
                   },
@@ -117,7 +120,7 @@ class SelectorGamesApp extends StatelessWidget {
                     if (active != BarActive.Noti) {
                       Navigator.of(contex).pushAndRemoveUntil(
                           MaterialPageRoute(
-                              builder: (context) => Notifications()),
+                              builder: (context) => Notifications(userData)),
                           (Route<dynamic> route) => false);
                     }
                   },

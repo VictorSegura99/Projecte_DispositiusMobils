@@ -1,12 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:finalproject/main.dart';
+import 'main.dart';
+import 'userData.dart';
 
 class Fav extends StatefulWidget {
+
+  final UserData userData;
+
+  Fav(this.userData);
+
   @override
-  _FavState createState() => _FavState();
+  _FavState createState() => _FavState(userData);
+
 }
 
 class _FavState extends State<Fav> {
+
+   UserData userData;
+
+  _FavState(UserData userData) {
+    this.userData = userData;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -20,7 +34,7 @@ class _FavState extends State<Fav> {
         title: Text('Favourite Games'),
         backgroundColor: Colors.black87,
         actions: <Widget>[
-          SelectorGamesApp.settings(context),
+          SelectorGamesApp.settings(context, userData),
         ],
       ),
       body: Column(
@@ -30,7 +44,7 @@ class _FavState extends State<Fav> {
               child: Container(
                 color: Colors.black54,
               )),
-          SelectorGamesApp.mainbottombar(BarActive.Favs, context),
+          SelectorGamesApp.mainbottombar(BarActive.Favs, context, userData),
         ],
       ),
     );

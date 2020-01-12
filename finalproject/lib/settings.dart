@@ -1,13 +1,24 @@
-import 'package:finalproject/main.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'main.dart';
 import 'package:flutter/material.dart';
-import 'package:finalproject/userData.dart';
+import 'userData.dart';
 
 class Settings extends StatefulWidget {
+  final UserData userData;
+
+  Settings(this.userData);
+
   @override
-  _SettingsState createState() => _SettingsState();
+  _SettingsState createState() => _SettingsState(userData);
 }
 
 class _SettingsState extends State<Settings> {
+
+  UserData userData;
+
+  _SettingsState(UserData userData) {
+    this.userData = userData;
+  }
 
   List<String> profile_pictures;
 
@@ -50,8 +61,9 @@ class _SettingsState extends State<Settings> {
                           return FlatButton(
                             onPressed: () {
                               setState(() {
-                                  UserData.userProfilePicture = profile_pictures[index];
+                                  userData.userProfilePicture = profile_pictures[index];
                               });
+                              Firestore.instance.collection('Users').document(userData.userEmail).updateData({'profilePicture' : userData.userProfilePicture});
                             },
                             padding: EdgeInsets.all(5),
                             child: Image.asset(profile_pictures[index]),
@@ -82,7 +94,7 @@ class _SettingsState extends State<Settings> {
         backgroundColor: Colors.black87,
         title: Text('Profile'),
         actions: <Widget>[
-          SelectorGamesApp.settings(context),
+          SelectorGamesApp.settings(context, userData, inSettings: true),
         ],
       ),
       body: Stack(

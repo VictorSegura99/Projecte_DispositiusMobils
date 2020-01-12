@@ -1,11 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:finalproject/game.dart';
-import 'package:finalproject/main.dart';
-import 'package:finalproject/register.dart';
-import 'package:finalproject/userData.dart';
-import 'package:finalproject/settings.dart';
+import 'game.dart';
+import 'register.dart';
+import 'userData.dart';
 import 'package:flutter/material.dart';
-import 'package:finalproject/explorer.dart';
+import 'explorer.dart';
 
 class LogIn extends StatefulWidget {
   @override
@@ -25,22 +23,27 @@ class _LogInState extends State<LogIn> {
 
   Future<void> readpassword(String email, String password) async {
     bool success = false;
+    UserData userData;
     QuerySnapshot querySnapshot =
         await Firestore.instance.collection('Users').getDocuments();
     var list = querySnapshot.documents;
     for (int i = 0; i < list.length; ++i) {
       if (list[i].exists && list[i].documentID == email) {
         if (password == list[i].data['password']) {
+          userData = new UserData();
+          userData.userPassword = password;
+          userData.userName = list[i].data['name'];
+          userData.userProfilePicture = (list[i].data['profilePicture'] == 'none') ? 'assets/default_image.png' : list[i].data['profilePicture'];
+          userData.userEmail = email;
           success = true;
           break;
         }
       }
     }
   if (success) {
-    UserData.setdatabymail(email);
     Game.loadgames();
     Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-    GamesExplorer()), (Route<dynamic> route) => false);
+    GamesExplorer(userData)), (Route<dynamic> route) => false);
   } 
   else {
     showDialog(

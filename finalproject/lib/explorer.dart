@@ -1,12 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:finalproject/main.dart';
+import 'main.dart';
+import 'userData.dart';
 
 class GamesExplorer extends StatefulWidget {
+
+  final UserData userData;
+
+  GamesExplorer(this.userData);
+
   @override
-  _GamesExplorerState createState() => _GamesExplorerState();
+  _GamesExplorerState createState() => _GamesExplorerState(userData);
 }
 
 class _GamesExplorerState extends State<GamesExplorer> {
+
+  UserData userData;
+
+  _GamesExplorerState(UserData userData) {
+    this.userData = userData;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -20,7 +33,7 @@ class _GamesExplorerState extends State<GamesExplorer> {
         title: Text('Games Explorer'),
         backgroundColor: Colors.black87,
         actions: <Widget>[
-          SelectorGamesApp.settings(context),
+          SelectorGamesApp.settings(context, userData),
         ],
       ),
       body: Column(
@@ -30,7 +43,7 @@ class _GamesExplorerState extends State<GamesExplorer> {
               child: Container(
                 color: Colors.black54,
               )),
-          SelectorGamesApp.mainbottombar(BarActive.Home, context),
+          SelectorGamesApp.mainbottombar(BarActive.Home, context, userData),
         ],
       ),
     );
