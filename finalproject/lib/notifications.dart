@@ -7,21 +7,18 @@ class Notifications extends StatefulWidget {
 }
 
 class _NotificationsState extends State<Notifications> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
- @override
- void initState() {
-
-   super.initState();
- }
-
-
- @override
- Widget build(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('Notifications'),
-         backgroundColor: Colors.black87,
+        backgroundColor: Colors.black87,
         actions: <Widget>[
           SelectorGamesApp.settings(context),
         ],
@@ -29,12 +26,13 @@ class _NotificationsState extends State<Notifications> {
       body: Column(
         children: <Widget>[
           Expanded(
-            flex: 80,
-            child: Container(color: Colors.black54,)
-          ),
+              flex: 80,
+              child: Container(
+                color: Colors.black54,
+              )),
           SelectorGamesApp.mainbottombar(BarActive.Noti, context),
         ],
       ),
     );
- }
+  }
 }

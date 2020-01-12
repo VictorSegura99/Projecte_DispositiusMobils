@@ -7,16 +7,13 @@ class GamesExplorer extends StatefulWidget {
 }
 
 class _GamesExplorerState extends State<GamesExplorer> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
- @override
- void initState() {
-
-   super.initState();
- }
-
-
- @override
- Widget build(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -29,12 +26,13 @@ class _GamesExplorerState extends State<GamesExplorer> {
       body: Column(
         children: <Widget>[
           Expanded(
-            flex: 80,
-            child: Container(color: Colors.black54,)
-          ),
+              flex: 80,
+              child: Container(
+                color: Colors.black54,
+              )),
           SelectorGamesApp.mainbottombar(BarActive.Home, context),
         ],
       ),
     );
- }
+  }
 }
