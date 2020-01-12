@@ -18,6 +18,7 @@ class Game {
         allGames.add(Game.fromJson(json));
     }
   }
+
   
   static void loadgames() {
     _readGames();
