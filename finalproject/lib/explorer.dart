@@ -7,6 +7,10 @@ class GamesExplorer extends StatefulWidget {
 }
 
 class _GamesExplorerState extends State<GamesExplorer> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
  @override
  void initState() {
@@ -28,12 +32,13 @@ class _GamesExplorerState extends State<GamesExplorer> {
       body: Column(
         children: <Widget>[
           Expanded(
-            flex: 80,
-            child: Container(color: Colors.black54,)
-          ),
+              flex: 80,
+              child: Container(
+                color: Colors.black54,
+              )),
           SelectorGamesApp.mainbottombar(BarActive.Home, context),
         ],
       ),
     );
- }
+  }
 }

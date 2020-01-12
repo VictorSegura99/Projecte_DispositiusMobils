@@ -7,21 +7,18 @@ class PeopleFav extends StatefulWidget {
 }
 
 class _PeopleFavState extends State<PeopleFav> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
- @override
- void initState() {
-
-   super.initState();
- }
-
-
- @override
- Widget build(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('People Favourites'),
-         backgroundColor: Colors.black87,
+        backgroundColor: Colors.black87,
         actions: <Widget>[
           SelectorGamesApp.settings(context),
         ],
@@ -29,12 +26,13 @@ class _PeopleFavState extends State<PeopleFav> {
       body: Column(
         children: <Widget>[
           Expanded(
-            flex: 80,
-            child: Container(color: Colors.black54,)
-          ),
+              flex: 80,
+              child: Container(
+                color: Colors.black54,
+              )),
           SelectorGamesApp.mainbottombar(BarActive.People, context),
         ],
       ),
     );
- }
+  }
 }

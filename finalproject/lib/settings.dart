@@ -68,8 +68,8 @@ class _SettingsState extends State<Settings> {
       );
   }
 
- @override
- Widget build(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black87,
@@ -91,5 +91,5 @@ class _SettingsState extends State<Settings> {
         ],
       ),
     );
- }
+  }
 }
