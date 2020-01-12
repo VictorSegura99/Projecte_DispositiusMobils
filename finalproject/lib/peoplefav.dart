@@ -21,6 +21,7 @@ class _PeopleFavState extends State<PeopleFav> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('People Favourites'),
+         backgroundColor: Colors.black87,
         actions: <Widget>[
           SelectorGamesApp.settings(context),
         ],
@@ -29,7 +30,7 @@ class _PeopleFavState extends State<PeopleFav> {
         children: <Widget>[
           Expanded(
             flex: 80,
-            child: Container(color: Colors.blue,)
+            child: Container(color: Colors.black54,)
           ),
           SelectorGamesApp.mainbottombar(BarActive.People, context),
         ],

@@ -21,6 +21,7 @@ class _GamesExplorerState extends State<GamesExplorer> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('Games Explorer'),
+        backgroundColor: Colors.black87,
         actions: <Widget>[
           SelectorGamesApp.settings(context),
         ],
@@ -29,7 +30,7 @@ class _GamesExplorerState extends State<GamesExplorer> {
         children: <Widget>[
           Expanded(
             flex: 80,
-            child: Container(color: Colors.blue,)
+            child: Container(color: Colors.black54,)
           ),
           SelectorGamesApp.mainbottombar(BarActive.Home, context),
         ],
