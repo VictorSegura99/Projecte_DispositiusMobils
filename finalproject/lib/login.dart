@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finalproject/game.dart';
+import 'package:finalproject/main.dart';
 import 'package:finalproject/register.dart';
+import 'package:finalproject/userData.dart';
+import 'package:finalproject/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:finalproject/explorer.dart';
 
@@ -34,6 +37,7 @@ class _LogInState extends State<LogIn> {
       }
     }
   if (success) {
+    UserData.setdatabymail(email);
     Game.loadgames();
     Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
     GamesExplorer()), (Route<dynamic> route) => false);

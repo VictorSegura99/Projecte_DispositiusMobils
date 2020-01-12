@@ -4,6 +4,7 @@ import 'package:finalproject/login.dart';
 import 'package:finalproject/notifications.dart';
 import 'package:finalproject/peoplefav.dart';
 import 'package:finalproject/settings.dart';
+import 'package:finalproject/userData.dart';
 import 'package:flutter/material.dart';
 
 enum BarActive { Home, Favs, People, Noti }
@@ -11,19 +12,25 @@ enum BarActive { Home, Favs, People, Noti }
 void main() => runApp(SelectorGamesApp());
 
 class SelectorGamesApp extends StatelessWidget {
+  
   static settings(context) {
     return FlatButton(
-            child: Container(
-              height: 35,
-              child: Image.asset("assets/default_image.png"),
+      child: Container(
+        height: 40,
+        child: ClipOval(
+          child: Image.asset(
+                (UserData.userProfilePicture != null) ? UserData.userProfilePicture : 'assets/default_image.png',
+                fit: BoxFit.cover,
             ),
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
+        ),
+      ),
+      onPressed: () {
+        Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) {
                   return Settings(); 
                 },
               ));
-            }
+      },
     );
   }
 

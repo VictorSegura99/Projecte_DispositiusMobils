@@ -1,5 +1,6 @@
 import 'package:finalproject/main.dart';
 import 'package:flutter/material.dart';
+import 'package:finalproject/userData.dart';
 
 class Settings extends StatefulWidget {
   @override
@@ -19,6 +20,7 @@ class _SettingsState extends State<Settings> {
   void loadprofilepictures() {
     setState(() {
       profile_pictures = new List<String>();
+      profile_pictures.add('assets/default_image.png');
       profile_pictures.add('assets/creeper.jpg');
       profile_pictures.add('assets/bee_minecraft.png');
     });
@@ -40,12 +42,17 @@ class _SettingsState extends State<Settings> {
                       height: 20,
                     ),
                     Container(
-                        height: 200,
+                        height: 250,
                         width: 300,
                         child: GridView.count(
                         crossAxisCount: 3,
                         children: List.generate(profile_pictures.length, (index) {
-                          return Container(
+                          return FlatButton(
+                            onPressed: () {
+                              setState(() {
+                                  UserData.userProfilePicture = profile_pictures[index];
+                              });
+                            },
                             padding: EdgeInsets.all(5),
                             child: Image.asset(profile_pictures[index]),
                           );
@@ -58,7 +65,7 @@ class _SettingsState extends State<Settings> {
           ),
           actions: <Widget>[
             FlatButton(
-            child: Text('CANCEL'),
+            child: Text('ACCEPT'),
             onPressed: () {
               Navigator.of(context).pop();
             },
