@@ -24,3 +24,5 @@ flutter:
   assets:
     - assets/data.json
     - assets/default_image.png
+    - assets/creeper.jpg
+    - assets/bee_minecraft.png

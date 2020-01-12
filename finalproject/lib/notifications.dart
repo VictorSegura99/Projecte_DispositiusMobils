@@ -21,7 +21,7 @@ class _NotificationsState extends State<Notifications> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('Notifications'),
-         backgroundColor: Colors.black87,
+        backgroundColor: Colors.black87,
         actions: <Widget>[
           SelectorGamesApp.settings(context),
         ],
