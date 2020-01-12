@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'game.dart';
 import 'register.dart';
@@ -13,11 +15,20 @@ class LogIn extends StatefulWidget {
 class _LogInState extends State<LogIn> {
   TextEditingController emailController;
   TextEditingController passwordController;
-
+  List<String> backgrounds;
+  int rng_background;
   @override
   void initState() {
     emailController = new TextEditingController();
     passwordController = new TextEditingController();
+    backgrounds = new List<String>();
+
+    backgrounds.add("assets/images/log_minecraft.jpg");
+    backgrounds.add("assets/images/Log_ForTheKing.png");
+
+    var random_background=new Random();
+    rng_background=random_background.nextInt(backgrounds.length);
+
     super.initState();
   }
 
@@ -33,7 +44,10 @@ class _LogInState extends State<LogIn> {
           userData = new UserData();
           userData.userPassword = password;
           userData.userName = list[i].data['name'];
-          userData.userProfilePicture = (list[i].data['profilePicture'] == 'none') ? 'assets/default_image.png' : list[i].data['profilePicture'];
+          userData.userProfilePicture =
+              (list[i].data['profilePicture'] == 'none')
+                  ? 'assets/default_image.png'
+                  : list[i].data['profilePicture'];
           userData.userEmail = email;
           userData.numFavs = list[i].data['numFavs'];
           success = true;
@@ -41,13 +55,13 @@ class _LogInState extends State<LogIn> {
         }
       }
     }
-  if (success) {
-    Game.loadgames();
-    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-    GamesExplorer(userData)), (Route<dynamic> route) => false);
-  } 
-  else {
-    showDialog(
+    if (success) {
+      Game.loadgames();
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => GamesExplorer(userData)),
+          (Route<dynamic> route) => false);
+    } else {
+      showDialog(
         context: context,
         barrierDismissible: false,
         builder: (context) => AlertDialog(
@@ -76,7 +90,7 @@ class _LogInState extends State<LogIn> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/images/log_minecraft.jpg"),
+                image: AssetImage(backgrounds[rng_background]),
                 fit: BoxFit.fill,
               ),
             ),
@@ -86,7 +100,7 @@ class _LogInState extends State<LogIn> {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: Colors.white70,
+                color: Color.fromRGBO(255, 255, 255, 0.85),
               ),
               child: Stack(
                 children: <Widget>[
@@ -132,10 +146,13 @@ class _LogInState extends State<LogIn> {
                             child: Row(
                               children: <Widget>[
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(30, 15, 0, 0),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(30, 15, 0, 0),
                                   child: FlatButton(
                                     child: Text('Register Now'),
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
                                     color: Colors.black,
                                     textColor: Colors.white,
                                     onPressed: () {
@@ -153,13 +170,16 @@ class _LogInState extends State<LogIn> {
                                       const EdgeInsets.fromLTRB(35, 15, 0, 0),
                                   child: OutlineButton(
                                     child: Text('Log In'),
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
                                     color: Colors.black,
                                     focusColor: Colors.black,
                                     borderSide: BorderSide(width: 2),
                                     highlightedBorderColor: Colors.black,
                                     onPressed: () {
-                                      readpassword(emailController.text, passwordController.text);
+                                      readpassword(emailController.text,
+                                          passwordController.text);
                                     },
                                   ),
                                 ),
@@ -172,6 +192,13 @@ class _LogInState extends State<LogIn> {
                   ),
                 ],
               ),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.fromLTRB(50, 400, 50, 0),
+            child: Image.asset(
+              "assets/images/Logo.png",
+              fit: BoxFit.fitWidth,
             ),
           ),
         ],

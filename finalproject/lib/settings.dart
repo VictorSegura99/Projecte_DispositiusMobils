@@ -94,7 +94,7 @@ class _SettingsState extends State<Settings> {
         backgroundColor: Colors.black87,
         title: Text('Profile'),
         actions: <Widget>[
-          SelectorGamesApp.settings(context, userData, inSettings: true),
+          GamesBookShelf.settings(context, userData, inSettings: true),
         ],
       ),
       body: Stack(

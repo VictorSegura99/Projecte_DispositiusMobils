@@ -34,7 +34,7 @@ class _FavState extends State<Fav> {
         title: Text('Favourite Games'),
         backgroundColor: Colors.black87,
         actions: <Widget>[
-          SelectorGamesApp.settings(context, userData),
+          GamesBookShelf.settings(context, userData),
         ],
       ),
       body: Column(
@@ -44,7 +44,7 @@ class _FavState extends State<Fav> {
               child: Container(
                 color: Colors.black54,
               )),
-          SelectorGamesApp.mainbottombar(BarActive.Favs, context, userData),
+          GamesBookShelf.mainbottombar(BarActive.Favs, context, userData),
         ],
       ),
     );
