@@ -12,18 +12,19 @@ void main() => runApp(SelectorGamesApp());
 
 class SelectorGamesApp extends StatelessWidget {
   static settings(context) {
-    return IconButton(
-        icon: Icon(
-          Icons.settings,
-          size: 35,
-        ),
-        onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) {
-              return Settings();
-            },
-          ));
-        });
+    return FlatButton(
+            child: Container(
+              height: 35,
+              child: Image.asset("assets/default_image.png"),
+            ),
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) {
+                  return Settings(); 
+                },
+              ));
+            }
+    );
   }
 
   static Expanded mainbottombar(BarActive active, contex) {
