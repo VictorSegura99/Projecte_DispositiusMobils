@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:finalproject/explorer.dart';
+import 'package:finalproject/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -80,6 +81,7 @@ class _RegisterPageState extends State<RegisterPage> {
       Firestore.instance.collection('Users').document('Number').updateData({'Num' : num + 1});
       ++num;
       Firestore.instance.collection('Users').document('Mails').updateData({'mail$num' : emailController.text});
+      Game.loadgames();
       Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
       GamesExplorer()), (Route<dynamic> route) => false); 
     }

@@ -10,7 +10,6 @@ class _GamesExplorerState extends State<GamesExplorer> {
 
  @override
  void initState() {
-
    super.initState();
  }
 
