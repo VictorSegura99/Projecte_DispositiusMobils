@@ -46,12 +46,19 @@ class SelectorGamesApp extends StatelessWidget {
   static settings(context, UserData userData, {inSettings = false}) {
     return FlatButton(
       child: Container(
+        width: 40,
         height: 40,
-        child: ClipOval(
-          child: Image.asset(
-                userData.userProfilePicture,
-                fit: BoxFit.cover,
-            ),
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.white, 
+            width: 2.0,
+          ),
+          shape: BoxShape.circle,
+          color: Colors.blue,
+          image: DecorationImage(
+            fit: BoxFit.fill,
+            image: ExactAssetImage(userData.userProfilePicture),
+          ),
         ),
       ),
       onPressed: () {
