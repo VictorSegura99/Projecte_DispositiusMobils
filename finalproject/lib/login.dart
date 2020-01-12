@@ -33,20 +33,23 @@ class _LogInState extends State<LogIn> {
           userData = new UserData();
           userData.userPassword = password;
           userData.userName = list[i].data['name'];
-          userData.userProfilePicture = (list[i].data['profilePicture'] == 'none') ? 'assets/default_image.png' : list[i].data['profilePicture'];
+          userData.userProfilePicture =
+              (list[i].data['profilePicture'] == 'none')
+                  ? 'assets/default_image.png'
+                  : list[i].data['profilePicture'];
           userData.userEmail = email;
           success = true;
           break;
         }
       }
     }
-  if (success) {
-    Game.loadgames();
-    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-    GamesExplorer(userData)), (Route<dynamic> route) => false);
-  } 
-  else {
-    showDialog(
+    if (success) {
+      Game.loadgames();
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => GamesExplorer(userData)),
+          (Route<dynamic> route) => false);
+    } else {
+      showDialog(
         context: context,
         barrierDismissible: false,
         builder: (context) => AlertDialog(
@@ -85,7 +88,7 @@ class _LogInState extends State<LogIn> {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: Colors.white70,
+                color: Color.fromRGBO(255, 255, 255, 0.85),
               ),
               child: Stack(
                 children: <Widget>[
@@ -131,10 +134,13 @@ class _LogInState extends State<LogIn> {
                             child: Row(
                               children: <Widget>[
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(30, 15, 0, 0),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(30, 15, 0, 0),
                                   child: FlatButton(
                                     child: Text('Register Now'),
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
                                     color: Colors.black,
                                     textColor: Colors.white,
                                     onPressed: () {
@@ -152,13 +158,16 @@ class _LogInState extends State<LogIn> {
                                       const EdgeInsets.fromLTRB(35, 15, 0, 0),
                                   child: OutlineButton(
                                     child: Text('Log In'),
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
                                     color: Colors.black,
                                     focusColor: Colors.black,
                                     borderSide: BorderSide(width: 2),
                                     highlightedBorderColor: Colors.black,
                                     onPressed: () {
-                                      readpassword(emailController.text, passwordController.text);
+                                      readpassword(emailController.text,
+                                          passwordController.text);
                                     },
                                   ),
                                 ),
@@ -171,6 +180,13 @@ class _LogInState extends State<LogIn> {
                   ),
                 ],
               ),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.fromLTRB(50, 400, 50, 0),
+            child: Image.asset(
+              "assets/images/Logo.png",
+              fit: BoxFit.fitWidth,
             ),
           ),
         ],

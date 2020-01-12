@@ -33,7 +33,7 @@ class _GamesExplorerState extends State<GamesExplorer> {
         title: Text('Games Explorer'),
         backgroundColor: Colors.black87,
         actions: <Widget>[
-          SelectorGamesApp.settings(context, userData),
+          GamesBookShelf.settings(context, userData),
         ],
       ),
       body: Column(
@@ -43,7 +43,7 @@ class _GamesExplorerState extends State<GamesExplorer> {
               child: Container(
                 color: Colors.black54,
               )),
-          SelectorGamesApp.mainbottombar(BarActive.Home, context, userData),
+          GamesBookShelf.mainbottombar(BarActive.Home, context, userData),
         ],
       ),
     );

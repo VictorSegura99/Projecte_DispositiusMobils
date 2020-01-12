@@ -39,9 +39,9 @@ class SlideRightRoute extends PageRouteBuilder {
 
 enum BarActive { Home, Favs, People, Noti }
 
-void main() => runApp(SelectorGamesApp());
+void main() => runApp(GamesBookShelf());
 
-class SelectorGamesApp extends StatelessWidget {
+class GamesBookShelf extends StatelessWidget {
   
   static settings(context, UserData userData, {inSettings = false}) {
     return FlatButton(

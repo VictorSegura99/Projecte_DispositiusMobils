@@ -33,7 +33,7 @@ class _NotificationsState extends State<Notifications> {
         title: Text('Notifications'),
         backgroundColor: Colors.black87,
         actions: <Widget>[
-          SelectorGamesApp.settings(context, userData),
+          GamesBookShelf.settings(context, userData),
         ],
       ),
       body: Column(
@@ -43,7 +43,7 @@ class _NotificationsState extends State<Notifications> {
               child: Container(
                 color: Colors.black54,
               )),
-          SelectorGamesApp.mainbottombar(BarActive.Noti, context, userData),
+          GamesBookShelf.mainbottombar(BarActive.Noti, context, userData),
         ],
       ),
     );
