@@ -13,12 +13,6 @@ class _GamesExplorerState extends State<GamesExplorer> {
   }
 
  @override
- void initState() {
-   super.initState();
- }
-
-
- @override
  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,

@@ -33,7 +33,6 @@ class _LogInState extends State<LogIn> {
         }
       }
     }
-  }
   if (success) {
     Game.loadgames();
     Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
@@ -152,8 +151,7 @@ class _LogInState extends State<LogIn> {
                                     borderSide: BorderSide(width: 2),
                                     highlightedBorderColor: Colors.black,
                                     onPressed: () {
-                                      readpassword(emailController.text,
-                                          passwordController.text);
+                                      readpassword(emailController.text, passwordController.text);
                                     },
                                   ),
                                 ),
