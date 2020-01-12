@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'game.dart';
 import 'register.dart';
@@ -13,11 +15,20 @@ class LogIn extends StatefulWidget {
 class _LogInState extends State<LogIn> {
   TextEditingController emailController;
   TextEditingController passwordController;
-
+  List<String> backgrounds;
+  int rng_background;
   @override
   void initState() {
     emailController = new TextEditingController();
     passwordController = new TextEditingController();
+    backgrounds = new List<String>();
+
+    backgrounds.add("assets/images/log_minecraft.jpg");
+    backgrounds.add("assets/images/Log_ForTheKing.png");
+
+    var random_background=new Random();
+    rng_background=random_background.nextInt(backgrounds.length);
+
     super.initState();
   }
 
@@ -78,7 +89,7 @@ class _LogInState extends State<LogIn> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/images/log_minecraft.jpg"),
+                image: AssetImage(backgrounds[rng_background]),
                 fit: BoxFit.fill,
               ),
             ),
