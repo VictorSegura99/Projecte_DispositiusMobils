@@ -28,6 +28,10 @@ class _FavState extends State<Fav> {
     super.initState();
   }
 
+  void refresh() {
+    setState((){});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +48,7 @@ class _FavState extends State<Fav> {
           Expanded(
               flex: 80,
               child: Container(
-                color: Colors.black54,child: GamesBookShelf.games_grid(Game.favGames))),
+                color: Colors.black54,child: GamesBookShelf.games_grid(Game.favGames, refresh))),
           GamesBookShelf.mainbottombar(BarActive.Favs, context, userData),
         ],
       ),

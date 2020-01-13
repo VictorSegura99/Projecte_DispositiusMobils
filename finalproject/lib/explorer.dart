@@ -24,6 +24,10 @@ class _GamesExplorerState extends State<GamesExplorer> {
     super.initState();
   }
 
+  void refresh() {
+    setState((){});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,13 +42,14 @@ class _GamesExplorerState extends State<GamesExplorer> {
       body: Column(
         children: <Widget>[
           Expanded(
-              flex: 80,
-              child: Container(
-                  color: Colors.black54, child: GamesBookShelf.games_grid(Game.allGames))),
+            flex: 80,
+            child: Container(
+                color: Colors.black54,
+                child: GamesBookShelf.games_grid(Game.allGames, refresh)),
+          ),
           GamesBookShelf.mainbottombar(BarActive.Home, context, userData),
         ],
       ),
     );
   }
-  
 }
