@@ -41,6 +41,9 @@ enum BarActive { Home, Favs, People, Noti }
 void main() => runApp(GamesBookShelf());
 
 class GamesBookShelf extends StatelessWidget {
+
+  static Color main_color=Colors.blue;
+
   static settings(context, UserData userData, {inSettings = false}) {
     return FlatButton(
       child: Container(
@@ -85,7 +88,7 @@ class GamesBookShelf extends StatelessWidget {
                     size: 40,
                   ),
                   color:
-                      (active == BarActive.Home) ? Colors.blue : Colors.white,
+                      (active == BarActive.Home) ? main_color : Colors.white,
                   onPressed: () {
                     if (active != BarActive.Home) {
                       Navigator.pushAndRemoveUntil(
@@ -106,7 +109,7 @@ class GamesBookShelf extends StatelessWidget {
                     size: 40,
                   ),
                   color:
-                      (active == BarActive.Favs) ? Colors.blue : Colors.white,
+                      (active == BarActive.Favs) ? main_color : Colors.white,
                   onPressed: () {
                     if (active != BarActive.Favs) {
                       if (active == BarActive.Home) {
@@ -134,7 +137,7 @@ class GamesBookShelf extends StatelessWidget {
                     size: 40,
                   ),
                   color:
-                      (active == BarActive.People) ? Colors.blue : Colors.white,
+                      (active == BarActive.People) ? main_color : Colors.white,
                   onPressed: () {
                     if (active != BarActive.People) {
                       if (active == BarActive.Noti) {
@@ -162,7 +165,7 @@ class GamesBookShelf extends StatelessWidget {
                     size: 40,
                   ),
                   color:
-                      (active == BarActive.Noti) ? Colors.blue : Colors.white,
+                      (active == BarActive.Noti) ? main_color : Colors.white,
                   onPressed: () {
                     if (active != BarActive.Noti) {
                       Navigator.pushAndRemoveUntil(
@@ -205,13 +208,12 @@ class GamesBookShelf extends StatelessWidget {
           padding: EdgeInsets.all(8),
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20)),
+              borderRadius: BorderRadius.all(Radius.circular(20)),
               color: Colors.black54,
             ),
             child: FlatButton(
               padding: EdgeInsets.zero,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
               child: Stack(
                 children: <Widget>[
                   Column(
@@ -222,10 +224,19 @@ class GamesBookShelf extends StatelessWidget {
                           width: 300,
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.white),
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20),
+                                topRight: Radius.circular(20)),
                           ),
-                          child: Image.asset(
-                            games_list[index].image,
-                            fit: BoxFit.fill,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              topRight: Radius.circular(20),
+                            ),
+                            child: Image.asset(
+                              games_list[index].image,
+                              fit: BoxFit.fill,
+                            ),
                           ),
                         ),
                       ),
