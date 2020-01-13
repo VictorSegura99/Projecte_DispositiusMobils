@@ -44,8 +44,6 @@ void main() => runApp(GamesBookShelf());
 
 class GamesBookShelf extends StatelessWidget {
 
-  static Color main_color=Colors.blue;
-
   static settings(context, UserData userData, {inSettings = false}) {
     return FlatButton(
       child: Container(
@@ -90,7 +88,7 @@ class GamesBookShelf extends StatelessWidget {
                     size: 40,
                   ),
                   color:
-                      (active == BarActive.Home) ? main_color : Colors.white,
+                      (active == BarActive.Home) ? userData.mainColor : Colors.white,
                   onPressed: () {
                     if (active != BarActive.Home) {
                       Navigator.pushAndRemoveUntil(
@@ -111,7 +109,7 @@ class GamesBookShelf extends StatelessWidget {
                     size: 40,
                   ),
                   color:
-                      (active == BarActive.Favs) ? main_color : Colors.white,
+                      (active == BarActive.Favs) ? userData.mainColor : Colors.white,
                   onPressed: () {
                     if (active != BarActive.Favs) {
                       if (active == BarActive.Home) {
@@ -139,7 +137,7 @@ class GamesBookShelf extends StatelessWidget {
                     size: 40,
                   ),
                   color:
-                      (active == BarActive.People) ? main_color : Colors.white,
+                      (active == BarActive.People) ? userData.mainColor : Colors.white,
                   onPressed: () {
                     if (active != BarActive.People) {
                       if (active == BarActive.Noti) {
@@ -167,7 +165,7 @@ class GamesBookShelf extends StatelessWidget {
                     size: 40,
                   ),
                   color:
-                      (active == BarActive.Noti) ? main_color : Colors.white,
+                      (active == BarActive.Noti) ? userData.mainColor : Colors.white,
                   onPressed: () {
                     if (active != BarActive.Noti) {
                       Navigator.pushAndRemoveUntil(

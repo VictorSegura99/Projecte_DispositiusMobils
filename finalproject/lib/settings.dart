@@ -140,7 +140,10 @@ class _SettingsState extends State<Settings> {
                                         color: Colors.white, width: 3)),
                                 child: null,
                                 onPressed: () {
-                                  GamesBookShelf.main_color = Colors.red;
+                                  setState(() {
+                                    userData.mainColor = Colors.red;
+                                    Firestore.instance.collection('Users').document(userData.userEmail).updateData({'mainColor' : 'red'});
+                                  });
                                   Navigator.of(context).pop();
                                 },
                               ),
@@ -156,7 +159,10 @@ class _SettingsState extends State<Settings> {
                                         color: Colors.white, width: 3)),
                                 child: null,
                                 onPressed: () {
-                                  GamesBookShelf.main_color = Colors.green;
+                                  setState(() {
+                                    userData.mainColor = Colors.green;
+                                    Firestore.instance.collection('Users').document(userData.userEmail).updateData({'mainColor' : 'green'});
+                                  });
                                   Navigator.of(context).pop();
                                 },
                               ),
@@ -172,7 +178,10 @@ class _SettingsState extends State<Settings> {
                                         color: Colors.white, width: 3)),
                                 child: null,
                                 onPressed: () {
-                                  GamesBookShelf.main_color = Colors.blue;
+                                  setState(() {
+                                    userData.mainColor = Colors.blue;
+                                    Firestore.instance.collection('Users').document(userData.userEmail).updateData({'mainColor' : 'blue'});
+                                  });
                                   Navigator.of(context).pop();
                                 },
                               ),
@@ -188,7 +197,10 @@ class _SettingsState extends State<Settings> {
                                         color: Colors.white, width: 3)),
                                 child: null,
                                 onPressed: () {
-                                  GamesBookShelf.main_color = Colors.pink;
+                                  setState(() {
+                                    userData.mainColor = Colors.pink;
+                                    Firestore.instance.collection('Users').document(userData.userEmail).updateData({'mainColor' : 'pink'});
+                                  });
                                   Navigator.of(context).pop();
                                 },
                               ),
@@ -204,7 +216,10 @@ class _SettingsState extends State<Settings> {
                                         color: Colors.white, width: 3)),
                                 child: null,
                                 onPressed: () {
-                                  GamesBookShelf.main_color = Colors.yellow;
+                                  setState(() {
+                                    userData.mainColor = Colors.yellow;
+                                    Firestore.instance.collection('Users').document(userData.userEmail).updateData({'mainColor' : 'yellow'});
+                                  });
                                   Navigator.of(context).pop();
                                 },
                               ),

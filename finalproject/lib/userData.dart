@@ -1,4 +1,6 @@
 
+import 'package:flutter/material.dart';
+
 class UserData {
 
   String userEmail;
@@ -6,5 +8,6 @@ class UserData {
   String userPassword;
   String userProfilePicture;
   int numFavs;
+  Color mainColor;
 }
 

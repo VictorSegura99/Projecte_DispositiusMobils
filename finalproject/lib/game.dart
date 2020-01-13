@@ -39,7 +39,7 @@ class Game {
           favGames.add(allGames[i]);
           favGames.last.icon = Icons.favorite;
         }
-      }
+      }      
       refresh();
     }
   }

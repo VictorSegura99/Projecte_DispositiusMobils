@@ -99,7 +99,10 @@ class _RegisterPageState extends State<RegisterPage> {
     if (canRegister) {
       Map<String, dynamic> data = {
         'name': nameController.text,
-        'password': passwordController.text
+        'password': passwordController.text,
+        'profilePicture': 'none',
+        'numFavs': 0,
+        'mainColor': 'blue'
       };
       Firestore.instance
           .collection('Users')
@@ -123,6 +126,8 @@ class _RegisterPageState extends State<RegisterPage> {
       userData.userPassword = passwordController.text;
       userData.userProfilePicture = 'assets/default_image.png';
       userData.numFavs = 0;
+      userData.mainColor = Colors.blue;
+
       GamesExplorer.newUser = true;
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => GamesExplorer(userData)),

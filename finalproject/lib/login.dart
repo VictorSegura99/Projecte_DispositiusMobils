@@ -50,6 +50,22 @@ class _LogInState extends State<LogIn> {
                   : list[i].data['profilePicture'];
           userData.userEmail = email;
           userData.numFavs = list[i].data['numFavs'];
+          String col = list[i].data['mainColor'];
+          if (col == 'blue') {
+            userData.mainColor = Colors.blue;
+          }
+          else if (col == 'red') {
+            userData.mainColor = Colors.red;
+          }
+          else if (col == 'green') {
+            userData.mainColor = Colors.green;
+          }
+          else if (col == 'pink') {
+            userData.mainColor = Colors.pink;
+          }
+          else if (col == 'yellow') {
+            userData.mainColor = Colors.yellow;
+          }
           success = true;
           break;
         }
