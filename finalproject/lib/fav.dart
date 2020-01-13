@@ -48,7 +48,7 @@ class _FavState extends State<Fav> {
           Expanded(
               flex: 80,
               child: Container(
-                color: Colors.black54,child: GamesBookShelf.games_grid(Game.favGames, refresh))),
+                color: Colors.black54,child: GamesBookShelf.games_grid(Game.favGames, refresh, userData))),
           GamesBookShelf.mainbottombar(BarActive.Favs, context, userData),
         ],
       ),

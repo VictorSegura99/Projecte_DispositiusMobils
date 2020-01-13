@@ -56,7 +56,6 @@ class _LogInState extends State<LogIn> {
       }
     }
     if (success) {
-      Game.loadgames();
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => GamesExplorer(userData)),
           (Route<dynamic> route) => false);

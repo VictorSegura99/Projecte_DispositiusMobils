@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'explorer.dart';
 import 'fav.dart';
 import 'login.dart';
@@ -180,7 +182,7 @@ class GamesBookShelf extends StatelessWidget {
     );
   }
 
-  static GridView games_grid(List<Game> gamesList, Function refresh) {
+  static GridView games_grid(List<Game> gamesList, Function refresh, UserData userData) {
     return GridView.builder(
       padding: EdgeInsets.all(8),
       itemCount: gamesList.length,
@@ -260,9 +262,11 @@ class GamesBookShelf extends StatelessWidget {
                             if (gamesList[index].icon ==
                                 Icons.favorite_border) {
                               gamesList[index].icon = Icons.favorite;
+                              Firestore.instance.collection('Favourites').document(userData.userEmail).updateData({gamesList[index].name : true});
                               Game.favGames.add(gamesList[index]);
                             } else {
                               gamesList[index].icon = Icons.favorite_border;
+                              Firestore.instance.collection('Favourites').document(userData.userEmail).updateData({gamesList[index].name : false});
                               Game.favGames.remove(gamesList[index]);
                             }
                             refresh();

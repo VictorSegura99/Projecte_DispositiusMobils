@@ -5,7 +5,8 @@ import 'game.dart';
 
 class GamesExplorer extends StatefulWidget {
   final UserData userData;
-
+  static bool gamesLoaded = false;
+  static bool newUser = false;
   GamesExplorer(this.userData);
 
   @override
@@ -22,6 +23,12 @@ class _GamesExplorerState extends State<GamesExplorer> {
   @override
   void initState() {
     super.initState();
+    if (!GamesExplorer.gamesLoaded) {
+      setState(() {
+        Game.loadgames(userData, GamesExplorer.newUser, refresh);
+        GamesExplorer.gamesLoaded = true;
+      });
+    }
   }
 
   void refresh() {
@@ -39,13 +46,14 @@ class _GamesExplorerState extends State<GamesExplorer> {
           GamesBookShelf.settings(context, userData),
         ],
       ),
-      body: Column(
+      body: (!GamesExplorer.gamesLoaded) ? CircularProgressIndicator()
+        : Column(
         children: <Widget>[
           Expanded(
             flex: 80,
             child: Container(
                 color: Colors.black54,
-                child: GamesBookShelf.games_grid(Game.allGames, refresh)),
+                child: GamesBookShelf.games_grid(Game.allGames, refresh, userData)),
           ),
           GamesBookShelf.mainbottombar(BarActive.Home, context, userData),
         ],

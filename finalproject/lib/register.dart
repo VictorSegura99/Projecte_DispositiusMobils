@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'explorer.dart';
+import 'explorer.dart';
 import 'game.dart';
 import 'userData.dart';
 import 'package:flutter/material.dart';
@@ -116,14 +117,13 @@ class _RegisterPageState extends State<RegisterPage> {
           .collection('Users')
           .document('Mails')
           .updateData({'mail$num': emailController.text});
-      Game.loadgames();
       UserData userData = new UserData();
       userData.userName = nameController.text;
       userData.userEmail = emailController.text;
       userData.userPassword = passwordController.text;
       userData.userProfilePicture = 'assets/default_image.png';
       userData.numFavs = 0;
-
+      GamesExplorer.newUser = true;
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => GamesExplorer(userData)),
           (Route<dynamic> route) => false);
