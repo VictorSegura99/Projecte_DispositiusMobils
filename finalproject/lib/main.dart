@@ -5,7 +5,7 @@ import 'notifications.dart';
 import 'peoplefav.dart';
 import 'settings.dart';
 import 'package:flutter/material.dart';
-
+import 'game.dart';
 import 'userData.dart';
 
 class SlideRightRoute extends PageRouteBuilder {
@@ -27,22 +27,20 @@ class SlideRightRoute extends PageRouteBuilder {
             Widget child,
           ) =>
               SlideTransition(
-                position: Tween<Offset>(
-                  begin: Offset(directionH, directionV),
-                  end: Offset.zero,
-                ).animate(animation),
-                child: child,
-              ),
+            position: Tween<Offset>(
+              begin: Offset(directionH, directionV),
+              end: Offset.zero,
+            ).animate(animation),
+            child: child,
+          ),
         );
 }
-
 
 enum BarActive { Home, Favs, People, Noti }
 
 void main() => runApp(GamesBookShelf());
 
 class GamesBookShelf extends StatelessWidget {
-  
   static settings(context, UserData userData, {inSettings = false}) {
     return FlatButton(
       child: Container(
@@ -50,7 +48,7 @@ class GamesBookShelf extends StatelessWidget {
         height: 40,
         decoration: BoxDecoration(
           border: Border.all(
-            color: Colors.white, 
+            color: Colors.white,
             width: 2.0,
           ),
           shape: BoxShape.circle,
@@ -63,7 +61,8 @@ class GamesBookShelf extends StatelessWidget {
       ),
       onPressed: () {
         if (!inSettings) {
-          Navigator.push(context, SlideRightRoute(0, 1, page: Settings(userData)));
+          Navigator.push(
+              context, SlideRightRoute(0, 1, page: Settings(userData)));
         }
       },
     );
@@ -89,7 +88,10 @@ class GamesBookShelf extends StatelessWidget {
                       (active == BarActive.Home) ? Colors.blue : Colors.white,
                   onPressed: () {
                     if (active != BarActive.Home) {
-                        Navigator.pushAndRemoveUntil(context, SlideRightRoute(-1, 0, page: GamesExplorer(userData)), (Route<dynamic> route) => false);
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          SlideRightRoute(-1, 0, page: GamesExplorer(userData)),
+                          (Route<dynamic> route) => false);
                     }
                   },
                 ),
@@ -108,10 +110,15 @@ class GamesBookShelf extends StatelessWidget {
                   onPressed: () {
                     if (active != BarActive.Favs) {
                       if (active == BarActive.Home) {
-                        Navigator.pushAndRemoveUntil(context, SlideRightRoute(1, 0, page: Fav(userData)), (Route<dynamic> route) => false);
-                      }
-                      else {
-                        Navigator.pushAndRemoveUntil(context, SlideRightRoute(-1, 0, page: Fav(userData)), (Route<dynamic> route) => false);
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            SlideRightRoute(1, 0, page: Fav(userData)),
+                            (Route<dynamic> route) => false);
+                      } else {
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            SlideRightRoute(-1, 0, page: Fav(userData)),
+                            (Route<dynamic> route) => false);
                       }
                     }
                   },
@@ -131,10 +138,15 @@ class GamesBookShelf extends StatelessWidget {
                   onPressed: () {
                     if (active != BarActive.People) {
                       if (active == BarActive.Noti) {
-                        Navigator.pushAndRemoveUntil(context, SlideRightRoute(-1, 0, page: PeopleFav(userData)), (Route<dynamic> route) => false);
-                      }
-                      else {
-                        Navigator.pushAndRemoveUntil(context, SlideRightRoute(1, 0, page: PeopleFav(userData)), (Route<dynamic> route) => false);
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            SlideRightRoute(-1, 0, page: PeopleFav(userData)),
+                            (Route<dynamic> route) => false);
+                      } else {
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            SlideRightRoute(1, 0, page: PeopleFav(userData)),
+                            (Route<dynamic> route) => false);
                       }
                     }
                   },
@@ -153,7 +165,10 @@ class GamesBookShelf extends StatelessWidget {
                       (active == BarActive.Noti) ? Colors.blue : Colors.white,
                   onPressed: () {
                     if (active != BarActive.Noti) {
-                      Navigator.pushAndRemoveUntil(context, SlideRightRoute(1, 0, page: Notifications(userData)), (Route<dynamic> route) => false);
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          SlideRightRoute(1, 0, page: Notifications(userData)),
+                          (Route<dynamic> route) => false);
                     }
                   },
                 ),
@@ -162,6 +177,104 @@ class GamesBookShelf extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  static GridView games_grid(List<Game> games_list) {
+    return GridView.builder(
+      padding: EdgeInsets.all(8),
+      itemCount: games_list.length,
+      gridDelegate:
+          SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+      itemBuilder: (BuildContext context, int index) {
+        Widget fav_icon;
+        if (games_list[index].icon == Icons.favorite_border) {
+          fav_icon = Icon(
+            games_list[index].icon,
+            color: Colors.white,
+            size: 30,
+          );
+        } else {
+          fav_icon = Icon(
+            games_list[index].icon,
+            color: Colors.red[300],
+            size: 30,
+          );
+        }
+        return Container(
+          padding: EdgeInsets.all(8),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(20),
+                  bottomRight: Radius.circular(20)),
+              color: Colors.black54,
+            ),
+            child: FlatButton(
+              padding: EdgeInsets.zero,
+              child: Stack(
+                children: <Widget>[
+                  Column(
+                    children: <Widget>[
+                      Expanded(
+                        flex: 4,
+                        child: Container(
+                          width: 300,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.white),
+                          ),
+                          child: Image.asset(
+                            games_list[index].image,
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          width: 300,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.white),
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(20),
+                                bottomRight: Radius.circular(20)),
+                          ),
+                          child: Center(
+                            child: Text(
+                              games_list[index].name,
+                              style: TextStyle(
+                                  color: Color.fromRGBO(255, 255, 255, 0.9),
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                      padding: EdgeInsets.only(left: 120, top: 90),
+                      child: IconButton(
+                          icon: fav_icon,
+                          onPressed: () {
+                            if (games_list[index].icon ==
+                                Icons.favorite_border) {
+                              games_list[index].icon = Icons.favorite;
+                              Game.favGames.add(games_list[index]);
+                            } else {
+                              games_list[index].icon = Icons.favorite_border;
+                              Game.favGames.remove(games_list[index]);
+                            }
+                          })),
+                ],
+              ),
+              onPressed: () {
+                // Go to Game Page
+              },
+            ),
+          ),
+        );
+      },
     );
   }
 

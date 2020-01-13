@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart' show rootBundle;
-
+import 'package:flutter/material.dart';
 
 class Game {
 
@@ -10,7 +10,7 @@ class Game {
 
   final String name;
   final String image;
-  bool fav=true;
+  IconData icon=Icons.favorite_border;
 
   Game.fromJson(var json)
     : name = json['Name'],
