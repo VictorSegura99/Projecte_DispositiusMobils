@@ -271,10 +271,14 @@ class GamesBookShelf extends StatelessWidget {
                             if (gamesList[index].icon ==
                                 Icons.favorite_border) {
                               gamesList[index].icon = Icons.favorite;
+                              ++userData.numFavs;
+                              Firestore.instance.collection('Users').document(userData.userEmail).updateData({'numFavs' : userData.numFavs});
                               Firestore.instance.collection('Favourites').document(userData.userEmail).updateData({gamesList[index].name : true});
                               Game.favGames.add(gamesList[index]);
                             } else {
                               gamesList[index].icon = Icons.favorite_border;
+                              --userData.numFavs;
+                              Firestore.instance.collection('Users').document(userData.userEmail).updateData({'numFavs' : userData.numFavs});
                               Firestore.instance.collection('Favourites').document(userData.userEmail).updateData({gamesList[index].name : false});
                               Game.favGames.remove(gamesList[index]);
                             }
