@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:finalproject/gamePage.dart';
 
 import 'explorer.dart';
 import 'fav.dart';
@@ -287,7 +288,8 @@ class GamesBookShelf extends StatelessWidget {
                 ],
               ),
               onPressed: () {
-                // Go to Game Page
+                Navigator.push(
+                  context, SlideRightRoute(0, 1, page: GamePage(userData, gamesList[index])));
               },
             ),
           ),
