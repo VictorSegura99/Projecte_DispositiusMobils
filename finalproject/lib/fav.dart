@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'main.dart';
 import 'userData.dart';
+import 'explorer.dart';
+import 'game.dart';
 
 class Fav extends StatefulWidget {
 
@@ -42,8 +44,7 @@ class _FavState extends State<Fav> {
           Expanded(
               flex: 80,
               child: Container(
-                color: Colors.black54,
-              )),
+                color: Colors.black54,child: games_grid(Game.favGames))),
           GamesBookShelf.mainbottombar(BarActive.Favs, context, userData),
         ],
       ),

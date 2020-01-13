@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 
@@ -9,7 +10,7 @@ class Game {
 
   final String name;
   final String image;
-  bool fav=false;
+  bool fav=true;
 
   Game.fromJson(var json)
     : name = json['Name'],
@@ -27,4 +28,4 @@ class Game {
   static void loadgames() {
     _readGames();
   }
-}
+  }
