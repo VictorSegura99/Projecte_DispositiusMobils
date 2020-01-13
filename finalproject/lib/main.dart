@@ -180,23 +180,23 @@ class GamesBookShelf extends StatelessWidget {
     );
   }
 
-  static GridView games_grid(List<Game> games_list) {
+  static GridView games_grid(List<Game> gamesList, Function refresh) {
     return GridView.builder(
       padding: EdgeInsets.all(8),
-      itemCount: games_list.length,
+      itemCount: gamesList.length,
       gridDelegate:
           SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
       itemBuilder: (BuildContext context, int index) {
-        Widget fav_icon;
-        if (games_list[index].icon == Icons.favorite_border) {
-          fav_icon = Icon(
-            games_list[index].icon,
+        Widget favIcon;
+        if (gamesList[index].icon == Icons.favorite_border) {
+          favIcon = Icon(
+            gamesList[index].icon,
             color: Colors.white,
             size: 30,
           );
         } else {
-          fav_icon = Icon(
-            games_list[index].icon,
+          favIcon = Icon(
+            gamesList[index].icon,
             color: Colors.red[300],
             size: 30,
           );
@@ -224,7 +224,7 @@ class GamesBookShelf extends StatelessWidget {
                             border: Border.all(color: Colors.white),
                           ),
                           child: Image.asset(
-                            games_list[index].image,
+                            gamesList[index].image,
                             fit: BoxFit.fill,
                           ),
                         ),
@@ -241,7 +241,7 @@ class GamesBookShelf extends StatelessWidget {
                           ),
                           child: Center(
                             child: Text(
-                              games_list[index].name,
+                              gamesList[index].name,
                               style: TextStyle(
                                   color: Color.fromRGBO(255, 255, 255, 0.9),
                                   fontSize: 18,
@@ -255,16 +255,17 @@ class GamesBookShelf extends StatelessWidget {
                   Padding(
                       padding: EdgeInsets.only(left: 120, top: 90),
                       child: IconButton(
-                          icon: fav_icon,
+                          icon: favIcon,
                           onPressed: () {
-                            if (games_list[index].icon ==
+                            if (gamesList[index].icon ==
                                 Icons.favorite_border) {
-                              games_list[index].icon = Icons.favorite;
-                              Game.favGames.add(games_list[index]);
+                              gamesList[index].icon = Icons.favorite;
+                              Game.favGames.add(gamesList[index]);
                             } else {
-                              games_list[index].icon = Icons.favorite_border;
-                              Game.favGames.remove(games_list[index]);
+                              gamesList[index].icon = Icons.favorite_border;
+                              Game.favGames.remove(gamesList[index]);
                             }
+                            refresh();
                           })),
                 ],
               ),
