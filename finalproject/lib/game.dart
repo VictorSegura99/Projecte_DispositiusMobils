@@ -5,10 +5,12 @@ import 'package:flutter/services.dart' show rootBundle;
 class Game {
 
   static List<Game> allGames = new List<Game>();
+  static List<Game> favGames = new List<Game>();
 
   final String name;
   final String image;
-  
+  bool fav=false;
+
   Game.fromJson(var json)
     : name = json['Name'],
     image=json['Image'];
