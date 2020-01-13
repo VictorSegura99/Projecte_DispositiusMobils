@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'explorer.dart';
@@ -7,18 +9,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class RegisterPage extends StatefulWidget {
-
   @override
   _RegisterPageState createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-
   TextEditingController nameController;
   TextEditingController emailController;
   TextEditingController passwordController;
   TextEditingController passwordController2;
   TextEditingController codeController;
+  List<String> backgrounds;
+  int rng_background;
 
   @override
   void initState() {
@@ -27,6 +29,13 @@ class _RegisterPageState extends State<RegisterPage> {
     passwordController = new TextEditingController();
     passwordController2 = new TextEditingController();
     codeController = new TextEditingController();
+    backgrounds = new List<String>();
+
+    backgrounds.add("assets/images/log_minecraft.jpg");
+    backgrounds.add("assets/images/Log_ForTheKing.png");
+
+    var random_background = new Random();
+    rng_background = random_background.nextInt(backgrounds.length);
     super.initState();
   }
 
@@ -103,7 +112,10 @@ class _RegisterPageState extends State<RegisterPage> {
           .document('Number')
           .updateData({'Num': num + 1});
       ++num;
-      Firestore.instance.collection('Users').document('Mails').updateData({'mail$num' : emailController.text});
+      Firestore.instance
+          .collection('Users')
+          .document('Mails')
+          .updateData({'mail$num': emailController.text});
       Game.loadgames();
       UserData userData = new UserData();
       userData.userName = nameController.text;
@@ -112,10 +124,10 @@ class _RegisterPageState extends State<RegisterPage> {
       userData.userProfilePicture = 'assets/default_image.png';
       userData.numFavs = 0;
 
-      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-      GamesExplorer(userData)), (Route<dynamic> route) => false); 
-    }
-    else {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => GamesExplorer(userData)),
+          (Route<dynamic> route) => false);
+    } else {
       String text;
       if (empty) {
         text = 'At least one input text is empty';
@@ -154,74 +166,103 @@ class _RegisterPageState extends State<RegisterPage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('Register'),
+        backgroundColor: Colors.black87,
       ),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 10, 40, 0),
-        child: Column(
-          children: <Widget>[
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'Enter your name for the application',
-                labelText: 'UserName',
-                icon: Icon(
-                  Icons.account_circle,
-                  size: 27,
-                  color: Colors.blue,
-                ),
-              ),
-              controller: nameController,
-            ),
-            TextField(
-              keyboardType: TextInputType.emailAddress,
-              decoration: InputDecoration(
-                hintText: 'Enter your email',
-                labelText: 'Email',
-                icon: Icon(
-                  Icons.email,
-                  size: 27,
-                  color: Colors.blue,
-                ),
-              ),
-              controller: emailController,
-            ),
-            TextField(
-              obscureText: true,
-              decoration: InputDecoration(
-                hintText: 'Enter your password',
-                labelText: 'Password',
-                icon: Icon(
-                  Icons.screen_lock_portrait,
-                  size: 27,
-                  color: Colors.blue,
-                ),
-              ),
-              controller: passwordController,
-            ),
-            TextField(
-              obscureText: true,
-              decoration: InputDecoration(
-                hintText: 'Enter your password again',
-                labelText: 'Repeat Password',
-                icon: Icon(
-                  Icons.screen_lock_portrait,
-                  size: 27,
-                  color: Colors.blue,
-                ),
-              ),
-              controller: passwordController2,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 15),
-              child: FlatButton(
-                child: Text('Register'),
-                color: Colors.red,
-                onPressed: () {
-                  canregister();
-                },
+      body: Stack(
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(backgrounds[rng_background]),
+                fit: BoxFit.fill,
               ),
             ),
-          ],
-        ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Color.fromRGBO(255, 255, 255, 0.85),
+              ),
+              child: Stack(
+                children: <Widget>[
+                  Container(
+                    height: 303,
+                    padding: EdgeInsets.fromLTRB(15, 5, 15, 0),
+                    child: Center(
+                      child: Column(
+                        children: <Widget>[
+                          TextField(
+                            decoration: InputDecoration(
+                              hintText: 'Enter your name for the application',
+                              labelText: 'UserName',
+                              icon: Icon(
+                                Icons.account_circle,
+                                size: 27,
+                                color: Colors.blue,
+                              ),
+                            ),
+                            controller: nameController,
+                          ),
+                          TextField(
+                            keyboardType: TextInputType.emailAddress,
+                            decoration: InputDecoration(
+                              hintText: 'Enter your email',
+                              labelText: 'Email',
+                              icon: Icon(
+                                Icons.email,
+                                size: 27,
+                                color: Colors.blue,
+                              ),
+                            ),
+                            controller: emailController,
+                          ),
+                          TextField(
+                            obscureText: true,
+                            decoration: InputDecoration(
+                              hintText: 'Enter your password',
+                              labelText: 'Password',
+                              icon: Icon(
+                                Icons.screen_lock_portrait,
+                                size: 27,
+                                color: Colors.blue,
+                              ),
+                            ),
+                            controller: passwordController,
+                          ),
+                          TextField(
+                            obscureText: true,
+                            decoration: InputDecoration(
+                              hintText: 'Enter your password again',
+                              labelText: 'Repeat Password',
+                              icon: Icon(
+                                Icons.screen_lock_portrait,
+                                size: 27,
+                                color: Colors.blue,
+                              ),
+                            ),
+                            controller: passwordController2,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8),
+                            child: FlatButton(
+                              child: Text('Register'),
+                              color: Colors.red,
+                              onPressed: () {
+                                canregister();
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
