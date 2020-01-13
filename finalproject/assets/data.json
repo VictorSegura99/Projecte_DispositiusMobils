@@ -1,10 +1,12 @@
 {
     "Games": [
         {
-            "Name": "Minecraft"
+            "Name": "Minecraft",
+            "Image": "assets/images/minecraft.png"
         },
         {
-            "Name": "For the King"
+            "Name": "For the King",
+            "Image": "assets/images/ForTheKing.jpg"
         }
     ]
 }

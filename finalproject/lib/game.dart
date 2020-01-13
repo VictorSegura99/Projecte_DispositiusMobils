@@ -7,9 +7,11 @@ class Game {
   static List<Game> allGames = new List<Game>();
 
   final String name;
-
+  final String image;
+  
   Game.fromJson(var json)
-    : name = json['Name'];
+    : name = json['Name'],
+    image=json['Image'];
 
   static _readGames() async {
     String data = await rootBundle.loadString('assets/data.json');
