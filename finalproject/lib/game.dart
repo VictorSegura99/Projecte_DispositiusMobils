@@ -20,6 +20,10 @@ class Game {
     : name = json['Name'],
     image=json['Image'];
 
+  Game.fromGame(Game game)
+    : name = game.name,
+    image = game.image;
+
   static _readGames(bool justCreated, UserData userData, Function refresh) async {
     String data = await rootBundle.loadString('assets/data.json');
     var games = jsonDecode(data);
@@ -50,7 +54,7 @@ class Game {
     DocumentSnapshot documents = await Firestore.instance.collection('Favourites').document(email).get();
     for (int i = 0; i < allGames.length; ++i) {
       if (documents.data[allGames[i].name]) {
-        peopleFavGames.add(allGames[i]);
+        peopleFavGames.add(Game.fromGame(allGames[i]));
         peopleFavGames.last.icon = Icons.favorite;
       }
     }      
