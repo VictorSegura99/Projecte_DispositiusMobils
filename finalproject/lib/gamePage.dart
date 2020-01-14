@@ -248,6 +248,62 @@ class _GamePageState extends State<GamePage> {
     );
   }
 
+  void addnewcomment() {
+    TextEditingController controller = new TextEditingController();
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        backgroundColor: userData.buttonBarColor,
+        title: Text('New Comment'),
+        content: Container(
+          child: TextField(
+            controller: controller,
+
+          ),
+        ),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('CANCEL'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          FlatButton(
+            child: Text('MAKE COMMENT'),
+            onPressed: () async {
+              DocumentSnapshot docNum = await Firestore.instance.collection('Comments').document(game.name).get();
+              int numComments = 0;
+              if (docNum.exists) {
+                numComments = docNum.data['numComments'] + 1;
+                Firestore.instance.collection('Comments').document(game.name).updateData({'numComments' : numComments});
+              }
+              else {
+                numComments = 1;
+                Firestore.instance.collection('Comments').document(game.name).setData({'numComments' : 1});
+              }
+              Map<String, dynamic> data = {
+                'answerBy' : userData.userEmail,
+                'comment' : controller.text,
+                'numAnswers' : 0
+              };
+              Firestore.instance.collection('Comments').document(game.name).collection('CommentsData').document(numComments.toString()).setData(data);
+              if (comments != null) {
+                setState(() {
+                  commentsLoaded = false;
+                  comments.clear();
+                  comments = null;
+                });
+              }
+              loadcomments();
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -318,7 +374,7 @@ class _GamePageState extends State<GamePage> {
                         borderSide: BorderSide(width: 2),
                         highlightedBorderColor: Colors.black,
                         onPressed: () {
-                          
+                          addnewcomment();
                         },
                       ),
                     ],
