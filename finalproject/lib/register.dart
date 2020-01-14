@@ -1,11 +1,9 @@
 import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'explorer.dart';
-import 'explorer.dart';
-import 'game.dart';
 import 'userData.dart';
+import 'main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -21,7 +19,7 @@ class _RegisterPageState extends State<RegisterPage> {
   TextEditingController passwordController2;
   TextEditingController codeController;
   List<String> backgrounds;
-  int rng_background;
+  int rngBackground;
 
   @override
   void initState() {
@@ -30,13 +28,9 @@ class _RegisterPageState extends State<RegisterPage> {
     passwordController = new TextEditingController();
     passwordController2 = new TextEditingController();
     codeController = new TextEditingController();
-    backgrounds = new List<String>();
 
-    backgrounds.add("assets/images/log_minecraft.jpg");
-    backgrounds.add("assets/images/Log_ForTheKing.png");
-
-    var random_background = new Random();
-    rng_background = random_background.nextInt(backgrounds.length);
+    backgrounds = GamesBookShelf.getbackgrounds();
+    rngBackground = (new Random()).nextInt(backgrounds.length);
     super.initState();
   }
 
@@ -104,7 +98,7 @@ class _RegisterPageState extends State<RegisterPage> {
         'numFavs': 0,
         'mainColor': 'blue',
         'backgroundColor': 'black',
-        'buttonBarColor': 'black'
+        'buttonBarColor': 'grey'
       };
       Firestore.instance
           .collection('Users')
@@ -182,7 +176,7 @@ class _RegisterPageState extends State<RegisterPage> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(backgrounds[rng_background]),
+                image: AssetImage(backgrounds[rngBackground]),
                 fit: BoxFit.fill,
               ),
             ),

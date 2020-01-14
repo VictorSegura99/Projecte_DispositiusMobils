@@ -103,10 +103,10 @@ class _SettingsState extends State<Settings> {
         ],
       ),
       body: Container(
-        color: Colors.black26,
+        color: userData.backgroundColor,
         child: Column(
           children: <Widget>[
-            Container(color: Colors.black54),
+            Container(color: userData.buttonBarColor),
             FlatButton(
               color: Colors.red,
               child: Text('Change Photo'),

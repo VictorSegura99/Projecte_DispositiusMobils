@@ -1,5 +1,5 @@
 import 'dart:math';
-
+import 'main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'register.dart';
 import 'userData.dart';
@@ -15,18 +15,14 @@ class _LogInState extends State<LogIn> {
   TextEditingController emailController;
   TextEditingController passwordController;
   List<String> backgrounds;
-  int rng_background;
+  int rngBackground;
   @override
   void initState() {
     emailController = new TextEditingController();
     passwordController = new TextEditingController();
-    backgrounds = new List<String>();
 
-    backgrounds.add("assets/images/log_minecraft.jpg");
-    backgrounds.add("assets/images/Log_ForTheKing.png");
-
-    var random_background=new Random();
-    rng_background=random_background.nextInt(backgrounds.length);
+    backgrounds = GamesBookShelf.getbackgrounds();
+    rngBackground = (new Random()).nextInt(backgrounds.length);
 
     super.initState();
   }
@@ -83,21 +79,21 @@ class _LogInState extends State<LogIn> {
             userData.backgroundColor = Colors.black54;
           }
 
-          col= list[i].data['backgroundColor'];
+          col= list[i].data['buttonBarColor'];
           if (col == 'blue') {
-            userData.backgroundColor = Colors.blueGrey[900];
+            userData.buttonBarColor = Colors.blueGrey[900];
           }
           else if (col == 'grey') {
-            userData.backgroundColor = Colors.black87;
+            userData.buttonBarColor = Colors.black87;
           }
           else if (col == 'green') {
-            userData.backgroundColor = Colors.green[900];
+            userData.buttonBarColor = Colors.green[900];
           }
           else if (col == 'purple') {
-            userData.backgroundColor = Colors.purple[900];
+            userData.buttonBarColor = Colors.purple[900];
           }
           else if (col == 'black') {
-            userData.backgroundColor = Colors.black;
+            userData.buttonBarColor = Colors.black;
           }
           success = true;
           break;
@@ -138,7 +134,7 @@ class _LogInState extends State<LogIn> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(backgrounds[rng_background]),
+                image: AssetImage(backgrounds[rngBackground]),
                 fit: BoxFit.fill,
               ),
             ),

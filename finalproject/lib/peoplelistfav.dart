@@ -47,10 +47,10 @@ class _PeopleListFavState extends State<PeopleListFav> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('$name Favorite Games'),
-        backgroundColor: Colors.black87,
+        backgroundColor: userData.buttonBarColor,
       ),
       body: Container(
-        color: Colors.black54,
+        color: userData.backgroundColor,
         child: (!favLoaded) ? Center(child:  CircularProgressIndicator(),) 
           : GamesBookShelf.games_grid(Game.peopleFavGames, refresh, userData, canEdit: false),
       ),
