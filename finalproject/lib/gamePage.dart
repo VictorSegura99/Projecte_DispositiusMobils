@@ -9,11 +9,16 @@ class Comment {
   String userName;
   String userPicture;
   List<Comment> answers;
+
+  int getanswerslenght() {
+    if (answers != null) {
+      return answers.length;
+    }
+    return 0;
+  }
 }
 
-
 class GamePage extends StatefulWidget {
-
   final UserData userData;
   final Game game;
 
@@ -24,7 +29,6 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> {
-  
   UserData userData;
   Game game;
   bool commentsLoaded = false;
@@ -34,7 +38,7 @@ class _GamePageState extends State<GamePage> {
     this.userData = userData;
     this.game = game;
   }
-  
+
   @override
   void initState() {
     if (comments != null) {
@@ -48,28 +52,50 @@ class _GamePageState extends State<GamePage> {
   }
 
   void loadcomments() async {
-    DocumentSnapshot doc = await Firestore.instance.collection('Comments').document(game.name).snapshots().first;
+    DocumentSnapshot doc = await Firestore.instance
+        .collection('Comments')
+        .document(game.name)
+        .snapshots()
+        .first;
     if (doc.exists) {
       comments = new List<Comment>();
       int numComments = doc.data['numComments'];
       for (int i = 1; i <= numComments; ++i) {
         Comment comment = new Comment();
-        DocumentReference docComments = Firestore.instance.collection('Comments').document(game.name).collection('CommentsData').document(i.toString());    
+        DocumentReference docComments = Firestore.instance
+            .collection('Comments')
+            .document(game.name)
+            .collection('CommentsData')
+            .document(i.toString());
         DocumentSnapshot docBaseComment = await docComments.get();
         comment.comment = docBaseComment.data['comment'];
         comment.userEmail = docBaseComment.data['answerBy'];
-        DocumentSnapshot userDoc = await Firestore.instance.collection('Users').document(comment.userEmail).get();
+        DocumentSnapshot userDoc = await Firestore.instance
+            .collection('Users')
+            .document(comment.userEmail)
+            .get();
         comment.userName = userDoc.data['name'];
         comment.userPicture = userDoc.data['profilePicture'];
         int numAnswers = docBaseComment.data['numAnswers'];
         for (int j = 1; j <= numAnswers; ++j) {
-          DocumentSnapshot answerDoc = await Firestore.instance.collection('Comments').document(game.name).collection('CommentsData').document(i.toString()).collection('AnswerData').document(j.toString()).get();   
+          DocumentSnapshot answerDoc = await Firestore.instance
+              .collection('Comments')
+              .document(game.name)
+              .collection('CommentsData')
+              .document(i.toString())
+              .collection('AnswersData')
+              .document(j.toString())
+              .get();
           Comment answer = new Comment();
           answer.comment = answerDoc.data['comment'];
           answer.userEmail = answerDoc.data['answerBy'];
-          DocumentSnapshot userDocAnswer = await Firestore.instance.collection('Users').document(answer.userEmail).get();
+          DocumentSnapshot userDocAnswer = await Firestore.instance
+              .collection('Users')
+              .document(answer.userEmail)
+              .get();
           answer.userName = userDocAnswer.data['name'];
           answer.userPicture = userDocAnswer.data['profilePicture'];
+          comment.answers = new List<Comment>();
           comment.answers.add(answer);
         }
         comments.add(comment);
@@ -77,6 +103,143 @@ class _GamePageState extends State<GamePage> {
     }
     commentsLoaded = true;
     setState(() {});
+  }
+
+  Widget rendercomments() {
+    List<Widget> containers = new List<Widget>();
+    for (int i = 0; i < comments.length; ++i) {
+      List<Widget> answers;
+      if (comments[i].answers != null) {
+        answers = new List<Widget>();
+        for (int j = 0; j < comments[i].answers.length; ++j) {
+          answers.add(
+            Stack(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: Container(
+                      width: 55,
+                      height: 55,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.white,
+                          width: 2.0,
+                        ),
+                        shape: BoxShape.circle,
+                        color: Colors.blue,
+                        image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: ExactAssetImage(comments[i].answers[j].userPicture),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8, 8, 65, 0),
+                  child: Container(
+                    child: Align(
+                      alignment: Alignment.topRight,
+                      child: Text(
+                      comments[i].answers[j].userName,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500
+                      ),
+                  ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        }
+      }
+      else {
+        answers = new List<Widget>();
+        answers.add(Container());
+      }
+      containers.add(
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(minWidth: double.infinity),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Colors.white38,
+                border: Border.all(
+                  color: Colors.white,
+                  width: 2.0,
+                ),
+              ),
+              child: Column(
+                children: <Widget>[
+                  Stack(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Container(
+                            width: 55,
+                            height: 55,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.white,
+                                width: 2.0,
+                              ),
+                              shape: BoxShape.circle,
+                              color: Colors.blue,
+                              image: DecorationImage(
+                                fit: BoxFit.fill,
+                                image: ExactAssetImage(comments[i].userPicture),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(65, 8, 0, 0),
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            comments[i].userName,
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(68, 30, 8, 0),
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(comments[i].comment)
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: answers
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+    return Stack(
+      children: <Widget>[
+        Column(
+          children: containers,
+        ),
+      ],
+    );
   }
 
   @override
@@ -130,17 +293,15 @@ class _GamePageState extends State<GamePage> {
                           child: Text(
                             'Comments',
                             style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600
-                            ),
+                                fontSize: 18, fontWeight: FontWeight.w600),
                           ),
                         ),
                       ),
-                      (!commentsLoaded) ?
-                       Center(child: CircularProgressIndicator())
-                      :  (comments == null) ? Text('There are no comments')
-                      : Text('There are comments'),
-
+                      (!commentsLoaded)
+                          ? Center(child: CircularProgressIndicator())
+                          : (comments == null)
+                              ? Text('There are no comments')
+                              : rendercomments(),
                     ],
                   ),
                 ),
