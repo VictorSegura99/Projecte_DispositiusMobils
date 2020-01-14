@@ -10,6 +10,7 @@ class Game {
 
   static List<Game> allGames = new List<Game>();
   static List<Game> favGames = new List<Game>();
+  static List<Game> peopleFavGames = new List<Game>();
 
   final String name;
   final String image;
@@ -44,8 +45,23 @@ class Game {
     }
   }
 
+  static _readPeopleGames(String email, Function refresh) async {
+    peopleFavGames.clear();
+    DocumentSnapshot documents = await Firestore.instance.collection('Favourites').document(email).get();
+    for (int i = 0; i < allGames.length; ++i) {
+      if (documents.data[allGames[i].name]) {
+        peopleFavGames.add(allGames[i]);
+        peopleFavGames.last.icon = Icons.favorite;
+      }
+    }      
+    refresh();
+  }
   
   static void loadgames(UserData userData, bool justCreated, Function refresh) async {
     _readGames(justCreated, userData, refresh);
+  }
+
+  static void loadpeoplegames(String email, Function refresh) async {
+    _readPeopleGames(email, refresh);
   }
 }

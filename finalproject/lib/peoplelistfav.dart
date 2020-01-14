@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'main.dart';
 import 'userData.dart';
 import 'game.dart';
-import 'main.dart';
 
 class PeopleListFav extends StatefulWidget {
 
@@ -32,11 +31,14 @@ class _PeopleListFavState extends State<PeopleListFav> {
 
   @override
   void initState() {
+    Game.loadpeoplegames(email, refresh);
     super.initState();
   }
 
   void refresh() {
-    setState((){});
+    setState(() {
+      favLoaded = true;
+    });
   }
 
   @override
@@ -47,15 +49,10 @@ class _PeopleListFavState extends State<PeopleListFav> {
         title: Text('$name favourites games'),
         backgroundColor: Colors.black87,
       ),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-              flex: 80,
-              child: Container(
-                color: Colors.black54,
-              ),
-          ),
-        ],
+      body: Container(
+        color: Colors.black54,
+        child: (!favLoaded) ? Center(child:  CircularProgressIndicator(),) 
+          : GamesBookShelf.games_grid(Game.peopleFavGames, refresh, userData, canEdit: false),
       ),
     );
   }

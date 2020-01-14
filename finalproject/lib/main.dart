@@ -44,7 +44,6 @@ enum BarActive { Home, Favs, People, Noti }
 void main() => runApp(GamesBookShelf());
 
 class GamesBookShelf extends StatelessWidget {
-
   static settings(context, UserData userData, {inSettings = false}) {
     return FlatButton(
       child: Container(
@@ -88,8 +87,9 @@ class GamesBookShelf extends StatelessWidget {
                     Icons.sort,
                     size: 40,
                   ),
-                  color:
-                      (active == BarActive.Home) ? userData.mainColor : Colors.white,
+                  color: (active == BarActive.Home)
+                      ? userData.mainColor
+                      : Colors.white,
                   onPressed: () {
                     if (active != BarActive.Home) {
                       Navigator.pushAndRemoveUntil(
@@ -109,8 +109,9 @@ class GamesBookShelf extends StatelessWidget {
                         : Icons.favorite_border,
                     size: 40,
                   ),
-                  color:
-                      (active == BarActive.Favs) ? userData.mainColor : Colors.white,
+                  color: (active == BarActive.Favs)
+                      ? userData.mainColor
+                      : Colors.white,
                   onPressed: () {
                     if (active != BarActive.Favs) {
                       if (active == BarActive.Home) {
@@ -137,8 +138,9 @@ class GamesBookShelf extends StatelessWidget {
                         : Icons.people_outline,
                     size: 40,
                   ),
-                  color:
-                      (active == BarActive.People) ? userData.mainColor : Colors.white,
+                  color: (active == BarActive.People)
+                      ? userData.mainColor
+                      : Colors.white,
                   onPressed: () {
                     if (active != BarActive.People) {
                       if (active == BarActive.Noti) {
@@ -165,8 +167,9 @@ class GamesBookShelf extends StatelessWidget {
                         : Icons.notifications_none,
                     size: 40,
                   ),
-                  color:
-                      (active == BarActive.Noti) ? userData.mainColor : Colors.white,
+                  color: (active == BarActive.Noti)
+                      ? userData.mainColor
+                      : Colors.white,
                   onPressed: () {
                     if (active != BarActive.Noti) {
                       Navigator.pushAndRemoveUntil(
@@ -184,7 +187,9 @@ class GamesBookShelf extends StatelessWidget {
     );
   }
 
-  static GridView games_grid(List<Game> gamesList, Function refresh, UserData userData) {
+  static GridView games_grid(
+      List<Game> gamesList, Function refresh, UserData userData,
+      {bool canEdit = true}) {
     return GridView.builder(
       padding: EdgeInsets.all(8),
       itemCount: gamesList.length,
@@ -214,7 +219,8 @@ class GamesBookShelf extends StatelessWidget {
             ),
             child: FlatButton(
               padding: EdgeInsets.zero,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20))),
               child: Stack(
                 children: <Widget>[
                   Column(
@@ -265,31 +271,54 @@ class GamesBookShelf extends StatelessWidget {
                     ],
                   ),
                   Padding(
-                      padding: EdgeInsets.only(left: 120, top: 90),
-                      child: IconButton(
-                          icon: favIcon,
-                          onPressed: () {
-                            if (gamesList[index].icon ==
-                                Icons.favorite_border) {
-                              gamesList[index].icon = Icons.favorite;
-                              ++userData.numFavs;
-                              Firestore.instance.collection('Users').document(userData.userEmail).updateData({'numFavs' : userData.numFavs});
-                              Firestore.instance.collection('Favourites').document(userData.userEmail).updateData({gamesList[index].name : true});
-                              Game.favGames.add(gamesList[index]);
-                            } else {
-                              gamesList[index].icon = Icons.favorite_border;
-                              --userData.numFavs;
-                              Firestore.instance.collection('Users').document(userData.userEmail).updateData({'numFavs' : userData.numFavs});
-                              Firestore.instance.collection('Favourites').document(userData.userEmail).updateData({gamesList[index].name : false});
-                              Game.favGames.remove(gamesList[index]);
-                            }
-                            refresh();
-                          })),
+                    padding: EdgeInsets.only(left: 120, top: 90),
+                    child: (canEdit) ?
+                      IconButton(
+                        icon: favIcon,
+                        onPressed: () {
+                          if (gamesList[index].icon == Icons.favorite_border) {
+                            gamesList[index].icon = Icons.favorite;
+                            ++userData.numFavs;
+                            Firestore.instance
+                                .collection('Users')
+                                .document(userData.userEmail)
+                                .updateData({'numFavs': userData.numFavs});
+                            Firestore.instance
+                                .collection('Favourites')
+                                .document(userData.userEmail)
+                                .updateData({gamesList[index].name: true});
+                            Game.favGames.add(gamesList[index]);
+                          } else {
+                            gamesList[index].icon = Icons.favorite_border;
+                            --userData.numFavs;
+                            Firestore.instance
+                                .collection('Users')
+                                .document(userData.userEmail)
+                                .updateData({'numFavs': userData.numFavs});
+                            Firestore.instance
+                                .collection('Favourites')
+                                .document(userData.userEmail)
+                                .updateData({gamesList[index].name: false});
+                            Game.favGames.remove(gamesList[index]);
+                          }
+                          refresh();
+                        })
+                      : Padding(
+                        padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
+                        child: Icon(
+                          Icons.favorite,
+                          size: 30,
+                          color: Colors.red[300],
+                        ),
+                      ),
+                  ),
                 ],
               ),
               onPressed: () {
                 Navigator.push(
-                  context, SlideRightRoute(0, 1, page: GamePage(userData, gamesList[index])));
+                    context,
+                    SlideRightRoute(0, 1,
+                        page: GamePage(userData, gamesList[index])));
               },
             ),
           ),

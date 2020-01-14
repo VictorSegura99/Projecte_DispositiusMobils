@@ -46,7 +46,7 @@ class _GamesExplorerState extends State<GamesExplorer> {
           GamesBookShelf.settings(context, userData),
         ],
       ),
-      body: (!GamesExplorer.gamesLoaded) ? CircularProgressIndicator()
+      body: (!GamesExplorer.gamesLoaded) ? Center(child:  CircularProgressIndicator(),)
         : Column(
         children: <Widget>[
           Expanded(
