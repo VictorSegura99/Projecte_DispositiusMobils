@@ -42,15 +42,18 @@ class _SettingsState extends State<Settings> {
       context: context,
       barrierDismissible: false,
       builder: (context) => AlertDialog(
-        backgroundColor: Colors.green[200],
-        title: Text('Available Profile Photos'),
+        backgroundColor: Colors.grey[800],
+        title: Text(
+          'Available Profile Photos',
+          style: TextStyle(color: Colors.white),
+        ),
         content: Container(
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 SizedBox(
-                  height: 20,
+                  height: 10
                 ),
                 Container(
                   height: 250,
@@ -72,7 +75,16 @@ class _SettingsState extends State<Settings> {
                           });
                         },
                         padding: EdgeInsets.all(5),
-                        child: Image.asset(profile_pictures[index]),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            image: DecorationImage(
+                                image:
+                                    ExactAssetImage(profile_pictures[index])),
+                          ),
+                        ),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
                       );
                     }),
                   ),
@@ -513,11 +525,10 @@ class _SettingsState extends State<Settings> {
     );
   }
 
-  _launchURL(String website) async{
-    if(await canLaunch(website)){
+  _launchURL(String website) async {
+    if (await canLaunch(website)) {
       await launch(website);
-    }
-    else{
+    } else {
       throw 'Could not launch $website';
     }
   }
@@ -732,10 +743,12 @@ class _SettingsState extends State<Settings> {
                                   ),
                                   child: FlatButton(
                                       shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(5000),
+                                        borderRadius:
+                                            BorderRadius.circular(5000),
                                       ),
                                       onPressed: () {
-                                        _launchURL('https://github.com/VictorSegura99/Projecte_DispositiusMobils');
+                                        _launchURL(
+                                            'https://github.com/VictorSegura99/Projecte_DispositiusMobils');
                                       }),
                                 ),
                               ),
@@ -744,10 +757,16 @@ class _SettingsState extends State<Settings> {
                                 child: Container(
                                   width: 80,
                                   height: 20,
-                                  child: Center(child: Text('Repository',style: TextStyle(fontWeight: FontWeight.bold),)),
+                                  child: Center(
+                                      child: Text(
+                                    'Repository',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  )),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
-                                    border: Border.all(width: 2,color: Colors.black),
+                                    border: Border.all(
+                                        width: 2, color: Colors.black),
                                     color: Colors.white,
                                   ),
                                 ),
@@ -771,10 +790,12 @@ class _SettingsState extends State<Settings> {
                                   ),
                                   child: FlatButton(
                                       shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(5000),
+                                        borderRadius:
+                                            BorderRadius.circular(5000),
                                       ),
                                       onPressed: () {
-                                        _launchURL('https://github.com/VictorSegura99');
+                                        _launchURL(
+                                            'https://github.com/VictorSegura99');
                                       }),
                                 ),
                               ),
@@ -783,10 +804,16 @@ class _SettingsState extends State<Settings> {
                                 child: Container(
                                   width: 80,
                                   height: 20,
-                                  child: Center(child: Text('Víctor Page',style: TextStyle(fontWeight: FontWeight.bold),)),
+                                  child: Center(
+                                      child: Text(
+                                    'Víctor Page',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  )),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
-                                    border: Border.all(width: 2,color: Colors.black),
+                                    border: Border.all(
+                                        width: 2, color: Colors.black),
                                     color: Colors.white,
                                   ),
                                 ),
@@ -810,10 +837,12 @@ class _SettingsState extends State<Settings> {
                                   ),
                                   child: FlatButton(
                                       shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(5000),
+                                        borderRadius:
+                                            BorderRadius.circular(5000),
                                       ),
                                       onPressed: () {
-                                        _launchURL('https://github.com/OriolCS2');
+                                        _launchURL(
+                                            'https://github.com/OriolCS2');
                                       }),
                                 ),
                               ),
@@ -822,10 +851,16 @@ class _SettingsState extends State<Settings> {
                                 child: Container(
                                   width: 80,
                                   height: 20,
-                                  child: Center(child: Text('Oriol Page',style: TextStyle(fontWeight: FontWeight.bold),)),
+                                  child: Center(
+                                      child: Text(
+                                    'Oriol Page',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  )),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
-                                    border: Border.all(width: 2,color: Colors.black),
+                                    border: Border.all(
+                                        width: 2, color: Colors.black),
                                     color: Colors.white,
                                   ),
                                 ),
@@ -849,10 +884,12 @@ class _SettingsState extends State<Settings> {
                                   ),
                                   child: FlatButton(
                                       shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(5000),
+                                        borderRadius:
+                                            BorderRadius.circular(5000),
                                       ),
                                       onPressed: () {
-                                        _launchURL('https://github.com/LaiaMartinezMotis');
+                                        _launchURL(
+                                            'https://github.com/LaiaMartinezMotis');
                                       }),
                                 ),
                               ),
@@ -861,10 +898,16 @@ class _SettingsState extends State<Settings> {
                                 child: Container(
                                   width: 80,
                                   height: 20,
-                                  child: Center(child: Text('Laia Page',style: TextStyle(fontWeight: FontWeight.bold),)),
+                                  child: Center(
+                                      child: Text(
+                                    'Laia Page',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  )),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
-                                    border: Border.all(width: 2,color: Colors.black),
+                                    border: Border.all(
+                                        width: 2, color: Colors.black),
                                     color: Colors.white,
                                   ),
                                 ),
