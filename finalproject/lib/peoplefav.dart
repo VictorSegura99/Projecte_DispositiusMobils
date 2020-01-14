@@ -30,7 +30,7 @@ class _PeopleFavState extends State<PeopleFav> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('People Favourites'),
+        title: Text('People Favorites'),
         backgroundColor: Colors.black87,
         actions: <Widget>[
           GamesBookShelf.settings(context, userData),

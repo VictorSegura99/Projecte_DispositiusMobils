@@ -120,7 +120,6 @@ class _SettingsState extends State<Settings> {
               onPressed: () {
                 showDialog(
                   context: context,
-                  barrierDismissible: false,
                   builder: (context) => AlertDialog(
                     backgroundColor: Colors.black54,
                     title: Center(

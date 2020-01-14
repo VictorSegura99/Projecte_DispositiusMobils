@@ -46,7 +46,7 @@ class _PeopleListFavState extends State<PeopleListFav> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('$name favourites games'),
+        title: Text('$name Favorite Games'),
         backgroundColor: Colors.black87,
       ),
       body: Container(
