@@ -308,6 +308,19 @@ class _GamePageState extends State<GamePage> {
                           : (comments == null)
                               ? Text('There are no comments')
                               : rendercomments(),
+                      OutlineButton(
+                        child: Text('Add New Comment'),
+                        shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(10)),
+                        color: Colors.black,
+                        focusColor: Colors.black,
+                        borderSide: BorderSide(width: 2),
+                        highlightedBorderColor: Colors.black,
+                        onPressed: () {
+                          
+                        },
+                      ),
                     ],
                   ),
                 ),
