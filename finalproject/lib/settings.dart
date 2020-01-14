@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'main.dart';
 import 'package:flutter/material.dart';
 import 'userData.dart';
@@ -512,6 +513,15 @@ class _SettingsState extends State<Settings> {
     );
   }
 
+  _launchURL(String website) async{
+    if(await canLaunch(website)){
+      await launch(website);
+    }
+    else{
+      throw 'Could not launch $website';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -724,7 +734,9 @@ class _SettingsState extends State<Settings> {
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(5000),
                                       ),
-                                      onPressed: () {}),
+                                      onPressed: () {
+                                        _launchURL('https://github.com/VictorSegura99/Projecte_DispositiusMobils');
+                                      }),
                                 ),
                               ),
                               Padding(
@@ -761,7 +773,9 @@ class _SettingsState extends State<Settings> {
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(5000),
                                       ),
-                                      onPressed: () {}),
+                                      onPressed: () {
+                                        _launchURL('https://github.com/VictorSegura99');
+                                      }),
                                 ),
                               ),
                               Padding(
@@ -798,7 +812,9 @@ class _SettingsState extends State<Settings> {
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(5000),
                                       ),
-                                      onPressed: () {}),
+                                      onPressed: () {
+                                        _launchURL('https://github.com/OriolCS2');
+                                      }),
                                 ),
                               ),
                               Padding(
@@ -835,7 +851,9 @@ class _SettingsState extends State<Settings> {
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(5000),
                                       ),
-                                      onPressed: () {}),
+                                      onPressed: () {
+                                        _launchURL('https://github.com/LaiaMartinezMotis');
+                                      }),
                                 ),
                               ),
                               Padding(

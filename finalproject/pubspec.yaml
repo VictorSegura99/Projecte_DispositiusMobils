@@ -12,6 +12,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   cloud_firestore: ^0.13.0+1
   email_validator: '^1.0.0'
+  url_launcher: ^5.4.1
 
 dev_dependencies:
   flutter_test:
