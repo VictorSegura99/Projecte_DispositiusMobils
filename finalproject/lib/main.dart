@@ -284,7 +284,7 @@ class GamesBookShelf extends StatelessWidget {
                                 .document(userData.userEmail)
                                 .updateData({'numFavs': userData.numFavs});
                             Firestore.instance
-                                .collection('Favourites')
+                                .collection('Favorites')
                                 .document(userData.userEmail)
                                 .updateData({gamesList[index].name: true});
                             Game.favGames.add(gamesList[index]);
@@ -296,7 +296,7 @@ class GamesBookShelf extends StatelessWidget {
                                 .document(userData.userEmail)
                                 .updateData({'numFavs': userData.numFavs});
                             Firestore.instance
-                                .collection('Favourites')
+                                .collection('Favorites')
                                 .document(userData.userEmail)
                                 .updateData({gamesList[index].name: false});
                             Game.favGames.remove(gamesList[index]);

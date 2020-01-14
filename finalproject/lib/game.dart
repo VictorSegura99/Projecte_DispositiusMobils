@@ -35,10 +35,10 @@ class Game {
       for (int i = 0; i < allGames.length; ++i) {
         data[allGames[i].name] = false;
       }
-      Firestore.instance.collection('Favourites').document(userData.userEmail).setData(data);
+      Firestore.instance.collection('Favorites').document(userData.userEmail).setData(data);
     }
     else {
-      DocumentSnapshot documents = await Firestore.instance.collection('Favourites').document(userData.userEmail).get();
+      DocumentSnapshot documents = await Firestore.instance.collection('Favorites').document(userData.userEmail).get();
       for (int i = 0; i < allGames.length; ++i) {
         if (documents.data[allGames[i].name]) {
           favGames.add(allGames[i]);
@@ -51,7 +51,7 @@ class Game {
 
   static _readPeopleGames(String email, Function refresh) async {
     peopleFavGames.clear();
-    DocumentSnapshot documents = await Firestore.instance.collection('Favourites').document(email).get();
+    DocumentSnapshot documents = await Firestore.instance.collection('Favorites').document(email).get();
     for (int i = 0; i < allGames.length; ++i) {
       if (documents.data[allGames[i].name]) {
         peopleFavGames.add(Game.fromGame(allGames[i]));
