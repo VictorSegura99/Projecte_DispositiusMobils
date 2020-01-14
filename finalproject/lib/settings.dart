@@ -523,82 +523,344 @@ class _SettingsState extends State<Settings> {
         ],
       ),
       body: Container(
-        color: userData.backgroundColor,
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.fromLTRB(30, 25, 0, 0),
-              child: Row(
-                children: <Widget>[
-                  Container(color: userData.buttonBarColor),
-                  Stack(
-                    children: <Widget>[
-                      Container(
+          color: userData.backgroundColor,
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.fromLTRB(30, 10, 0, 0),
+                child: Row(
+                  children: <Widget>[
+                    Container(color: userData.buttonBarColor),
+                    Stack(
+                      children: <Widget>[
+                        Container(
+                          height: 150,
+                          width: 150,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              fit: BoxFit.fill,
+                              image:
+                                  ExactAssetImage(userData.userProfilePicture),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: 150,
+                          width: 150,
+                          child: FlatButton(
+                            color: Colors.black38,
+                            child: Text(
+                              'EDIT',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5000)),
+                            onPressed: () {
+                              changephoto();
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 30),
+                      child: Container(
                         height: 150,
                         width: 150,
                         decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                            fit: BoxFit.fill,
-                            image: ExactAssetImage(userData.userProfilePicture),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        height: 150,
-                        width: 150,
+                            border: Border.all(width: 3, color: Colors.black),
+                            borderRadius: BorderRadius.circular(5000)),
                         child: FlatButton(
-                          color: Colors.black38,
-                          child: Text(
-                            'EDIT',
-                            style: TextStyle(color: Colors.white),
-                          ),
+                          color: Color.fromRGBO(255, 255, 255, 0.9),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5000)),
-                          onPressed: () {},
+                          child: Padding(
+                            padding: EdgeInsets.only(top: 48),
+                            child: Column(
+                              children: <Widget>[
+                                Text(
+                                  'Customize',
+                                  style: TextStyle(fontSize: 21),
+                                ),
+                                Text(
+                                  'Colors',
+                                  style: TextStyle(fontSize: 21),
+                                )
+                              ],
+                            ),
+                          ),
+                          onPressed: () {
+                            color_picking();
+                          },
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 5, 20, 8),
+                child: Divider(
+                  color: Colors.black54,
+                  thickness: 2,
+                ),
+              ),
+              Row(
+                children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.only(left: 20),
+                    padding: EdgeInsets.fromLTRB(30, 0, 0, 0),
                     child: Container(
                       height: 150,
                       width: 150,
                       decoration: BoxDecoration(
-                          border: Border.all(width: 3, color: Colors.black),
-                          borderRadius: BorderRadius.circular(5000)),
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(color: Colors.black, width: 2),
+                      ),
                       child: FlatButton(
-                        color: Color.fromRGBO(255, 255, 255, 0.9),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5000)),
-                            child: Padding(
-                              padding: EdgeInsets.only(top: 48),
-                              child: Column(
-                                children: <Widget>[
-                                  Text(
-                                    'Customize',
-                                    style: TextStyle(fontSize: 21),
-                                  ),
-                                  Text(
-                                    'Colors',
-                                    style: TextStyle(fontSize: 21),
-                                  )
-                                ],
+                        color: Colors.white,
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 48),
+                          child: Column(
+                            children: <Widget>[
+                              Text(
+                                'Change',
+                                style: TextStyle(fontSize: 21),
                               ),
-                            ),
+                              Text(
+                                'Password',
+                                style: TextStyle(fontSize: 21),
+                              )
+                            ],
+                          ),
+                        ),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18)),
                         onPressed: () {
-                          color_picking();
+                          changephoto();
+                        },
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(30, 0, 0, 0),
+                    child: Container(
+                      height: 150,
+                      width: 150,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(
+                            color: Color.fromRGBO(255, 255, 255, 0.9),
+                            width: 2),
+                      ),
+                      child: FlatButton(
+                        color: Colors.black87,
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 48),
+                          child: Column(
+                            children: <Widget>[
+                              Text(
+                                'Change',
+                                style: TextStyle(
+                                    fontSize: 21, color: Colors.white),
+                              ),
+                              Text(
+                                'Nickname',
+                                style: TextStyle(
+                                    fontSize: 21, color: Colors.white),
+                              )
+                            ],
+                          ),
+                        ),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18)),
+                        onPressed: () {
+                          changephoto();
                         },
                       ),
                     ),
                   ),
                 ],
               ),
-            ),
-          ],
-        ),
-      ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 5, 20, 8),
+                child: Divider(
+                  color: Colors.black54,
+                  thickness: 2,
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Column(
+                  children: <Widget>[
+                    Align(
+                      alignment: Alignment.topCenter,
+                      child: Text(
+                        'About the Devs',
+                        style: TextStyle(
+                            decoration: TextDecoration.underline, fontSize: 20),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 24),
+                      child: Row(
+                        children: <Widget>[
+                          Column(
+                            children: <Widget>[
+                              Padding(
+                                padding: EdgeInsets.only(left: 10, top: 10),
+                                child: Container(
+                                  height: 75,
+                                  width: 75,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                      fit: BoxFit.fill,
+                                      image: ExactAssetImage(
+                                          'assets/images/github.png'),
+                                    ),
+                                  ),
+                                  child: FlatButton(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(5000),
+                                      ),
+                                      onPressed: () {}),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(left: 5, top: 3),
+                                child: Container(
+                                  width: 80,
+                                  height: 20,
+                                  child: Center(child: Text('Repository',style: TextStyle(fontWeight: FontWeight.bold),)),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    border: Border.all(width: 2,color: Colors.black),
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            children: <Widget>[
+                              Padding(
+                                padding: EdgeInsets.only(left: 10, top: 10),
+                                child: Container(
+                                  height: 75,
+                                  width: 75,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                      fit: BoxFit.fill,
+                                      image: ExactAssetImage(
+                                          'assets/images/github.png'),
+                                    ),
+                                  ),
+                                  child: FlatButton(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(5000),
+                                      ),
+                                      onPressed: () {}),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(left: 5, top: 3),
+                                child: Container(
+                                  width: 80,
+                                  height: 20,
+                                  child: Center(child: Text('Víctor Page',style: TextStyle(fontWeight: FontWeight.bold),)),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    border: Border.all(width: 2,color: Colors.black),
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            children: <Widget>[
+                              Padding(
+                                padding: EdgeInsets.only(left: 10, top: 10),
+                                child: Container(
+                                  height: 75,
+                                  width: 75,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                      fit: BoxFit.fill,
+                                      image: ExactAssetImage(
+                                          'assets/images/github.png'),
+                                    ),
+                                  ),
+                                  child: FlatButton(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(5000),
+                                      ),
+                                      onPressed: () {}),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(left: 5, top: 3),
+                                child: Container(
+                                  width: 80,
+                                  height: 20,
+                                  child: Center(child: Text('Oriol Page',style: TextStyle(fontWeight: FontWeight.bold),)),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    border: Border.all(width: 2,color: Colors.black),
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            children: <Widget>[
+                              Padding(
+                                padding: EdgeInsets.only(left: 10, top: 10),
+                                child: Container(
+                                  height: 75,
+                                  width: 75,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                      fit: BoxFit.fill,
+                                      image: ExactAssetImage(
+                                          'assets/images/github.png'),
+                                    ),
+                                  ),
+                                  child: FlatButton(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(5000),
+                                      ),
+                                      onPressed: () {}),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(left: 5, top: 3),
+                                child: Container(
+                                  width: 80,
+                                  height: 20,
+                                  child: Center(child: Text('Laia Page',style: TextStyle(fontWeight: FontWeight.bold),)),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    border: Border.all(width: 2,color: Colors.black),
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          )),
     );
   }
 }
