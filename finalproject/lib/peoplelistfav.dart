@@ -40,17 +40,15 @@ class _PeopleListFavState extends State<PeopleListFav> {
       appBar: AppBar(
         title: Text('Favourite Games'),
         backgroundColor: Colors.black87,
-        actions: <Widget>[
-          GamesBookShelf.settings(context, email),
-        ],
       ),
       body: Column(
         children: <Widget>[
           Expanded(
               flex: 80,
               child: Container(
-                color: Colors.black54,child: GamesBookShelf.games_grid(Game.favGames, refresh, email))),
-          GamesBookShelf.mainbottombar(BarActive.Favs, context, email),
+                color: Colors.black54,
+              ),
+          ),
         ],
       ),
     );
