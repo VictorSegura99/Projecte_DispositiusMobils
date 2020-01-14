@@ -21,7 +21,10 @@ class _SettingsState extends State<Settings> {
   }
 
   List<String> profile_pictures;
-
+  TextEditingController new_nickname;
+  TextEditingController password;
+  TextEditingController new_password;
+  TextEditingController new_password2;
   @override
   void initState() {
     loadprofilepictures();
@@ -31,10 +34,224 @@ class _SettingsState extends State<Settings> {
   void loadprofilepictures() {
     setState(() {
       profile_pictures = new List<String>();
+      new_nickname = new TextEditingController();
+      password = new TextEditingController();
+      new_password = new TextEditingController();
+      new_password2 = new TextEditingController();
       profile_pictures.add('assets/default_image.png');
       profile_pictures.add('assets/creeper.jpg');
       profile_pictures.add('assets/bee_minecraft.png');
     });
+  }
+
+  _nicknamechange() async {
+    if (password.text == userData.userPassword) {
+      DocumentSnapshot docNum =
+          await Firestore.instance.collection('Users').document('Number').get();
+      int num = docNum.data['Num'];
+      DocumentSnapshot documents =
+          await Firestore.instance.collection('Users').document('Mails').get();
+      List<String> emails = new List<String>();
+      for (int i = 1; i <= num; ++i) {
+        emails.add(documents.data['mail$i']);
+      }
+      for (int i = 0; i < emails.length; ++i) {
+        if ((await Firestore.instance
+                    .collection('Users')
+                    .document(emails[i])
+                    .get())
+                .data['name'] ==
+            new_nickname.text) {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => AlertDialog(
+              title: Text('Error'),
+              content: Text('The nickname is already used!'),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text('CONFIRM'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            ),
+          );
+          return;
+        }
+      }
+
+      Firestore.instance
+          .collection('Users')
+          .document(userData.userEmail)
+          .updateData({'name': new_nickname.text});
+      userData.userName = new_nickname.text;
+      Navigator.of(context).pop();
+    } else {
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => AlertDialog(
+          title: Text('Error'),
+          content: Text('Password is incorrect!'),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('CONFIRM'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
+  changeNickname() {
+    password.text='';
+    new_nickname.text='';
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: Colors.white,
+        title: Text('Change Nickname'),
+        content: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+        child: Container(
+            height: 120,
+            child: Column(
+              children: <Widget>[
+                TextField(
+                  decoration: InputDecoration(
+                      hintText: 'New Nickname', labelText: 'New Nickname'),
+                  controller: new_nickname,
+                ),
+                TextField(
+                  decoration: InputDecoration(
+                      hintText: 'Current Password',
+                      labelText: 'Current Password'),
+                  controller: password,
+                  obscureText: true,
+                ),
+              ],
+            ),
+          ),
+        ),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('CANCEL'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          FlatButton(
+              child: Text('ACCEPT'),
+              onPressed: () {
+                _nicknamechange();
+              }),
+        ],
+      ),
+    );
+  }
+
+  changePassword() {
+    password=new TextEditingController();
+    new_password=new TextEditingController();
+    new_password2=new TextEditingController();
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: Colors.white,
+        title: Text('Change Nickname'),
+        content: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+        child: Container(
+            height: 180,
+            child: Column(
+              children: <Widget>[
+                TextField(
+                  decoration: InputDecoration(
+                      hintText: 'Current Password',
+                      labelText: 'Current Password'),
+                  controller: password,
+                  obscureText: true,
+                ),
+                TextField(
+                  decoration: InputDecoration(
+                      hintText: 'New Password', labelText: 'New Password'),
+                  controller: new_password,
+                  obscureText: true,
+                ),
+                TextField(
+                  decoration: InputDecoration(
+                      hintText: 'Repeat New Password',
+                      labelText: 'Repeat New Password'),
+                  controller: new_password2,
+                  obscureText: true,
+                ),
+              ],
+            ),
+          ),
+        ),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('CANCEL'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          FlatButton(
+            child: Text('ACCEPT'),
+            onPressed: () {
+              if (password.text == userData.userPassword &&
+                  (new_password.text == new_password2.text)) {
+                Firestore.instance
+                    .collection('Users')
+                    .document(userData.userEmail)
+                    .updateData({'password': new_password.text});
+                userData.userPassword = new_password.text;
+                Navigator.of(context).pop();
+              } else if (password.text != userData.userPassword) {
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (context) => AlertDialog(
+                    title: Text('Error'),
+                    content: Text('Password is incorrect!'),
+                    actions: <Widget>[
+                      FlatButton(
+                        child: Text('CONFIRM'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  ),
+                );
+              } else {
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (context) => AlertDialog(
+                    title: Text('Error'),
+                    content: Text('New passwords does not match! :('),
+                    actions: <Widget>[
+                      FlatButton(
+                        child: Text('CONFIRM'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  ),
+                );
+              }
+            },
+          ),
+        ],
+      ),
+    );
   }
 
   changephoto() {
@@ -52,9 +269,7 @@ class _SettingsState extends State<Settings> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                SizedBox(
-                  height: 10
-                ),
+                SizedBox(height: 10),
                 Container(
                   height: 250,
                   width: 300,
@@ -536,6 +751,7 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         backgroundColor: userData.buttonBarColor,
         title: Text('Profile'),
@@ -658,7 +874,7 @@ class _SettingsState extends State<Settings> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(18)),
                         onPressed: () {
-                          changephoto();
+                          changePassword();
                         },
                       ),
                     ),
@@ -696,7 +912,7 @@ class _SettingsState extends State<Settings> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(18)),
                         onPressed: () {
-                          changephoto();
+                          changeNickname();
                         },
                       ),
                     ),
