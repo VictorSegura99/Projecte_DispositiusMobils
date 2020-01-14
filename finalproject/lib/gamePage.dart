@@ -131,33 +131,44 @@ class _GamePageState extends State<GamePage> {
                         color: Colors.blue,
                         image: DecorationImage(
                           fit: BoxFit.fill,
-                          image: ExactAssetImage(comments[i].answers[j].userPicture),
+                          image: ExactAssetImage(
+                              comments[i].answers[j].userPicture),
                         ),
                       ),
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(8, 8, 65, 0),
-                  child: Container(
-                    child: Align(
-                      alignment: Alignment.topRight,
-                      child: Text(
-                      comments[i].answers[j].userName,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500
+                Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(8, 11, 65, 0),
+                      child: Container(
+                        child: Align(
+                          alignment: Alignment.topRight,
+                          child: Text(
+                            comments[i].answers[j].userName,
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w500),
+                          ),
+                        ),
                       ),
-                  ),
                     ),
-                  ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(8, 5, 68, 8),
+                      child: Container(
+                        child: Align(
+                          alignment: Alignment.topRight,
+                          child: Text(comments[i].answers[j].comment),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
           );
         }
-      }
-      else {
+      } else {
         answers = new List<Widget>();
         answers.add(Container());
       }
@@ -208,24 +219,19 @@ class _GamePageState extends State<GamePage> {
                           child: Text(
                             comments[i].userName,
                             style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500
-                            ),
+                                fontSize: 16, fontWeight: FontWeight.w500),
                           ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(68, 30, 8, 0),
                         child: Align(
-                          alignment: Alignment.topLeft,
-                          child: Text(comments[i].comment)
-                        ),
+                            alignment: Alignment.topLeft,
+                            child: Text(comments[i].comment)),
                       ),
                     ],
                   ),
-                  Column(
-                    children: answers
-                  ),
+                  Column(children: answers),
                 ],
               ),
             ),
