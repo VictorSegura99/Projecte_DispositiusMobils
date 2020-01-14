@@ -7,6 +7,38 @@
         {
             "Name": "For the King",
             "Image": "assets/images/ForTheKing.jpg"
+        },
+        {
+            "Name": "Binding of Isaac",
+            "Image": "assets/gridIsaac.jpg"
+        },
+        {
+            "Name": "OverWatch",
+            "Image": "assets/gridOver.jpg"
+        },
+        {
+            "Name": "Alien Earth",
+            "Image": "assets/gridHollow.jpg"
+        },
+        {
+            "Name": "Hollow Knight",
+            "Image": "assets/gridHollow.jpg"
+        },
+        {
+            "Name": "Sekiro",
+            "Image": "assets/gridSekiro.jpg"
+        },
+        {
+            "Name": "Civilization VI",
+            "Image": "assets/gridCivil.jpeg"
+        },
+        {
+            "Name": "Terraria",
+            "Image": "assets/gridTerraria.jpg"
+        },
+        {
+            "Name": "Celeste",
+            "Image": "assets/gridCeleste.jpg"
         }
     ]
 }

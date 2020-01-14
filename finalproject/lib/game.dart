@@ -36,6 +36,7 @@ class Game {
         data[allGames[i].name] = false;
       }
       Firestore.instance.collection('Favorites').document(userData.userEmail).setData(data);
+      refresh();
     }
     else {
       DocumentSnapshot documents = await Firestore.instance.collection('Favorites').document(userData.userEmail).get();
