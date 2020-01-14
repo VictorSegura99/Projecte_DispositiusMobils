@@ -289,7 +289,7 @@ class _GamePageState extends State<GamePage> {
       context: context,
       barrierDismissible: false,
       builder: (context) => AlertDialog(
-        backgroundColor: userData.buttonBarColor,
+        backgroundColor: Colors.white,
         title: Text('New Comment'),
         content: Container(
           child: TextField(
@@ -307,6 +307,7 @@ class _GamePageState extends State<GamePage> {
           FlatButton(
             child: Text('MAKE COMMENT'),
             onPressed: () async {
+              if (controller.text.isNotEmpty) {
               DocumentSnapshot docNum = await Firestore.instance.collection('Comments').document(game.name).get();
               int numComments = 0;
               if (docNum.exists) {
@@ -332,6 +333,7 @@ class _GamePageState extends State<GamePage> {
               }
               loadcomments();
               Navigator.of(context).pop();
+              }
             },
           ),
         ],
