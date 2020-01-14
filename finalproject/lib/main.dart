@@ -75,7 +75,7 @@ class GamesBookShelf extends StatelessWidget {
     return Expanded(
       flex: 10,
       child: Container(
-        color: Colors.black87,
+        color: userData.buttonBarColor,
         child: Padding(
           padding: EdgeInsets.only(bottom: 7),
           child: Row(

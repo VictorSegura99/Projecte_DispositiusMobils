@@ -31,7 +31,7 @@ class _PeopleFavState extends State<PeopleFav> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('People Favorites'),
-        backgroundColor: Colors.black87,
+        backgroundColor: userData.buttonBarColor,
         actions: <Widget>[
           GamesBookShelf.settings(context, userData),
         ],

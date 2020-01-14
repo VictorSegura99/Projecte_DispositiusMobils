@@ -96,7 +96,7 @@ class _SettingsState extends State<Settings> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black87,
+        backgroundColor: userData.buttonBarColor,
         title: Text('Profile'),
         actions: <Widget>[
           GamesBookShelf.settings(context, userData, inSettings: true),
@@ -422,7 +422,7 @@ class _SettingsState extends State<Settings> {
                                       width: 50,
                                       height: 50,
                                       child: FlatButton(
-                                        color: Colors.red,
+                                        color: Colors.grey[900],
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(500),
@@ -431,12 +431,12 @@ class _SettingsState extends State<Settings> {
                                         child: null,
                                         onPressed: () {
                                           setState(() {
-                                            userData.mainColor = Colors.red;
+                                            userData.buttonBarColor = Colors.black87;
                                             Firestore.instance
                                                 .collection('Users')
                                                 .document(userData.userEmail)
                                                 .updateData(
-                                                    {'mainColor': 'red'});
+                                                    {'buttonBarColor': 'grey'});
                                           });
                                           Navigator.of(context).pop();
                                         },
@@ -446,7 +446,7 @@ class _SettingsState extends State<Settings> {
                                       width: 50,
                                       height: 50,
                                       child: FlatButton(
-                                        color: Colors.green,
+                                        color: Colors.green[900],
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(500),
@@ -455,12 +455,12 @@ class _SettingsState extends State<Settings> {
                                         child: null,
                                         onPressed: () {
                                           setState(() {
-                                            userData.mainColor = Colors.green;
+                                            userData.buttonBarColor = Colors.green[900];
                                             Firestore.instance
                                                 .collection('Users')
                                                 .document(userData.userEmail)
                                                 .updateData(
-                                                    {'mainColor': 'green'});
+                                                    {'buttonBarColor': 'green'});
                                           });
                                           Navigator.of(context).pop();
                                         },
@@ -470,7 +470,7 @@ class _SettingsState extends State<Settings> {
                                       width: 50,
                                       height: 50,
                                       child: FlatButton(
-                                        color: Colors.blue,
+                                        color: Colors.blueGrey[900],
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(500),
@@ -479,12 +479,12 @@ class _SettingsState extends State<Settings> {
                                         child: null,
                                         onPressed: () {
                                           setState(() {
-                                            userData.mainColor = Colors.blue;
+                                            userData.buttonBarColor = Colors.blueGrey[900];
                                             Firestore.instance
                                                 .collection('Users')
                                                 .document(userData.userEmail)
                                                 .updateData(
-                                                    {'mainColor': 'blue'});
+                                                    {'buttonBarColor': 'blue'});
                                           });
                                           Navigator.of(context).pop();
                                         },
@@ -494,7 +494,7 @@ class _SettingsState extends State<Settings> {
                                       width: 50,
                                       height: 50,
                                       child: FlatButton(
-                                        color: Colors.pink,
+                                        color: Colors.purple[900],
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(500),
@@ -503,12 +503,12 @@ class _SettingsState extends State<Settings> {
                                         child: null,
                                         onPressed: () {
                                           setState(() {
-                                            userData.mainColor = Colors.pink;
+                                            userData.buttonBarColor = Colors.purple[900];
                                             Firestore.instance
                                                 .collection('Users')
                                                 .document(userData.userEmail)
                                                 .updateData(
-                                                    {'mainColor': 'pink'});
+                                                    {'buttonBarColor': 'purple'});
                                           });
                                           Navigator.of(context).pop();
                                         },
@@ -518,7 +518,7 @@ class _SettingsState extends State<Settings> {
                                       width: 50,
                                       height: 50,
                                       child: FlatButton(
-                                        color: Colors.yellow,
+                                        color: Colors.black,
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(500),
@@ -527,12 +527,12 @@ class _SettingsState extends State<Settings> {
                                         child: null,
                                         onPressed: () {
                                           setState(() {
-                                            userData.mainColor = Colors.yellow;
+                                            userData.buttonBarColor = Colors.black;
                                             Firestore.instance
                                                 .collection('Users')
                                                 .document(userData.userEmail)
                                                 .updateData(
-                                                    {'mainColor': 'yellow'});
+                                                    {'buttonBarColor': 'black'});
                                           });
                                           Navigator.of(context).pop();
                                         },

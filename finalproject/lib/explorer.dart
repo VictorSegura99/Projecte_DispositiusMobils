@@ -41,7 +41,7 @@ class _GamesExplorerState extends State<GamesExplorer> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('Games Explorer'),
-        backgroundColor: Colors.black87,
+        backgroundColor: userData.buttonBarColor,
         actions: <Widget>[
           GamesBookShelf.settings(context, userData),
         ],

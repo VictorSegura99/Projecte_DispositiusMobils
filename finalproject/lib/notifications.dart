@@ -31,7 +31,7 @@ class _NotificationsState extends State<Notifications> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('Notifications'),
-        backgroundColor: Colors.black87,
+        backgroundColor: userData.buttonBarColor,
         actions: <Widget>[
           GamesBookShelf.settings(context, userData),
         ],

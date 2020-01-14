@@ -35,7 +35,7 @@ class _FavState extends State<Fav> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('Favorite Games'),
-        backgroundColor: Colors.black87,
+        backgroundColor: userData.buttonBarColor,
         actions: <Widget>[
           GamesBookShelf.settings(context, userData),
         ],
