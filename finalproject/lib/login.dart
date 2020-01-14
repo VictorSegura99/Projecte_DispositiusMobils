@@ -65,6 +65,23 @@ class _LogInState extends State<LogIn> {
           else if (col == 'yellow') {
             userData.mainColor = Colors.yellow;
           }
+
+          col= list[i].data['backgroundColor'];
+          if (col == 'blue') {
+            userData.backgroundColor = Colors.blue;
+          }
+          else if (col == 'orange') {
+            userData.backgroundColor = Colors.orange[200];
+          }
+          else if (col == 'green') {
+            userData.backgroundColor = Colors.green[200];
+          }
+          else if (col == 'pink') {
+            userData.backgroundColor = Colors.pink[100];
+          }
+          else if (col == 'black') {
+            userData.backgroundColor = Colors.black54;
+          }
           success = true;
           break;
         }

@@ -5,19 +5,16 @@ import 'game.dart';
 import 'main.dart';
 
 class Fav extends StatefulWidget {
-
   final UserData userData;
 
   Fav(this.userData);
 
   @override
   _FavState createState() => _FavState(userData);
-
 }
 
 class _FavState extends State<Fav> {
-
-   UserData userData;
+  UserData userData;
 
   _FavState(UserData userData) {
     this.userData = userData;
@@ -29,7 +26,7 @@ class _FavState extends State<Fav> {
   }
 
   void refresh() {
-    setState((){});
+    setState(() {});
   }
 
   @override
@@ -48,7 +45,9 @@ class _FavState extends State<Fav> {
           Expanded(
               flex: 80,
               child: Container(
-                color: Colors.black54,child: GamesBookShelf.games_grid(Game.favGames, refresh, userData))),
+                  color: userData.backgroundColor,
+                  child: GamesBookShelf.games_grid(
+                      Game.favGames, refresh, userData))),
           GamesBookShelf.mainbottombar(BarActive.Favs, context, userData),
         ],
       ),

@@ -52,7 +52,7 @@ class _GamesExplorerState extends State<GamesExplorer> {
           Expanded(
             flex: 80,
             child: Container(
-                color: Colors.black54,
+                color: userData.backgroundColor,
                 child: GamesBookShelf.games_grid(Game.allGames, refresh, userData)),
           ),
           GamesBookShelf.mainbottombar(BarActive.Home, context, userData),

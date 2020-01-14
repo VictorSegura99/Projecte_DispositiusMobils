@@ -43,7 +43,7 @@ class _PeopleFavState extends State<PeopleFav> {
             child: Stack(
               children: <Widget>[
                 Container(
-                color: Colors.black54,
+                color: userData.backgroundColor,
                 ),
                 StreamBuilder(
                   stream: Firestore.instance.collection('Users').snapshots(),

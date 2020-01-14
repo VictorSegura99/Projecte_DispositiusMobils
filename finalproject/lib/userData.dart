@@ -9,5 +9,7 @@ class UserData {
   String userProfilePicture;
   int numFavs;
   Color mainColor;
+  Color backgroundColor;
+  Color buttonBarColor;
 }
 

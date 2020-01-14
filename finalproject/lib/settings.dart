@@ -116,117 +116,437 @@ class _SettingsState extends State<Settings> {
             ),
             FlatButton(
               color: Colors.blue,
-              child: Text('Choose Main Color'),
+              child: Text('Personalize App Colors'),
               onPressed: () {
                 showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
-                    backgroundColor: Colors.black54,
+                    backgroundColor: Colors.grey[900],
                     title: Center(
-                      child: Text('Choose your main color',style: TextStyle(color: Colors.white70),),
-                    ),
-                    content: Container(
-                        child: Row(
-                          children: <Widget>[
-                            SizedBox(
-                              width: 50,
-                              height: 50,
-                              child: FlatButton(
-                                color: Colors.red,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(500),
-                                    side: BorderSide(
-                                        color: Colors.white, width: 3)),
-                                child: null,
-                                onPressed: () {
-                                  setState(() {
-                                    userData.mainColor = Colors.red;
-                                    Firestore.instance.collection('Users').document(userData.userEmail).updateData({'mainColor' : 'red'});
-                                  });
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ),
-                            SizedBox(
-                              width: 50,
-                              height: 50,
-                              child: FlatButton(
-                                color: Colors.green,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(500),
-                                    side: BorderSide(
-                                        color: Colors.white, width: 3)),
-                                child: null,
-                                onPressed: () {
-                                  setState(() {
-                                    userData.mainColor = Colors.green;
-                                    Firestore.instance.collection('Users').document(userData.userEmail).updateData({'mainColor' : 'green'});
-                                  });
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ),
-                            SizedBox(
-                              width: 50,
-                              height: 50,
-                              child: FlatButton(
-                                color: Colors.blue,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(500),
-                                    side: BorderSide(
-                                        color: Colors.white, width: 3)),
-                                child: null,
-                                onPressed: () {
-                                  setState(() {
-                                    userData.mainColor = Colors.blue;
-                                    Firestore.instance.collection('Users').document(userData.userEmail).updateData({'mainColor' : 'blue'});
-                                  });
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ),
-                            SizedBox(
-                              width: 50,
-                              height: 50,
-                              child: FlatButton(
-                                color: Colors.pink,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(500),
-                                    side: BorderSide(
-                                        color: Colors.white, width: 3)),
-                                child: null,
-                                onPressed: () {
-                                  setState(() {
-                                    userData.mainColor = Colors.pink;
-                                    Firestore.instance.collection('Users').document(userData.userEmail).updateData({'mainColor' : 'pink'});
-                                  });
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ),
-                            SizedBox(
-                              width: 50,
-                              height: 50,
-                              child: FlatButton(
-                                color: Colors.yellow,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(500),
-                                    side: BorderSide(
-                                        color: Colors.white, width: 3)),
-                                child: null,
-                                onPressed: () {
-                                  setState(() {
-                                    userData.mainColor = Colors.yellow;
-                                    Firestore.instance.collection('Users').document(userData.userEmail).updateData({'mainColor' : 'yellow'});
-                                  });
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
+                      child: Text(
+                        'Choose your Colors',
+                        style: TextStyle(color: Colors.white, fontSize: 28),
                       ),
                     ),
+                    content: Container(
+                      height: 270,
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            child: Column(
+                              children: <Widget>[
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
+                                  child: Text(
+                                    "Main Color",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    SizedBox(
+                                      width: 50,
+                                      height: 50,
+                                      child: FlatButton(
+                                        color: Colors.red,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(500),
+                                            side: BorderSide(
+                                                color: Colors.white, width: 3)),
+                                        child: null,
+                                        onPressed: () {
+                                          setState(() {
+                                            userData.mainColor = Colors.red;
+                                            Firestore.instance
+                                                .collection('Users')
+                                                .document(userData.userEmail)
+                                                .updateData(
+                                                    {'mainColor': 'red'});
+                                          });
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 50,
+                                      height: 50,
+                                      child: FlatButton(
+                                        color: Colors.green,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(500),
+                                            side: BorderSide(
+                                                color: Colors.white, width: 3)),
+                                        child: null,
+                                        onPressed: () {
+                                          setState(() {
+                                            userData.mainColor = Colors.green;
+                                            Firestore.instance
+                                                .collection('Users')
+                                                .document(userData.userEmail)
+                                                .updateData(
+                                                    {'mainColor': 'green'});
+                                          });
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 50,
+                                      height: 50,
+                                      child: FlatButton(
+                                        color: Colors.blue,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(500),
+                                            side: BorderSide(
+                                                color: Colors.white, width: 3)),
+                                        child: null,
+                                        onPressed: () {
+                                          setState(() {
+                                            userData.mainColor = Colors.blue;
+                                            Firestore.instance
+                                                .collection('Users')
+                                                .document(userData.userEmail)
+                                                .updateData(
+                                                    {'mainColor': 'blue'});
+                                          });
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 50,
+                                      height: 50,
+                                      child: FlatButton(
+                                        color: Colors.pink,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(500),
+                                            side: BorderSide(
+                                                color: Colors.white, width: 3)),
+                                        child: null,
+                                        onPressed: () {
+                                          setState(() {
+                                            userData.mainColor = Colors.pink;
+                                            Firestore.instance
+                                                .collection('Users')
+                                                .document(userData.userEmail)
+                                                .updateData(
+                                                    {'mainColor': 'pink'});
+                                          });
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 50,
+                                      height: 50,
+                                      child: FlatButton(
+                                        color: Colors.yellow,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(500),
+                                            side: BorderSide(
+                                                color: Colors.white, width: 3)),
+                                        child: null,
+                                        onPressed: () {
+                                          setState(() {
+                                            userData.mainColor = Colors.yellow;
+                                            Firestore.instance
+                                                .collection('Users')
+                                                .document(userData.userEmail)
+                                                .updateData(
+                                                    {'mainColor': 'yellow'});
+                                          });
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            child: Column(
+                              children: <Widget>[
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(0, 20, 0, 5),
+                                  child: Text(
+                                    "Background Color",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    SizedBox(
+                                      width: 50,
+                                      height: 50,
+                                      child: FlatButton(
+                                        color: Colors.pink[100],
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(500),
+                                            side: BorderSide(
+                                                color: Colors.white, width: 3)),
+                                        child: null,
+                                        onPressed: () {
+                                          setState(() {
+                                            userData.backgroundColor = Colors.pink[100];
+                                            Firestore.instance
+                                                .collection('Users')
+                                                .document(userData.userEmail)
+                                                .updateData(
+                                                    {'backgroundColor': 'pink'});
+                                          });
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 50,
+                                      height: 50,
+                                      child: FlatButton(
+                                        color: Colors.green[200],
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(500),
+                                            side: BorderSide(
+                                                color: Colors.white, width: 3)),
+                                        child: null,
+                                        onPressed: () {
+                                          setState(() {
+                                            userData.backgroundColor = Colors.green[200];
+                                            Firestore.instance
+                                                .collection('Users')
+                                                .document(userData.userEmail)
+                                                .updateData(
+                                                    {'backgroundColor': 'green'});
+                                          });
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 50,
+                                      height: 50,
+                                      child: FlatButton(
+                                        color: Colors.blue[200],
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(500),
+                                            side: BorderSide(
+                                                color: Colors.white, width: 3)),
+                                        child: null,
+                                        onPressed: () {
+                                          setState(() {
+                                            userData.backgroundColor = Colors.blue[200];
+                                            Firestore.instance
+                                                .collection('Users')
+                                                .document(userData.userEmail)
+                                                .updateData(
+                                                    {'backgroundColor': 'blue'});
+                                          });
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 50,
+                                      height: 50,
+                                      child: FlatButton(
+                                        color: Colors.orange[200],
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(500),
+                                            side: BorderSide(
+                                                color: Colors.white, width: 3)),
+                                        child: null,
+                                        onPressed: () {
+                                          setState(() {
+                                            userData.backgroundColor = Colors.orange[200];
+                                            Firestore.instance
+                                                .collection('Users')
+                                                .document(userData.userEmail)
+                                                .updateData(
+                                                    {'backgroundColor': 'orange'});
+                                          });
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 50,
+                                      height: 50,
+                                      child: FlatButton(
+                                        color: Colors.grey[700],
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(500),
+                                            side: BorderSide(
+                                                color: Colors.white, width: 3)),
+                                        child: null,
+                                        onPressed: () {
+                                          setState(() {
+                                            userData.backgroundColor = Colors.black54;
+                                            Firestore.instance
+                                                .collection('Users')
+                                                .document(userData.userEmail)
+                                                .updateData(
+                                                    {'backgroundColor': 'black'});
+                                          });
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            child: Column(
+                              children: <Widget>[
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(0, 20, 0, 5),
+                                  child: Text(
+                                    "ButtonBar Color",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    SizedBox(
+                                      width: 50,
+                                      height: 50,
+                                      child: FlatButton(
+                                        color: Colors.red,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(500),
+                                            side: BorderSide(
+                                                color: Colors.white, width: 3)),
+                                        child: null,
+                                        onPressed: () {
+                                          setState(() {
+                                            userData.mainColor = Colors.red;
+                                            Firestore.instance
+                                                .collection('Users')
+                                                .document(userData.userEmail)
+                                                .updateData(
+                                                    {'mainColor': 'red'});
+                                          });
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 50,
+                                      height: 50,
+                                      child: FlatButton(
+                                        color: Colors.green,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(500),
+                                            side: BorderSide(
+                                                color: Colors.white, width: 3)),
+                                        child: null,
+                                        onPressed: () {
+                                          setState(() {
+                                            userData.mainColor = Colors.green;
+                                            Firestore.instance
+                                                .collection('Users')
+                                                .document(userData.userEmail)
+                                                .updateData(
+                                                    {'mainColor': 'green'});
+                                          });
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 50,
+                                      height: 50,
+                                      child: FlatButton(
+                                        color: Colors.blue,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(500),
+                                            side: BorderSide(
+                                                color: Colors.white, width: 3)),
+                                        child: null,
+                                        onPressed: () {
+                                          setState(() {
+                                            userData.mainColor = Colors.blue;
+                                            Firestore.instance
+                                                .collection('Users')
+                                                .document(userData.userEmail)
+                                                .updateData(
+                                                    {'mainColor': 'blue'});
+                                          });
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 50,
+                                      height: 50,
+                                      child: FlatButton(
+                                        color: Colors.pink,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(500),
+                                            side: BorderSide(
+                                                color: Colors.white, width: 3)),
+                                        child: null,
+                                        onPressed: () {
+                                          setState(() {
+                                            userData.mainColor = Colors.pink;
+                                            Firestore.instance
+                                                .collection('Users')
+                                                .document(userData.userEmail)
+                                                .updateData(
+                                                    {'mainColor': 'pink'});
+                                          });
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 50,
+                                      height: 50,
+                                      child: FlatButton(
+                                        color: Colors.yellow,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(500),
+                                            side: BorderSide(
+                                                color: Colors.white, width: 3)),
+                                        child: null,
+                                        onPressed: () {
+                                          setState(() {
+                                            userData.mainColor = Colors.yellow;
+                                            Firestore.instance
+                                                .collection('Users')
+                                                .document(userData.userEmail)
+                                                .updateData(
+                                                    {'mainColor': 'yellow'});
+                                          });
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 );
               },
             )

@@ -41,7 +41,7 @@ class _NotificationsState extends State<Notifications> {
           Expanded(
               flex: 80,
               child: Container(
-                color: Colors.black54,
+                color: userData.backgroundColor,
               )),
           GamesBookShelf.mainbottombar(BarActive.Noti, context, userData),
         ],

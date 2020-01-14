@@ -102,7 +102,9 @@ class _RegisterPageState extends State<RegisterPage> {
         'password': passwordController.text,
         'profilePicture': 'none',
         'numFavs': 0,
-        'mainColor': 'blue'
+        'mainColor': 'blue',
+        'backgroundColor': 'black',
+        'buttonBarColor': 'black'
       };
       Firestore.instance
           .collection('Users')
@@ -127,7 +129,9 @@ class _RegisterPageState extends State<RegisterPage> {
       userData.userProfilePicture = 'assets/default_image.png';
       userData.numFavs = 0;
       userData.mainColor = Colors.blue;
-
+      userData.backgroundColor = Colors.black54;
+      userData.buttonBarColor = Colors.black87;
+      
       GamesExplorer.newUser = true;
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => GamesExplorer(userData)),
