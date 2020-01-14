@@ -104,7 +104,7 @@ class _RegisterPageState extends State<RegisterPage> {
         'numFavs': 0,
         'mainColor': 'blue',
         'backgroundColor': 'black',
-        'buttonBarColor': 'black'
+        'buttonBarColor': 'grey'
       };
       Firestore.instance
           .collection('Users')
