@@ -187,6 +187,20 @@ class GamesBookShelf extends StatelessWidget {
     );
   }
 
+  static List<String> getbackgrounds() {
+    List<String> backgrounds = new List<String>();
+    backgrounds.add("assets/images/log_minecraft.jpg");
+    backgrounds.add("assets/images/Log_ForTheKing.png");
+    backgrounds.add("assets/introIsaac.jpg");
+    backgrounds.add("assets/introOver.jpg");
+    backgrounds.add("assets/introSekiro.jpg");
+    backgrounds.add("assets/introCivil.jpg");
+    backgrounds.add("assets/introTerraria.jpg");
+    backgrounds.add("assets/introCeleste.jpg");
+    backgrounds.add("assets/introHollow.png");
+    return backgrounds;
+  }
+
   static GridView games_grid(
       List<Game> gamesList, Function refresh, UserData userData,
       {bool canEdit = true}) {
