@@ -263,7 +263,7 @@ class _GamePageState extends State<GamePage> {
                           color: Colors.black,
                           textColor: Colors.white,
                           onPressed: () {
-                            
+                            addanswer(i);
                           },
                         ),
                       ),
@@ -294,7 +294,10 @@ class _GamePageState extends State<GamePage> {
         content: Container(
           child: TextField(
             controller: controller,
-
+            decoration: InputDecoration(
+              labelText: 'Write your comment', 
+              hintText: 'Comment'
+            ),
           ),
         ),
         actions: <Widget>[
@@ -324,6 +327,62 @@ class _GamePageState extends State<GamePage> {
                 'numAnswers' : 0
               };
               Firestore.instance.collection('Comments').document(game.name).collection('CommentsData').document(numComments.toString()).setData(data);
+              if (comments != null) {
+                setState(() {
+                  commentsLoaded = false;
+                  comments.clear();
+                  comments = null;
+                });
+              }
+              loadcomments();
+              Navigator.of(context).pop();
+              }
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  void addanswer(int comment) {
+    int comment_ = comment+1;
+    TextEditingController controller = new TextEditingController();
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        backgroundColor: Colors.white,
+        title: Text('New Answer'),
+        content: Container(
+          child: TextField(
+            controller: controller,
+            decoration: InputDecoration(
+              labelText: 'Write your answer', 
+              hintText: 'Answer'
+            ),
+          ),
+        ),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('CANCEL'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          FlatButton(
+            child: Text('MAKE COMMENT'),
+            onPressed: () async {
+              if (controller.text.isNotEmpty) {
+              DocumentSnapshot docNum = await Firestore.instance.collection('Comments').document(game.name).collection('CommentsData').document(comment_.toString()).get();
+              int numAnswers = 0;
+              numAnswers = docNum.data['numAnswers'] + 1;
+              Firestore.instance.collection('Comments').document(game.name).collection('CommentsData').document(comment_.toString()).updateData({'numAnswers' : numAnswers});
+              Map<String, dynamic> data = {
+                'answerBy' : userData.userEmail,
+                'comment' : controller.text,
+                'numAnswers' : 0
+              };
+              Firestore.instance.collection('Comments').document(game.name).collection('CommentsData').document(comment_.toString()).collection('AnswersData').document(numAnswers.toString()).setData(data);
               if (comments != null) {
                 setState(() {
                   commentsLoaded = false;
