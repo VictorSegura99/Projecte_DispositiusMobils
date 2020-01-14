@@ -270,10 +270,10 @@ class GamesBookShelf extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 120, top: 90),
-                    child: (canEdit) ?
-                      IconButton(
+                  Align(
+                  alignment: Alignment.topRight,
+                  child: (canEdit) ?
+                  IconButton(
                         icon: favIcon,
                         onPressed: () {
                           if (gamesList[index].icon == Icons.favorite_border) {
@@ -303,14 +303,11 @@ class GamesBookShelf extends StatelessWidget {
                           }
                           refresh();
                         })
-                      : Padding(
-                        padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
-                        child: Icon(
+                      : Icon(
                           Icons.favorite,
                           size: 30,
                           color: Colors.red[300],
                         ),
-                      ),
                   ),
                 ],
               ),
