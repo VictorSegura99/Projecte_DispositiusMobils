@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'main.dart';
+import 'peoplelistfav.dart';
 import 'userData.dart';
 
 class PeopleFav extends StatefulWidget {
@@ -162,7 +163,8 @@ class _PeopleFavState extends State<PeopleFav> {
                                       borderSide: BorderSide(width: 2),
                                       highlightedBorderColor: Colors.black,
                                       onPressed: () {
-                                        
+                                        Navigator.push(
+                                          context, SlideRightRoute(0, 1, page: PeopleListFav(docs[index].documentID, data['name'], userData)));
                                       },
                                     ),
                                   ),

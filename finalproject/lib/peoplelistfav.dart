@@ -7,11 +7,13 @@ import 'main.dart';
 class PeopleListFav extends StatefulWidget {
 
   final String email;
+  final String name;
+  final UserData userData;
 
-  PeopleListFav(this.email);
+  PeopleListFav(this.email, this.name, this.userData);
 
   @override
-  _PeopleListFavState createState() => _PeopleListFavState(email);
+  _PeopleListFavState createState() => _PeopleListFavState(email, name, userData);
 
 }
 
@@ -19,9 +21,13 @@ class _PeopleListFavState extends State<PeopleListFav> {
 
    String email;
    bool favLoaded = false;
+   String name;
+   UserData userData;
 
-  _PeopleListFavState(String userData) {
-    this.email = userData;
+  _PeopleListFavState(String email, String name, UserData userData) {
+    this.email = email;
+    this.name = name;
+    this.userData = userData;
   }
 
   @override
@@ -38,7 +44,7 @@ class _PeopleListFavState extends State<PeopleListFav> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Favourite Games'),
+        title: Text('$name favourites games'),
         backgroundColor: Colors.black87,
       ),
       body: Column(
