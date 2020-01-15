@@ -88,7 +88,10 @@ class _SettingsState extends State<Settings> {
           .collection('Users')
           .document(userData.userEmail)
           .updateData({'name': new_nickname.text});
-      userData.userName = new_nickname.text;
+      setState(() {
+         userData.userName = new_nickname.text;
+        title_profile = '${userData.userName} Profile';
+      });
       Navigator.of(context).pop();
     } else {
       showDialog(
@@ -151,9 +154,6 @@ class _SettingsState extends State<Settings> {
               child: Text('ACCEPT'),
               onPressed: () {
                 _nicknamechange();
-                setState(() {
-                  title_profile = '${userData.userName} Profile';
-                });
               }),
         ],
       ),
@@ -766,7 +766,26 @@ class _SettingsState extends State<Settings> {
       ),
       backgroundColor: userData.backgroundColor,
       body: Column(
+        
             children: <Widget>[
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: Container(
+                  width: 120,
+                  height: 25,
+                  decoration: BoxDecoration(
+                    color: Color.fromRGBO(255, 255, 255, 0.9),
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Colors.black,width: 1),
+                  ),
+                  child: Center(
+                    child: Text(
+                      title_profile,
+                      style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),
+                    ),
+                  ),
+                ),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -854,18 +873,21 @@ class _SettingsState extends State<Settings> {
                         ),
                         child: FlatButton(
                           color: Colors.white,
-                          child: Column(
-                              children: <Widget>[
-                                Text(
-                                  'Change',
-                                  style: TextStyle(fontSize: 21),
-                                ),
-                                Text(
-                                  'Password',
-                                  style: TextStyle(fontSize: 21),
-                                )
-                              ],
-                            ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 45),
+                            child: Column(
+                                children: <Widget>[
+                                  Text(
+                                    'Change',
+                                    style: TextStyle(fontSize: 21),
+                                  ),
+                                  Text(
+                                    'Password',
+                                    style: TextStyle(fontSize: 21),
+                                  )
+                                ],
+                              ),
+                          ),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(18)),
                           onPressed: () {
@@ -887,20 +909,23 @@ class _SettingsState extends State<Settings> {
                         ),
                         child: FlatButton(
                           color: Colors.black87,
-                          child: Column(
-                              children: <Widget>[
-                                Text(
-                                  'Change',
-                                  style: TextStyle(
-                                      fontSize: 21, color: Colors.white),
-                                ),
-                                Text(
-                                  'Nickname',
-                                  style: TextStyle(
-                                      fontSize: 21, color: Colors.white),
-                                )
-                              ],
-                            ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 45),
+                            child: Column(
+                                children: <Widget>[
+                                  Text(
+                                    'Change',
+                                    style: TextStyle(
+                                        fontSize: 21, color: Colors.white),
+                                  ),
+                                  Text(
+                                    'Nickname',
+                                    style: TextStyle(
+                                        fontSize: 21, color: Colors.white),
+                                  )
+                                ],
+                              ),
+                          ),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(18)),
                           onPressed: () {
