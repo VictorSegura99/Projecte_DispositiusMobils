@@ -1,7 +1,7 @@
 {
     "Games": [
         {
-            "Name": "Minecraft",
+            "Name": " Minecraft ",
             "Image": "assets/images/minecraft.png"
         },
         {
@@ -13,7 +13,7 @@
             "Image": "assets/gridIsaac.jpg"
         },
         {
-            "Name": "OverWatch",
+            "Name": "Overwatch",
             "Image": "assets/gridOver.jpg"
         },
         {
