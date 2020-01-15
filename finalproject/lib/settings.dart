@@ -25,6 +25,7 @@ class _SettingsState extends State<Settings> {
   TextEditingController password;
   TextEditingController new_password;
   TextEditingController new_password2;
+  String title_profile;
   @override
   void initState() {
     loadprofilepictures();
@@ -38,6 +39,7 @@ class _SettingsState extends State<Settings> {
       password = new TextEditingController();
       new_password = new TextEditingController();
       new_password2 = new TextEditingController();
+      title_profile = '${userData.userName} Profile';
       profile_pictures.add('assets/default_image.png');
       profile_pictures.add('assets/creeper.jpg');
       profile_pictures.add('assets/bee_minecraft.png');
@@ -109,8 +111,8 @@ class _SettingsState extends State<Settings> {
   }
 
   changeNickname() {
-    password.text='';
-    new_nickname.text='';
+    password.text = '';
+    new_nickname.text = '';
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -118,7 +120,7 @@ class _SettingsState extends State<Settings> {
         title: Text('Change Nickname'),
         content: SingleChildScrollView(
           scrollDirection: Axis.vertical,
-        child: Container(
+          child: Container(
             height: 120,
             child: Column(
               children: <Widget>[
@@ -149,6 +151,9 @@ class _SettingsState extends State<Settings> {
               child: Text('ACCEPT'),
               onPressed: () {
                 _nicknamechange();
+                setState(() {
+                  title_profile = '${userData.userName} Profile';
+                });
               }),
         ],
       ),
@@ -156,9 +161,9 @@ class _SettingsState extends State<Settings> {
   }
 
   changePassword() {
-    password=new TextEditingController();
-    new_password=new TextEditingController();
-    new_password2=new TextEditingController();
+    password = new TextEditingController();
+    new_password = new TextEditingController();
+    new_password2 = new TextEditingController();
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -166,7 +171,7 @@ class _SettingsState extends State<Settings> {
         title: Text('Change Nickname'),
         content: SingleChildScrollView(
           scrollDirection: Axis.vertical,
-        child: Container(
+          child: Container(
             height: 180,
             child: Column(
               children: <Widget>[
