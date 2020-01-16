@@ -317,11 +317,17 @@ class GamesBookShelf extends StatelessWidget {
                           }
                           refresh();
                         })
-                      : Icon(
-                          Icons.favorite,
-                          size: 30,
-                          color: Colors.red[300],
+                      : Align(
+                        alignment: Alignment.topRight,
+                        child:  Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.favorite,
+                            size: 30,
+                            color: Colors.red[300],
+                          ),
                         ),
+                      ),
                   ),
                 ],
               ),
