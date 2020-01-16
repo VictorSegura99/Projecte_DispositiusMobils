@@ -327,7 +327,9 @@ class _GamePageState extends State<GamePage> {
               Map<String, dynamic> data = {
                 'answerBy' : userData.userEmail,
                 'comment' : controller.text,
-                'numAnswers' : 0
+                'numAnswers' : 0,
+                'numTalkers' : 1,
+                '1' : userData.userEmail
               };
               Firestore.instance.collection('Comments').document(game.name).collection('CommentsData').document(numComments.toString()).setData(data);
               if (comments != null) {
@@ -345,6 +347,43 @@ class _GamePageState extends State<GamePage> {
         ],
       ),
     );
+  }
+
+  void setanswernotification(String email, int numComment) async {
+    DocumentSnapshot documentSnapshot = await Firestore.instance.collection('Comments').document(game.name).collection('CommentsData').document(numComment.toString()).get();
+    List<String> toNotify = new List<String>();
+    for (int i = 1; i <= documentSnapshot.data['numTalkers']; ++i) {
+      toNotify.add(documentSnapshot.data[i.toString()]);
+    }
+    for (int i = 0; i < toNotify.length; ++i) {
+      if (toNotify[i] != userData.userEmail) {
+        DocumentSnapshot docNot = await Firestore.instance.collection('Notifications').document(toNotify[i]).get();
+        if (docNot.exists) {
+          Map<String, dynamic> data = docNot.data;
+          int numNoti = docNot.data['numNotis'] + 1;
+          data['numNotis'] = numNoti;
+          data['newNotis'] = true;
+          data[numNoti.toString()] = 'Someone commented in a ${game.name} post you talked';
+          data['${numNoti}Type'] = 'comment';
+          data['${numNoti}Game'] = game.name;
+          data['${numNoti}Seen'] = false;
+          Firestore.instance.collection('Notifications').document(toNotify[i]).setData(data);
+        }
+        else {
+        Firestore.instance.collection('Notifications').document(toNotify[i]).setData(
+          {
+            'numNotis' : 1,
+            'newNotis' : true,
+            '1' : 'Someone commented in a ${game.name} post you talked',
+            '1Type' : 'comment',
+            '1Game' :  game.name,
+            '1Seen' : false,
+          }
+        );
+      }
+      }
+    }
+
   }
 
   void addanswer(int comment) {
@@ -377,6 +416,21 @@ class _GamePageState extends State<GamePage> {
             onPressed: () async {
               if (controller.text.isNotEmpty) {
               DocumentSnapshot docNum = await Firestore.instance.collection('Comments').document(game.name).collection('CommentsData').document(comment_.toString()).get();
+              int numTalkers = docNum.data['numTalkers'];
+              bool isNew = true;
+              for (int i = 1; i <= numTalkers; ++i) {
+                if (docNum.data[i.toString()] == userData.userEmail) {
+                  isNew = false;
+                  break;
+                }
+              }
+              if (isNew) {
+                ++numTalkers;
+                docNum.data[numTalkers.toString()] = userData.userEmail;
+                docNum.data['numTalkers'] = numTalkers;
+                Firestore.instance.collection('Comments').document(game.name).collection('CommentsData').document(comment_.toString()).setData(docNum.data);
+              }
+              
               int numAnswers = 0;
               numAnswers = docNum.data['numAnswers'] + 1;
               Firestore.instance.collection('Comments').document(game.name).collection('CommentsData').document(comment_.toString()).updateData({'numAnswers' : numAnswers});
@@ -433,7 +487,7 @@ class _GamePageState extends State<GamePage> {
           Expanded(
             flex: 80,
             child: Container(
-              padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
+              padding: EdgeInsets.fromLTRB(8, 0, 8, 8),
               color: userData.backgroundColor,
               child: Container(
                 decoration: BoxDecoration(
