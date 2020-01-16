@@ -33,6 +33,7 @@ class _GamePageState extends State<GamePage> {
   Game game;
   bool commentsLoaded = false;
   List<Comment> comments;
+  List<Widget> starButton;
 
   _GamePageState(UserData userData, Game game) {
     this.userData = userData;
@@ -106,7 +107,6 @@ class _GamePageState extends State<GamePage> {
     commentsLoaded = true;
     setState(() {});
   }
-
 
   Widget rendercomments() {
     List<Widget> containers = new List<Widget>();
@@ -312,33 +312,46 @@ class _GamePageState extends State<GamePage> {
             child: Text('MAKE COMMENT'),
             onPressed: () async {
               if (controller.text.isNotEmpty) {
-              DocumentSnapshot docNum = await Firestore.instance.collection('Comments').document(game.name).get();
-              int numComments = 0;
-              if (docNum.exists) {
-                numComments = docNum.data['numComments'] + 1;
-                Firestore.instance.collection('Comments').document(game.name).updateData({'numComments' : numComments});
-              }
-              else {
-                numComments = 1;
-                Firestore.instance.collection('Comments').document(game.name).setData({'numComments' : 1});
-              }
-              Map<String, dynamic> data = {
-                'answerBy' : userData.userEmail,
-                'comment' : controller.text,
-                'numAnswers' : 0,
-                'numTalkers' : 1,
-                '1' : userData.userEmail
-              };
-              Firestore.instance.collection('Comments').document(game.name).collection('CommentsData').document(numComments.toString()).setData(data);
-              if (comments != null) {
-                setState(() {
-                  commentsLoaded = false;
-                  comments.clear();
-                  comments = null;
-                });
-              }
-              loadcomments();
-              Navigator.of(context).pop();
+                DocumentSnapshot docNum = await Firestore.instance
+                    .collection('Comments')
+                    .document(game.name)
+                    .get();
+                int numComments = 0;
+                if (docNum.exists) {
+                  numComments = docNum.data['numComments'] + 1;
+                  Firestore.instance
+                      .collection('Comments')
+                      .document(game.name)
+                      .updateData({'numComments': numComments});
+                } else {
+                  numComments = 1;
+                  Firestore.instance
+                      .collection('Comments')
+                      .document(game.name)
+                      .setData({'numComments': 1});
+                }
+                Map<String, dynamic> data = {
+                  'answerBy': userData.userEmail,
+                  'comment': controller.text,
+                  'numAnswers': 0,
+                  'numTalkers': 1,
+                  '1': userData.userEmail
+                };
+                Firestore.instance
+                    .collection('Comments')
+                    .document(game.name)
+                    .collection('CommentsData')
+                    .document(numComments.toString())
+                    .setData(data);
+                if (comments != null) {
+                  setState(() {
+                    commentsLoaded = false;
+                    comments.clear();
+                    comments = null;
+                  });
+                }
+                loadcomments();
+                Navigator.of(context).pop();
               }
             },
           ),
@@ -348,40 +361,52 @@ class _GamePageState extends State<GamePage> {
   }
 
   void setanswernotification(int numComment) async {
-    DocumentSnapshot documentSnapshot = await Firestore.instance.collection('Comments').document(game.name).collection('CommentsData').document(numComment.toString()).get();
+    DocumentSnapshot documentSnapshot = await Firestore.instance
+        .collection('Comments')
+        .document(game.name)
+        .collection('CommentsData')
+        .document(numComment.toString())
+        .get();
     List<String> toNotify = new List<String>();
     for (int i = 1; i <= documentSnapshot.data['numTalkers']; ++i) {
       toNotify.add(documentSnapshot.data[i.toString()]);
     }
     for (int i = 0; i < toNotify.length; ++i) {
       if (toNotify[i] != userData.userEmail) {
-        DocumentSnapshot docNot = await Firestore.instance.collection('Notifications').document(toNotify[i]).get();
+        DocumentSnapshot docNot = await Firestore.instance
+            .collection('Notifications')
+            .document(toNotify[i])
+            .get();
         if (docNot.exists) {
           Map<String, dynamic> data = docNot.data;
           int numNoti = docNot.data['numNotis'] + 1;
           data['numNotis'] = numNoti;
           data['newNotis'] = true;
-          data[numNoti.toString()] = '${userData.userName} commented in a ${game.name} post you talked';
+          data[numNoti.toString()] =
+              '${userData.userName} commented in a ${game.name} post you talked';
           data['${numNoti}Type'] = 'comment';
           data['${numNoti}Game'] = game.name;
           data['${numNoti}Seen'] = false;
-          Firestore.instance.collection('Notifications').document(toNotify[i]).setData(data);
+          Firestore.instance
+              .collection('Notifications')
+              .document(toNotify[i])
+              .setData(data);
+        } else {
+          Firestore.instance
+              .collection('Notifications')
+              .document(toNotify[i])
+              .setData({
+            'numNotis': 1,
+            'newNotis': true,
+            '1':
+                '${userData.userName} commented in a ${game.name} post you talked',
+            '1Type': 'comment',
+            '1Game': game.name,
+            '1Seen': false,
+          });
         }
-        else {
-          Firestore.instance.collection('Notifications').document(toNotify[i]).setData(
-            {
-              'numNotis' : 1,
-              'newNotis' : true,
-              '1' : '${userData.userName} commented in a ${game.name} post you talked',
-              '1Type' : 'comment',
-              '1Game' :  game.name,
-              '1Seen' : false,
-            }
-          );
-      }
       }
     }
-
   }
 
   void addanswer(int comment) {
@@ -411,41 +436,63 @@ class _GamePageState extends State<GamePage> {
             child: Text('MAKE COMMENT'),
             onPressed: () async {
               if (controller.text.isNotEmpty) {
-              DocumentSnapshot docNum = await Firestore.instance.collection('Comments').document(game.name).collection('CommentsData').document(comment_.toString()).get();
-              int numTalkers = docNum.data['numTalkers'];
-              bool isNew = true;
-              for (int i = 1; i <= numTalkers; ++i) {
-                if (docNum.data[i.toString()] == userData.userEmail) {
-                  isNew = false;
-                  break;
+                DocumentSnapshot docNum = await Firestore.instance
+                    .collection('Comments')
+                    .document(game.name)
+                    .collection('CommentsData')
+                    .document(comment_.toString())
+                    .get();
+                int numTalkers = docNum.data['numTalkers'];
+                bool isNew = true;
+                for (int i = 1; i <= numTalkers; ++i) {
+                  if (docNum.data[i.toString()] == userData.userEmail) {
+                    isNew = false;
+                    break;
+                  }
                 }
-              }
-              if (isNew) {
-                ++numTalkers;
-                docNum.data[numTalkers.toString()] = userData.userEmail;
-                docNum.data['numTalkers'] = numTalkers;
-                Firestore.instance.collection('Comments').document(game.name).collection('CommentsData').document(comment_.toString()).setData(docNum.data);
-              }
-              
-              int numAnswers = 0;
-              numAnswers = docNum.data['numAnswers'] + 1;
-              Firestore.instance.collection('Comments').document(game.name).collection('CommentsData').document(comment_.toString()).updateData({'numAnswers' : numAnswers});
-              Map<String, dynamic> data = {
-                'answerBy' : userData.userEmail,
-                'comment' : controller.text,
-                'numAnswers' : 0
-              };
-              Firestore.instance.collection('Comments').document(game.name).collection('CommentsData').document(comment_.toString()).collection('AnswersData').document(numAnswers.toString()).setData(data);
-              if (comments != null) {
-                setState(() {
-                  commentsLoaded = false;
-                  comments.clear();
-                  comments = null;
-                });
-              }
-              setanswernotification(comment_);
-              loadcomments();
-              Navigator.of(context).pop();
+                if (isNew) {
+                  ++numTalkers;
+                  docNum.data[numTalkers.toString()] = userData.userEmail;
+                  docNum.data['numTalkers'] = numTalkers;
+                  Firestore.instance
+                      .collection('Comments')
+                      .document(game.name)
+                      .collection('CommentsData')
+                      .document(comment_.toString())
+                      .setData(docNum.data);
+                }
+
+                int numAnswers = 0;
+                numAnswers = docNum.data['numAnswers'] + 1;
+                Firestore.instance
+                    .collection('Comments')
+                    .document(game.name)
+                    .collection('CommentsData')
+                    .document(comment_.toString())
+                    .updateData({'numAnswers': numAnswers});
+                Map<String, dynamic> data = {
+                  'answerBy': userData.userEmail,
+                  'comment': controller.text,
+                  'numAnswers': 0
+                };
+                Firestore.instance
+                    .collection('Comments')
+                    .document(game.name)
+                    .collection('CommentsData')
+                    .document(comment_.toString())
+                    .collection('AnswersData')
+                    .document(numAnswers.toString())
+                    .setData(data);
+                if (comments != null) {
+                  setState(() {
+                    commentsLoaded = false;
+                    comments.clear();
+                    comments = null;
+                  });
+                }
+                setanswernotification(comment_);
+                loadcomments();
+                Navigator.of(context).pop();
               }
             },
           ),
@@ -486,7 +533,12 @@ class _GamePageState extends State<GamePage> {
                         child: Padding(
                           padding: const EdgeInsets.all(5),
                           child: ClipRRect(
-                            child: Container(height: 200,child: Image.asset(game.image,fit: BoxFit.fitHeight,)),
+                            child: Container(
+                                height: 200,
+                                child: Image.asset(
+                                  game.image,
+                                  fit: BoxFit.fitHeight,
+                                )),
                             borderRadius: BorderRadius.circular(20),
                           ),
                         ),
@@ -495,7 +547,7 @@ class _GamePageState extends State<GamePage> {
                     Expanded(
                       flex: 2,
                       child: Padding(
-                        padding: EdgeInsets.only(top: 10),
+                        padding: EdgeInsets.only(top: 14,),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
@@ -506,6 +558,54 @@ class _GamePageState extends State<GamePage> {
                             ),
                             Text(
                               '${game.company}',
+                            ),
+                            Container(
+                              padding: EdgeInsets.only(top: 2),
+                              child: Row(
+                                children: <Widget>[
+                                  Container(
+                                    width: 40,
+                                    child: IconButton(
+                                      padding: EdgeInsets.zero,
+                                      icon: Icon(Icons.star_border),
+                                      color: Colors.black,
+                                      iconSize: 34,
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 40,
+                                    child: IconButton(
+                                      padding: EdgeInsets.zero,
+                                      icon: Icon(Icons.star_border),
+                                      iconSize: 34,
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 40,
+                                    child: IconButton(
+                                      padding: EdgeInsets.zero,
+                                      icon: Icon(Icons.star_border),
+                                      iconSize: 34,
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 40,
+                                    child: IconButton(
+                                      padding: EdgeInsets.zero,
+                                      icon: Icon(Icons.star_border),
+                                      iconSize: 34,
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 40,
+                                    child: IconButton(
+                                      padding: EdgeInsets.zero,
+                                      icon: Icon(Icons.star_border),
+                                      iconSize: 34,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             )
                           ],
                         ),
