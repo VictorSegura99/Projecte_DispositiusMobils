@@ -164,9 +164,10 @@ class GamesBookShelf extends StatelessWidget {
                 flex: 1,
                 child: IconButton(
                   icon: Icon(
-                    (active == BarActive.Noti)
-                        ? Icons.notifications
-                        : Icons.notifications_none,
+                    (userData.newNoti) ? Icons.notifications_active
+                      : (active == BarActive.Noti)
+                          ? Icons.notifications
+                          : Icons.notifications_none,
                     size: 40,
                   ),
                   color: (active == BarActive.Noti)

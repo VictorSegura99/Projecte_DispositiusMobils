@@ -11,5 +11,6 @@ class UserData {
   Color mainColor;
   Color backgroundColor;
   Color buttonBarColor;
+  bool newNoti = false;
 }
 

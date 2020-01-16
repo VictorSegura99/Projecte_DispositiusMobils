@@ -31,7 +31,7 @@ class _NotificationsState extends State<Notifications> {
   _NotificationsState(UserData userData) {
     this.userData = userData;
   }
-  
+
   @override
   void initState() {
     loadnotis();
@@ -63,6 +63,7 @@ class _NotificationsState extends State<Notifications> {
     else {
       notisLoaded = true;
     }
+    userData.newNoti = false;
     setState(() {
       
     });
@@ -84,7 +85,10 @@ class _NotificationsState extends State<Notifications> {
           Expanded(
               flex: 80,
               child: (!notisLoaded) ? Center(child: CircularProgressIndicator()) 
-                : (notifications == null) ? Text('There are no notifications')
+                : (notifications == null) ? Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('There are no notifications'),
+                )
                 : ListView.builder(
                     itemCount: notifications.length,
                     itemBuilder: (context, index) {

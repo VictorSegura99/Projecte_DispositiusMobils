@@ -20,8 +20,18 @@ class _PeopleFavState extends State<PeopleFav> {
     this.userData = userData;
   }
 
+  void looknotis() async {
+    DocumentSnapshot notis = await Firestore.instance.collection('Notifications').document(userData.userEmail).get();
+    if (notis.exists) {
+      setState(() {
+        userData.newNoti = notis.data['newNotis'];
+      });
+    }
+  }
+
   @override
   void initState() {
+    looknotis();
     super.initState();
   }
 
