@@ -95,7 +95,9 @@ class _GamePageState extends State<GamePage> {
               .get();
           answer.userName = userDocAnswer.data['name'];
           answer.userPicture = userDocAnswer.data['profilePicture'];
-          comment.answers = new List<Comment>();
+          if (comment.answers == null) {
+            comment.answers = new List<Comment>();
+          }
           comment.answers.add(answer);
         }
         comments.add(comment);
@@ -104,6 +106,7 @@ class _GamePageState extends State<GamePage> {
     commentsLoaded = true;
     setState(() {});
   }
+
 
   Widget rendercomments() {
     List<Widget> containers = new List<Widget>();
