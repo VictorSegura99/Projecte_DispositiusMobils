@@ -35,7 +35,7 @@ class _GamePageState extends State<GamePage> {
   bool commentsLoaded = false;
   List<Comment> comments;
   List<IconData> starButton;
-  double mitja = 0;
+  dynamic mitja = 5;
   IconData star1 = Icons.star_border;
   IconData star2 = Icons.star_border;
   IconData star3 = Icons.star_border;
@@ -63,12 +63,12 @@ class _GamePageState extends State<GamePage> {
     star3 = Icons.star_border;
     star4 = Icons.star_border;
     star5 = Icons.star_border;
+    loadRating();
     starButton.add(star1);
     starButton.add(star2);
     starButton.add(star3);
     starButton.add(star4);
     starButton.add(star5);
-    calculate_stars();
     loadcomments();
     super.initState();
   }
@@ -312,6 +312,81 @@ class _GamePageState extends State<GamePage> {
     );
   }
 
+  calculate_stars() {
+    for (var i = 1; i <= (mitja.floor() + 1); i++) {
+      if (i <= mitja.floor()) {
+        starButton[i - 1] = Icons.star;
+      } else if (i > mitja && i < 6) {
+        if ((mitja + 1 - i) >= 0.5) {
+          starButton[i - 1] = Icons.star_half;
+        }
+      }
+    }
+  }
+
+  loadRating() async {
+    DocumentSnapshot ratingsdata = await Firestore.instance
+        .collection('Ratings')
+        .document(game.name)
+        .get();
+
+    mitja = (ratingsdata.data['rating']);
+    setState(() {
+      calculate_stars();
+    });
+  }
+
+  updateRating(int rating) async {
+    DocumentSnapshot ratingsdata = await Firestore.instance
+        .collection('Ratings')
+        .document(game.name)
+        .get();
+    if (ratingsdata.data['numVotes'] != 0) {
+      int numvotes = ratingsdata.data['numVotes'];
+      bool new_vote = true;
+      for (int i = 1; i <= numvotes; ++i) {
+        if (ratingsdata.data[i.toString()] == userData.userEmail) {
+          new_vote = false;
+          mitja = (ratingsdata.data['rating'] * numvotes -
+                  ratingsdata.data[userData.userEmail] +
+                  rating) /
+              numvotes;
+          ratingsdata.data[userData.userEmail] = rating;
+          setState(() {});
+          ratingsdata.data['rating'] = mitja;
+          Firestore.instance
+              .collection('Ratings')
+              .document(game.name)
+              .setData(ratingsdata.data);
+          break;
+        }
+      }
+      if (new_vote) {
+        mitja = (ratingsdata.data['rating'] * numvotes + rating) / ++numvotes;
+        ratingsdata.data[userData.userEmail] = rating;
+        setState(() {});
+        ratingsdata.data['rating'] = mitja;
+        ratingsdata.data[numvotes.toString()] = userData.userEmail;
+        ratingsdata.data['numVotes'] = numvotes;
+        Firestore.instance
+            .collection('Ratings')
+            .document(game.name)
+            .setData(ratingsdata.data);
+      }
+    } else {
+      ratingsdata.data['numVotes'] = 1;
+      ratingsdata.data['1'] = userData.userEmail;
+      ratingsdata.data[userData.userEmail] = rating;
+      mitja = rating;
+      ratingsdata.data['rating'] = rating;
+      Firestore.instance
+          .collection('Ratings')
+          .document(game.name)
+          .setData(ratingsdata.data);
+      setState(() {});
+    }
+  }
+
   void addnewcomment() {
     TextEditingController controller = new TextEditingController();
     showDialog(
@@ -430,18 +505,6 @@ class _GamePageState extends State<GamePage> {
             '1Game': game.name,
             '1Seen': false,
           });
-        }
-      }
-    }
-  }
-
-  calculate_stars() {
-    for (var i = 1; i <= (mitja.floor() + 1); i++) {
-      if (i <= mitja.floor()) {
-        starButton[i - 1] = Icons.star;
-      } else if (i > mitja && i < 6) {
-        if ((mitja + 1 - i) >= 0.5) {
-          starButton[i - 1] = Icons.star_half;
         }
       }
     }
@@ -616,6 +679,7 @@ class _GamePageState extends State<GamePage> {
                                             for (var i = 4; i >= 1; i--) {
                                               starButton[i] = Icons.star_border;
                                             }
+                                            updateRating(1);
                                           });
                                         }),
                                   ),
@@ -633,6 +697,7 @@ class _GamePageState extends State<GamePage> {
                                             for (var i = 4; i >= 2; i--) {
                                               starButton[i] = Icons.star_border;
                                             }
+                                            updateRating(2);
                                           });
                                         }),
                                   ),
@@ -650,6 +715,7 @@ class _GamePageState extends State<GamePage> {
                                             for (var i = 4; i >= 3; i--) {
                                               starButton[i] = Icons.star_border;
                                             }
+                                            updateRating(3);
                                           });
                                         }),
                                   ),
@@ -665,6 +731,7 @@ class _GamePageState extends State<GamePage> {
                                             starButton[i] = Icons.star;
                                           }
                                           starButton[4] = Icons.star_border;
+                                          updateRating(4);
                                         });
                                       },
                                     ),
@@ -680,6 +747,7 @@ class _GamePageState extends State<GamePage> {
                                             for (var i = 0; i <= 4; i++) {
                                               starButton[i] = Icons.star;
                                             }
+                                            updateRating(5);
                                           });
                                         }),
                                   ),
