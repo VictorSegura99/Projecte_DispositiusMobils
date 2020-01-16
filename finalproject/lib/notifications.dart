@@ -71,7 +71,6 @@ class _NotificationsState extends State<Notifications> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: userData.backgroundColor,
       appBar: AppBar(
         title: Text('Notifications'),
         backgroundColor: userData.buttonBarColor,
@@ -79,69 +78,72 @@ class _NotificationsState extends State<Notifications> {
           GamesBookShelf.settings(context, userData),
         ],
       ),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-              flex: 80,
-              child: (!notisLoaded) ? Center(child: CircularProgressIndicator()) 
-                : (notifications == null) ? Text('There are no notifications')
-                : ListView.builder(
-                    itemCount: notifications.length,
-                    itemBuilder: (context, index) {
-                      return Container(
-                          padding: EdgeInsets.fromLTRB(8, 8, 8, 0),
-                          color: userData.backgroundColor,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(7),
-                              color: Colors.white38,
-                              border: Border.all(
-                                color: (notifications[index].isNew) ? userData.mainColor : Colors.black,
-                                width: 2.0,
+      body: Container(
+        color: userData.backgroundColor,
+        child: Column(
+          children: <Widget>[
+            Expanded(
+                flex: 80,
+                child: (!notisLoaded) ? Center(child: CircularProgressIndicator()) 
+                  : (notifications == null) ? Text('There are no notifications')
+                  : ListView.builder(
+                      itemCount: notifications.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                            padding: EdgeInsets.fromLTRB(8, 8, 8, 0),
+                            color: userData.backgroundColor,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(7),
+                                color: Colors.white38,
+                                border: Border.all(
+                                  color: (notifications[index].isNew) ? userData.mainColor : Colors.black,
+                                  width: 2.0,
+                                ),
+                              ),
+                              child: Row(
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: Icon(
+                                      (notifications[index].isComment) ? Icons.comment : Icons.favorite,
+                                    ),
+                                  ),
+                                  Flexible(
+                                    child: Padding(
+                                      padding: const EdgeInsets.fromLTRB(4, 8, 0, 8),
+                                      child: Text(notifications[index].text),
+                                    )
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: OutlineButton(
+                                      child: Text('See'),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      color: Colors.black,
+                                      focusColor: Colors.black,
+                                      borderSide: BorderSide(width: 2),
+                                      highlightedBorderColor: Colors.black,
+                                      onPressed: () {
+                                        Navigator.push(
+                                        context,
+                                        SlideRightRoute(0, 1,
+                                            page: GamePage(userData, notifications[index].game)));
+                                      },
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                            child: Row(
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: Icon(
-                                    (notifications[index].isComment) ? Icons.comment : Icons.favorite,
-                                  ),
-                                ),
-                                Flexible(
-                                  child: Padding(
-                                    padding: const EdgeInsets.fromLTRB(4, 8, 0, 8),
-                                    child: Text(notifications[index].text),
-                                  )
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: OutlineButton(
-                                    child: Text('See'),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    color: Colors.black,
-                                    focusColor: Colors.black,
-                                    borderSide: BorderSide(width: 2),
-                                    highlightedBorderColor: Colors.black,
-                                    onPressed: () {
-                                      Navigator.push(
-                                      context,
-                                      SlideRightRoute(0, 1,
-                                          page: GamePage(userData, notifications[index].game)));
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                    }
-                  ),
-          ),
-          GamesBookShelf.mainbottombar(BarActive.Noti, context, userData),
-        ],
+                          );
+                      }
+                    ),
+            ),
+            GamesBookShelf.mainbottombar(BarActive.Noti, context, userData),
+          ],
+        ),
       ),
     );
   }
