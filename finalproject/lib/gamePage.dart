@@ -33,7 +33,13 @@ class _GamePageState extends State<GamePage> {
   Game game;
   bool commentsLoaded = false;
   List<Comment> comments;
-  List<Widget> starButton;
+  List<IconData> starButton;
+  double mitja = 4.5;
+  IconData star1 = Icons.star_border;
+  IconData star2 = Icons.star_border;
+  IconData star3 = Icons.star_border;
+  IconData star4 = Icons.star_border;
+  IconData star5 = Icons.star_border;
 
   _GamePageState(UserData userData, Game game) {
     this.userData = userData;
@@ -48,6 +54,18 @@ class _GamePageState extends State<GamePage> {
         comments = null;
       });
     }
+    starButton=new List<IconData>();
+    star1 = Icons.star_border;
+    star2 = Icons.star_border;
+    star3 = Icons.star_border;
+    star4 = Icons.star_border;
+    star5 = Icons.star_border;
+    starButton.add(star1);
+    starButton.add(star2);
+    starButton.add(star3);
+    starButton.add(star4);
+    starButton.add(star5);
+    calculate_stars();
     loadcomments();
     super.initState();
   }
@@ -409,6 +427,18 @@ class _GamePageState extends State<GamePage> {
     }
   }
 
+  calculate_stars() {
+    for (var i = 1; i <= (mitja.floor() + 1); i++) {
+      if (i <= mitja.floor()) {
+        starButton[i - 1] = Icons.star;
+      } else if (i > mitja && i < 6) {
+        if ((mitja+1 - i) >= 0.5) {
+          starButton[i - 1] = Icons.star_half;
+        }
+      }
+    }
+  }
+
   void addanswer(int comment) {
     int comment_ = comment + 1;
     TextEditingController controller = new TextEditingController();
@@ -547,7 +577,9 @@ class _GamePageState extends State<GamePage> {
                     Expanded(
                       flex: 2,
                       child: Padding(
-                        padding: EdgeInsets.only(top: 14,),
+                        padding: EdgeInsets.only(
+                          top: 14,
+                        ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
@@ -564,46 +596,49 @@ class _GamePageState extends State<GamePage> {
                               child: Row(
                                 children: <Widget>[
                                   Container(
-                                    width: 40,
+                                    width: 36,
                                     child: IconButton(
                                       padding: EdgeInsets.zero,
-                                      icon: Icon(Icons.star_border),
+                                      icon: Icon(starButton[0]),
                                       color: Colors.black,
-                                      iconSize: 34,
+                                      iconSize: 30,
                                     ),
                                   ),
                                   Container(
-                                    width: 40,
+                                    width: 36,
                                     child: IconButton(
                                       padding: EdgeInsets.zero,
-                                      icon: Icon(Icons.star_border),
-                                      iconSize: 34,
+                                      icon: Icon(starButton[1]),
+                                      iconSize: 30,
                                     ),
                                   ),
                                   Container(
-                                    width: 40,
+                                    width: 36,
                                     child: IconButton(
                                       padding: EdgeInsets.zero,
-                                      icon: Icon(Icons.star_border),
-                                      iconSize: 34,
+                                      icon: Icon(starButton[2]),
+                                      iconSize: 30,
                                     ),
                                   ),
                                   Container(
-                                    width: 40,
+                                    width: 36,
                                     child: IconButton(
                                       padding: EdgeInsets.zero,
-                                      icon: Icon(Icons.star_border),
-                                      iconSize: 34,
+                                      icon: Icon(starButton[3]),
+                                      iconSize: 30,
                                     ),
                                   ),
                                   Container(
-                                    width: 40,
+                                    width: 36,
                                     child: IconButton(
                                       padding: EdgeInsets.zero,
-                                      icon: Icon(Icons.star_border),
-                                      iconSize: 34,
+                                      icon: Icon(starButton[4]),
+                                      iconSize: 30,
                                     ),
                                   ),
+                                  Text('($mitja'),
+                                  Icon(Icons.star,size: 14,),
+                                  Text(')'),
                                 ],
                               ),
                             )
