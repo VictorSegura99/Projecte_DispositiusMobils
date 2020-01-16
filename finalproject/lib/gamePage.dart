@@ -349,7 +349,7 @@ class _GamePageState extends State<GamePage> {
     );
   }
 
-  void setanswernotification(String email, int numComment) async {
+  void setanswernotification(int numComment) async {
     DocumentSnapshot documentSnapshot = await Firestore.instance.collection('Comments').document(game.name).collection('CommentsData').document(numComment.toString()).get();
     List<String> toNotify = new List<String>();
     for (int i = 1; i <= documentSnapshot.data['numTalkers']; ++i) {
@@ -363,23 +363,23 @@ class _GamePageState extends State<GamePage> {
           int numNoti = docNot.data['numNotis'] + 1;
           data['numNotis'] = numNoti;
           data['newNotis'] = true;
-          data[numNoti.toString()] = 'Someone commented in a ${game.name} post you talked';
+          data[numNoti.toString()] = '${userData.userName} commented in a ${game.name} post you talked';
           data['${numNoti}Type'] = 'comment';
           data['${numNoti}Game'] = game.name;
           data['${numNoti}Seen'] = false;
           Firestore.instance.collection('Notifications').document(toNotify[i]).setData(data);
         }
         else {
-        Firestore.instance.collection('Notifications').document(toNotify[i]).setData(
-          {
-            'numNotis' : 1,
-            'newNotis' : true,
-            '1' : 'Someone commented in a ${game.name} post you talked',
-            '1Type' : 'comment',
-            '1Game' :  game.name,
-            '1Seen' : false,
-          }
-        );
+          Firestore.instance.collection('Notifications').document(toNotify[i]).setData(
+            {
+              'numNotis' : 1,
+              'newNotis' : true,
+              '1' : '${userData.userName} commented in a ${game.name} post you talked',
+              '1Type' : 'comment',
+              '1Game' :  game.name,
+              '1Seen' : false,
+            }
+          );
       }
       }
     }
@@ -447,6 +447,7 @@ class _GamePageState extends State<GamePage> {
                   comments = null;
                 });
               }
+              setanswernotification(comment_);
               loadcomments();
               Navigator.of(context).pop();
               }
