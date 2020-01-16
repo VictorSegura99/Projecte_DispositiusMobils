@@ -35,7 +35,7 @@ class _GamePageState extends State<GamePage> {
   bool commentsLoaded = false;
   List<Comment> comments;
   List<IconData> starButton;
-  double mitja = 4.5;
+  double mitja = 0;
   IconData star1 = Icons.star_border;
   IconData star2 = Icons.star_border;
   IconData star3 = Icons.star_border;
@@ -57,7 +57,7 @@ class _GamePageState extends State<GamePage> {
         comments = null;
       });
     }
-    starButton=new List<IconData>();
+    starButton = new List<IconData>();
     star1 = Icons.star_border;
     star2 = Icons.star_border;
     star3 = Icons.star_border;
@@ -126,11 +126,11 @@ class _GamePageState extends State<GamePage> {
       }
     }
     commentsLoaded = true;
-    if (GamesBookShelf.actualPage == ActualPage.gamapage && GamesBookShelf.actualGame == game) {
-          try {
-            setState(() {});
-          }
-          catch(error){}
+    if (GamesBookShelf.actualPage == ActualPage.gamapage &&
+        GamesBookShelf.actualGame == game) {
+      try {
+        setState(() {});
+      } catch (error) {}
     }
   }
 
@@ -440,7 +440,7 @@ class _GamePageState extends State<GamePage> {
       if (i <= mitja.floor()) {
         starButton[i - 1] = Icons.star;
       } else if (i > mitja && i < 6) {
-        if ((mitja+1 - i) >= 0.5) {
+        if ((mitja + 1 - i) >= 0.5) {
           starButton[i - 1] = Icons.star_half;
         }
       }
@@ -606,27 +606,52 @@ class _GamePageState extends State<GamePage> {
                                   Container(
                                     width: 36,
                                     child: IconButton(
-                                      padding: EdgeInsets.zero,
-                                      icon: Icon(starButton[0]),
-                                      color: Colors.black,
-                                      iconSize: 30,
-                                    ),
+                                        padding: EdgeInsets.zero,
+                                        icon: Icon(starButton[0]),
+                                        color: Colors.black,
+                                        iconSize: 30,
+                                        onPressed: () {
+                                          setState(() {
+                                            starButton[0] = Icons.star;
+                                            for (var i = 4; i >= 1; i--) {
+                                              starButton[i] = Icons.star_border;
+                                            }
+                                          });
+                                        }),
                                   ),
                                   Container(
                                     width: 36,
                                     child: IconButton(
-                                      padding: EdgeInsets.zero,
-                                      icon: Icon(starButton[1]),
-                                      iconSize: 30,
-                                    ),
+                                        padding: EdgeInsets.zero,
+                                        icon: Icon(starButton[1]),
+                                        iconSize: 30,
+                                        onPressed: () {
+                                          setState(() {
+                                            for (var i = 0; i <= 1; i++) {
+                                              starButton[i] = Icons.star;
+                                            }
+                                            for (var i = 4; i >= 2; i--) {
+                                              starButton[i] = Icons.star_border;
+                                            }
+                                          });
+                                        }),
                                   ),
                                   Container(
                                     width: 36,
                                     child: IconButton(
-                                      padding: EdgeInsets.zero,
-                                      icon: Icon(starButton[2]),
-                                      iconSize: 30,
-                                    ),
+                                        padding: EdgeInsets.zero,
+                                        icon: Icon(starButton[2]),
+                                        iconSize: 30,
+                                        onPressed: () {
+                                          setState(() {
+                                            for (var i = 0; i <= 2; i++) {
+                                              starButton[i] = Icons.star;
+                                            }
+                                            for (var i = 4; i >= 3; i--) {
+                                              starButton[i] = Icons.star_border;
+                                            }
+                                          });
+                                        }),
                                   ),
                                   Container(
                                     width: 36,
@@ -634,18 +659,35 @@ class _GamePageState extends State<GamePage> {
                                       padding: EdgeInsets.zero,
                                       icon: Icon(starButton[3]),
                                       iconSize: 30,
+                                      onPressed: () {
+                                        setState(() {
+                                          for (var i = 0; i <= 3; i++) {
+                                            starButton[i] = Icons.star;
+                                          }
+                                          starButton[4] = Icons.star_border;
+                                        });
+                                      },
                                     ),
                                   ),
                                   Container(
                                     width: 36,
                                     child: IconButton(
-                                      padding: EdgeInsets.zero,
-                                      icon: Icon(starButton[4]),
-                                      iconSize: 30,
-                                    ),
+                                        padding: EdgeInsets.zero,
+                                        icon: Icon(starButton[4]),
+                                        iconSize: 30,
+                                        onPressed: () {
+                                          setState(() {
+                                            for (var i = 0; i <= 4; i++) {
+                                              starButton[i] = Icons.star;
+                                            }
+                                          });
+                                        }),
                                   ),
                                   Text('($mitja'),
-                                  Icon(Icons.star,size: 14,),
+                                  Icon(
+                                    Icons.star,
+                                    size: 14,
+                                  ),
                                   Text(')'),
                                 ],
                               ),

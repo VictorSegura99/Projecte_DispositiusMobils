@@ -105,6 +105,7 @@ class _NotificationsState extends State<Notifications> {
                                 color: (notifications[index].isNew) ? userData.mainColor : Colors.black,
                                 width: 2.0,
                               ),
+                            ),
                               child: Row(
                                 children: <Widget>[
                                   Padding(
@@ -141,6 +142,7 @@ class _NotificationsState extends State<Notifications> {
                                 ],
                               ),
                             ),
+                          
                           );
                       }
                     ),
@@ -148,7 +150,6 @@ class _NotificationsState extends State<Notifications> {
             GamesBookShelf.mainbottombar(BarActive.Noti, context, userData),
           ],
         ),
-      ),
-    );
+      );
   }
 }
