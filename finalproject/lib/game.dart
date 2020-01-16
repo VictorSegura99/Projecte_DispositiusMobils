@@ -15,14 +15,17 @@ class Game {
   final String name;
   final String image;
   IconData icon=Icons.favorite_border;
+  final String company;
 
   Game.fromJson(var json)
     : name = json['Name'],
-    image=json['Image'];
+    image=json['Image'],
+    company=json['Company'];
 
   Game.fromGame(Game game)
     : name = game.name,
-    image = game.image;
+    image = game.image,
+    company=game.company;
 
   static _readGames(bool justCreated, UserData userData, Function refresh) async {
     String data = await rootBundle.loadString('assets/data.json');

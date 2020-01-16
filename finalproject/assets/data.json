@@ -2,43 +2,53 @@
     "Games": [
         {
             "Name": " Minecraft ",
-            "Image": "assets/images/minecraft.png"
+            "Image": "assets/images/minecraft.png",
+            "Company": "  Mojang"            
         },
         {
             "Name": "For the King",
-            "Image": "assets/images/ForTheKing.jpg"
+            "Image": "assets/images/ForTheKing.jpg",
+            "Company": "IronOak Games"
         },
         {
             "Name": "Binding of Isaac",
-            "Image": "assets/gridIsaac.jpg"
+            "Image": "assets/gridIsaac.jpg",
+            "Company": "Nicalis"
         },
         {
             "Name": "Overwatch",
-            "Image": "assets/gridOver.jpg"
+            "Image": "assets/gridOver.jpg",
+            "Company": "Blizzard Entertainment"
         },
         {
             "Name": "Alien Earth",
-            "Image": "assets/gridHollow.jpg"
+            "Image": "assets/gridHollow.jpg",
+            "Company": "The Team"
         },
         {
             "Name": "Hollow Knight",
-            "Image": "assets/gridHollow.jpg"
+            "Image": "assets/gridHollow.jpg",
+            "Company": "Team Cherry"
         },
         {
             "Name": "Sekiro",
-            "Image": "assets/gridSekiro.jpg"
+            "Image": "assets/gridSekiro.jpg",
+            "Company": "From Software"
         },
         {
             "Name": "Civilization VI",
-            "Image": "assets/gridCivil.jpeg"
+            "Image": "assets/gridCivil.jpeg",
+            "Company": "Firaxis Games"
         },
         {
             "Name": "Terraria",
-            "Image": "assets/gridTerraria.jpg"
+            "Image": "assets/gridTerraria.jpg",
+            "Company": "Re-Logic"
         },
         {
             "Name": "Celeste",
-            "Image": "assets/gridCeleste.jpg"
+            "Image": "assets/gridCeleste.jpg",
+            "Company": "Matt Makes Games"
         }
     ]
 }

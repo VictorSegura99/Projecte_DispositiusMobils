@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:finalproject/login.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'main.dart';
 import 'package:flutter/material.dart';
@@ -320,6 +321,31 @@ class _SettingsState extends State<Settings> {
               Navigator.of(context).pop();
             },
           ),
+        ],
+      ),
+    );
+  }
+
+  log_out() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: Colors.white,
+        title: Text('Are you sure you want to Log Out?'),
+        actions: <Widget>[
+          FlatButton(
+              child: Text('CONFIRM'),
+              onPressed: () {
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => LogIn()),
+                    (Route<dynamic> route) => false);
+              }),
+          FlatButton(
+            child: Text('CANCEL'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          )
         ],
       ),
     );
@@ -929,6 +955,29 @@ class _SettingsState extends State<Settings> {
                   ),
                 ),
               ],
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 5, bottom: 5),
+              child: Container(
+                width: 315,
+                height: 30,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Colors.white, width: 2)),
+                child: FlatButton(
+                  color: Colors.red,
+                  child: Text(
+                    'Log Out',
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  onPressed: () {
+                    log_out();
+                  },
+                ),
+              ),
             ),
             Divider(
               color: Colors.black54,
