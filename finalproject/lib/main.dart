@@ -15,6 +15,7 @@ class SlideRightRoute extends PageRouteBuilder {
   final Widget page;
   final double directionH;
   final double directionV;
+
   SlideRightRoute(this.directionH, this.directionV, {this.page})
       : super(
           pageBuilder: (
@@ -51,7 +52,7 @@ class GamesBookShelf extends StatelessWidget {
         height: 40,
         decoration: BoxDecoration(
           border: Border.all(
-            color: Colors.white,
+            color: (inSettings) ? userData.mainColor : Colors.white,
             width: 2.0,
           ),
           shape: BoxShape.circle,
@@ -67,6 +68,7 @@ class GamesBookShelf extends StatelessWidget {
           Navigator.push(
               context, SlideRightRoute(0, 1, page: Settings(userData)));
         }
+
       },
     );
   }

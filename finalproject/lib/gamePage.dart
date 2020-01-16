@@ -181,63 +181,64 @@ class _GamePageState extends State<GamePage> {
           child: ConstrainedBox(
             constraints: const BoxConstraints(minWidth: double.infinity),
             child: Column(
-                  children: <Widget>[
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.white38,
-                        border: Border.all(
-                          color: Colors.white,
-                          width: 2.0,
-                        ),
-                      ),
-                      child: Column(
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.white38,
+                    border: Border.all(
+                      color: Colors.white,
+                      width: 2.0,
+                    ),
+                  ),
+                  child: Column(
+                    children: <Widget>[
+                      Stack(
                         children: <Widget>[
-                          Stack(
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Container(
-                                    width: 55,
-                                    height: 55,
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: Colors.white,
-                                        width: 2.0,
-                                      ),
-                                      shape: BoxShape.circle,
-                                      color: Colors.blue,
-                                      image: DecorationImage(
-                                        fit: BoxFit.fill,
-                                        image: ExactAssetImage(comments[i].userPicture),
-                                      ),
-                                    ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Align(
+                              alignment: Alignment.topLeft,
+                              child: Container(
+                                width: 55,
+                                height: 55,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.white,
+                                    width: 2.0,
+                                  ),
+                                  shape: BoxShape.circle,
+                                  color: Colors.blue,
+                                  image: DecorationImage(
+                                    fit: BoxFit.fill,
+                                    image: ExactAssetImage(
+                                        comments[i].userPicture),
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(65, 8, 0, 0),
-                                child: Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Text(
-                                    comments[i].userName,
-                                    style: TextStyle(
-                                        fontSize: 16, fontWeight: FontWeight.w500),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(68, 30, 8, 0),
-                                child: Align(
-                                    alignment: Alignment.topLeft,
-                                    child: Text(comments[i].comment)),
-                              ),
-                            ],
+                            ),
                           ),
-                          Column(children: answers),
-                          /*Align(
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(65, 8, 0, 0),
+                            child: Align(
+                              alignment: Alignment.topLeft,
+                              child: Text(
+                                comments[i].userName,
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(68, 30, 8, 0),
+                            child: Align(
+                                alignment: Alignment.topLeft,
+                                child: Text(comments[i].comment)),
+                          ),
+                        ],
+                      ),
+                      Column(children: answers),
+                      /*Align(
                             alignment: Alignment.bottomRight,
                             child: FlatButton(
                               child: Text('Answer'),
@@ -251,26 +252,25 @@ class _GamePageState extends State<GamePage> {
                               },
                             ),
                           ),*/
-                        ],
-                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(50, 0, 0, 0),
+                  child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: FlatButton(
+                      child: Text('Answer'),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      color: Colors.black,
+                      textColor: Colors.white,
+                      onPressed: () {
+                        addanswer(i);
+                      },
                     ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(50, 0, 0, 0),
-                      child: Align(
-                        alignment: Alignment.bottomRight,
-                        child: FlatButton(
-                          child: Text('Answer'),
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.circular(10)),
-                          color: Colors.black,
-                          textColor: Colors.white,
-                          onPressed: () {
-                            addanswer(i);
-                          },
-                        ),
-                      ),
-                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -298,9 +298,7 @@ class _GamePageState extends State<GamePage> {
           child: TextField(
             controller: controller,
             decoration: InputDecoration(
-              labelText: 'Write your comment', 
-              hintText: 'Comment'
-            ),
+                labelText: 'Write your comment', hintText: 'Comment'),
           ),
         ),
         actions: <Widget>[
@@ -387,7 +385,7 @@ class _GamePageState extends State<GamePage> {
   }
 
   void addanswer(int comment) {
-    int comment_ = comment+1;
+    int comment_ = comment + 1;
     TextEditingController controller = new TextEditingController();
     showDialog(
       context: context,
@@ -399,9 +397,7 @@ class _GamePageState extends State<GamePage> {
           child: TextField(
             controller: controller,
             decoration: InputDecoration(
-              labelText: 'Write your answer', 
-              hintText: 'Answer'
-            ),
+                labelText: 'Write your answer', hintText: 'Answer'),
           ),
         ),
         actions: <Widget>[
@@ -463,7 +459,6 @@ class _GamePageState extends State<GamePage> {
     return Scaffold(
       backgroundColor: userData.backgroundColor,
       appBar: AppBar(
-        title: Text('${game.name}'),
         backgroundColor: userData.buttonBarColor,
       ),
       body: Column(
@@ -481,6 +476,42 @@ class _GamePageState extends State<GamePage> {
                     color: Colors.white,
                     width: 2.0,
                   ),
+                ),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      flex: 1,
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.all(5),
+                          child: ClipRRect(
+                            child: Container(height: 200,child: Image.asset(game.image,fit: BoxFit.fitHeight,)),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              '${game.name}',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 24),
+                            ),
+                            Text(
+                              '${game.company}',
+                            )
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),
@@ -521,8 +552,7 @@ class _GamePageState extends State<GamePage> {
                       OutlineButton(
                         child: Text('Add New Comment'),
                         shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(10)),
+                            borderRadius: BorderRadius.circular(10)),
                         color: Colors.black,
                         focusColor: Colors.black,
                         borderSide: BorderSide(width: 2),
