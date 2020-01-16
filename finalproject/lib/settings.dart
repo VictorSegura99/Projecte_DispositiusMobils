@@ -771,7 +771,7 @@ class _SettingsState extends State<Settings> {
             Padding(
               padding: EdgeInsets.only(top: 15),
               child: Container(
-                width: 120,
+                width: 300,
                 height: 25,
                 decoration: BoxDecoration(
                   color: Color.fromRGBO(255, 255, 255, 0.9),
