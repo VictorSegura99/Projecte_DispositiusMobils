@@ -34,6 +34,7 @@ class _NotificationsState extends State<Notifications> {
 
   @override
   void initState() {
+     GamesBookShelf.actualPage = ActualPage.notis;
     loadnotis();
     super.initState();
   }
@@ -64,9 +65,11 @@ class _NotificationsState extends State<Notifications> {
       notisLoaded = true;
     }
     userData.newNoti = false;
-    setState(() {
+    if (GamesBookShelf.actualPage == ActualPage.notis) {
+          setState(() {
       
     });
+    }
   }
 
   @override

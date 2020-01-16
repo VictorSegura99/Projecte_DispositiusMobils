@@ -41,10 +41,14 @@ class SlideRightRoute extends PageRouteBuilder {
 }
 
 enum BarActive { Home, Favs, People, Noti }
-
+enum ActualPage {explorer, fav, people, notis, gamapage, peoplelistgames, profile}
 void main() => runApp(GamesBookShelf());
 
 class GamesBookShelf extends StatelessWidget {
+
+  static ActualPage actualPage = ActualPage.explorer;
+  static Game actualGame;
+
   static settings(context, UserData userData, {inSettings = false}) {
     return FlatButton(
       child: Container(
