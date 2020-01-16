@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'main.dart';
 import 'userData.dart';
@@ -20,8 +21,18 @@ class _GamesExplorerState extends State<GamesExplorer> {
     this.userData = userData;
   }
 
+  void looknotis() async {
+    DocumentSnapshot notis = await Firestore.instance.collection('Notifications').document(userData.userEmail).get();
+    if (notis.exists) {
+      setState(() {
+        userData.newNoti = notis.data['newNotis'];
+      });
+    }
+  }
+
   @override
   void initState() {
+    looknotis();
     super.initState();
     if (!GamesExplorer.gamesLoaded) {
       setState(() {

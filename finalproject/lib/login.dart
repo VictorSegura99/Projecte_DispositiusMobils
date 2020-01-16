@@ -95,6 +95,10 @@ class _LogInState extends State<LogIn> {
           else if (col == 'black') {
             userData.buttonBarColor = Colors.black;
           }
+          DocumentSnapshot notis = await Firestore.instance.collection('Notifications').document(userData.userEmail).get();
+          if (notis.exists) {
+            userData.newNoti = notis.data['newNotis'];
+          }
           success = true;
           break;
         }

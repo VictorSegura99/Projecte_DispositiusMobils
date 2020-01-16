@@ -31,9 +31,10 @@ class _NotificationsState extends State<Notifications> {
   _NotificationsState(UserData userData) {
     this.userData = userData;
   }
-  
+
   @override
   void initState() {
+     GamesBookShelf.actualPage = ActualPage.notis;
     loadnotis();
     super.initState();
   }
@@ -63,9 +64,12 @@ class _NotificationsState extends State<Notifications> {
     else {
       notisLoaded = true;
     }
-    setState(() {
+    userData.newNoti = false;
+    if (GamesBookShelf.actualPage == ActualPage.notis) {
+          setState(() {
       
     });
+    }
   }
 
   @override
@@ -78,28 +82,28 @@ class _NotificationsState extends State<Notifications> {
           GamesBookShelf.settings(context, userData),
         ],
       ),
-      body: Container(
-        color: userData.backgroundColor,
-        child: Column(
-          children: <Widget>[
-            Expanded(
-                flex: 80,
-                child: (!notisLoaded) ? Center(child: CircularProgressIndicator()) 
-                  : (notifications == null) ? Text('There are no notifications')
-                  : ListView.builder(
-                      itemCount: notifications.length,
-                      itemBuilder: (context, index) {
-                        return Container(
-                            padding: EdgeInsets.fromLTRB(8, 8, 8, 0),
-                            color: userData.backgroundColor,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(7),
-                                color: Colors.white38,
-                                border: Border.all(
-                                  color: (notifications[index].isNew) ? userData.mainColor : Colors.black,
-                                  width: 2.0,
-                                ),
+      body: Column(
+        children: <Widget>[
+          Expanded(
+              flex: 80,
+              child: (!notisLoaded) ? Center(child: CircularProgressIndicator()) 
+                : (notifications == null) ? Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('There are no notifications'),
+                )
+                : ListView.builder(
+                    itemCount: notifications.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                          padding: EdgeInsets.fromLTRB(8, 8, 8, 0),
+                          color: userData.backgroundColor,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(7),
+                              color: Colors.white38,
+                              border: Border.all(
+                                color: (notifications[index].isNew) ? userData.mainColor : Colors.black,
+                                width: 2.0,
                               ),
                               child: Row(
                                 children: <Widget>[

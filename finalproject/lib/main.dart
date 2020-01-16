@@ -41,10 +41,14 @@ class SlideRightRoute extends PageRouteBuilder {
 }
 
 enum BarActive { Home, Favs, People, Noti }
-
+enum ActualPage {explorer, fav, people, notis, gamapage, peoplelistgames, profile}
 void main() => runApp(GamesBookShelf());
 
 class GamesBookShelf extends StatelessWidget {
+
+  static ActualPage actualPage = ActualPage.explorer;
+  static Game actualGame;
+
   static settings(context, UserData userData, {inSettings = false}) {
     return FlatButton(
       child: Container(
@@ -164,9 +168,10 @@ class GamesBookShelf extends StatelessWidget {
                 flex: 1,
                 child: IconButton(
                   icon: Icon(
-                    (active == BarActive.Noti)
-                        ? Icons.notifications
-                        : Icons.notifications_none,
+                    (userData.newNoti) ? Icons.notifications_active
+                      : (active == BarActive.Noti)
+                          ? Icons.notifications
+                          : Icons.notifications_none,
                     size: 40,
                   ),
                   color: (active == BarActive.Noti)

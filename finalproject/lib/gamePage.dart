@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'game.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'main.dart';
 import 'userData.dart';
 
 class Comment {
@@ -48,6 +49,8 @@ class _GamePageState extends State<GamePage> {
 
   @override
   void initState() {
+    GamesBookShelf.actualPage = ActualPage.gamapage;
+    GamesBookShelf.actualGame = game;
     if (comments != null) {
       setState(() {
         comments.clear();
@@ -123,7 +126,12 @@ class _GamePageState extends State<GamePage> {
       }
     }
     commentsLoaded = true;
-    setState(() {});
+    if (GamesBookShelf.actualPage == ActualPage.gamapage && GamesBookShelf.actualGame == game) {
+          try {
+            setState(() {});
+          }
+          catch(error){}
+    }
   }
 
   Widget rendercomments() {
