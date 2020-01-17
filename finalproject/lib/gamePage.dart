@@ -611,9 +611,7 @@ class _GamePageState extends State<GamePage> {
       ),
       body: Column(
         children: <Widget>[
-          Expanded(
-            flex: 30,
-            child: Container(
+          Container(
               padding: EdgeInsets.all(8),
               color: userData.backgroundColor,
               child: Container(
@@ -625,150 +623,151 @@ class _GamePageState extends State<GamePage> {
                     width: 2.0,
                   ),
                 ),
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      flex: 1,
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.all(5),
-                          child: ClipRRect(
-                            child: Container(
-                                height: 200,
-                                child: Image.asset(
-                                  game.image,
-                                  fit: BoxFit.fitHeight,
-                                )),
-                            borderRadius: BorderRadius.circular(20),
+                child: Container(
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        flex: 1,
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.all(5),
+                            child: ClipRRect(
+                              child: Container(
+                                  child: Image.asset(
+                                    game.image,
+                                    fit: BoxFit.fitWidth,
+                                  )),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                          top: 14,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              '${game.name}',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 24),
-                            ),
-                            Text(
-                              '${game.company}',
-                            ),
-                            Container(
-                              padding: EdgeInsets.only(top: 2),
-                              child: Row(
-                                children: <Widget>[
-                                  Container(
-                                    width: 36,
-                                    child: IconButton(
-                                        padding: EdgeInsets.zero,
-                                        icon: Icon(starButton[0]),
-                                        color: Colors.black,
-                                        iconSize: 30,
-                                        onPressed: () {
-                                          setState(() {
-                                            starButton[0] = Icons.star;
-                                            for (var i = 4; i >= 1; i--) {
-                                              starButton[i] = Icons.star_border;
-                                            }
-                                            updateRating(1);
-                                          });
-                                        }),
-                                  ),
-                                  Container(
-                                    width: 36,
-                                    child: IconButton(
-                                        padding: EdgeInsets.zero,
-                                        icon: Icon(starButton[1]),
-                                        iconSize: 30,
-                                        onPressed: () {
-                                          setState(() {
-                                            for (var i = 0; i <= 1; i++) {
-                                              starButton[i] = Icons.star;
-                                            }
-                                            for (var i = 4; i >= 2; i--) {
-                                              starButton[i] = Icons.star_border;
-                                            }
-                                            updateRating(2);
-                                          });
-                                        }),
-                                  ),
-                                  Container(
-                                    width: 36,
-                                    child: IconButton(
-                                        padding: EdgeInsets.zero,
-                                        icon: Icon(starButton[2]),
-                                        iconSize: 30,
-                                        onPressed: () {
-                                          setState(() {
-                                            for (var i = 0; i <= 2; i++) {
-                                              starButton[i] = Icons.star;
-                                            }
-                                            for (var i = 4; i >= 3; i--) {
-                                              starButton[i] = Icons.star_border;
-                                            }
-                                            updateRating(3);
-                                          });
-                                        }),
-                                  ),
-                                  Container(
-                                    width: 36,
-                                    child: IconButton(
-                                      padding: EdgeInsets.zero,
-                                      icon: Icon(starButton[3]),
-                                      iconSize: 30,
-                                      onPressed: () {
-                                        setState(() {
-                                          for (var i = 0; i <= 3; i++) {
-                                            starButton[i] = Icons.star;
-                                          }
-                                          starButton[4] = Icons.star_border;
-                                          updateRating(4);
-                                        });
-                                      },
-                                    ),
-                                  ),
-                                  Container(
-                                    width: 36,
-                                    child: IconButton(
-                                        padding: EdgeInsets.zero,
-                                        icon: Icon(starButton[4]),
-                                        iconSize: 30,
-                                        onPressed: () {
-                                          setState(() {
-                                            for (var i = 0; i <= 4; i++) {
-                                              starButton[i] = Icons.star;
-                                            }
-                                            updateRating(5);
-                                          });
-                                        }),
-                                  ),
-                                  Text('($mitja'),
-                                  Icon(
-                                    Icons.star,
-                                    size: 14,
-                                  ),
-                                  Text(')'),
-                                ],
+                      Expanded(
+                        flex: 2,
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            top: 14,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                '${game.name}',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 24),
                               ),
-                            )
-                          ],
+                              Text(
+                                '${game.company}',
+                              ),
+                              Container(
+                                padding: EdgeInsets.only(top: 2),
+                                child: Row(
+                                  children: <Widget>[
+                                    Container(
+                                      width: 36,
+                                      child: IconButton(
+                                          padding: EdgeInsets.zero,
+                                          icon: Icon(starButton[0]),
+                                          color: Colors.black,
+                                          iconSize: 30,
+                                          onPressed: () {
+                                            setState(() {
+                                              starButton[0] = Icons.star;
+                                              for (var i = 4; i >= 1; i--) {
+                                                starButton[i] = Icons.star_border;
+                                              }
+                                              updateRating(1);
+                                            });
+                                          }),
+                                    ),
+                                    Container(
+                                      width: 36,
+                                      child: IconButton(
+                                          padding: EdgeInsets.zero,
+                                          icon: Icon(starButton[1]),
+                                          iconSize: 30,
+                                          onPressed: () {
+                                            setState(() {
+                                              for (var i = 0; i <= 1; i++) {
+                                                starButton[i] = Icons.star;
+                                              }
+                                              for (var i = 4; i >= 2; i--) {
+                                                starButton[i] = Icons.star_border;
+                                              }
+                                              updateRating(2);
+                                            });
+                                          }),
+                                    ),
+                                    Container(
+                                      width: 36,
+                                      child: IconButton(
+                                          padding: EdgeInsets.zero,
+                                          icon: Icon(starButton[2]),
+                                          iconSize: 30,
+                                          onPressed: () {
+                                            setState(() {
+                                              for (var i = 0; i <= 2; i++) {
+                                                starButton[i] = Icons.star;
+                                              }
+                                              for (var i = 4; i >= 3; i--) {
+                                                starButton[i] = Icons.star_border;
+                                              }
+                                              updateRating(3);
+                                            });
+                                          }),
+                                    ),
+                                    Container(
+                                      width: 36,
+                                      child: IconButton(
+                                        padding: EdgeInsets.zero,
+                                        icon: Icon(starButton[3]),
+                                        iconSize: 30,
+                                        onPressed: () {
+                                          setState(() {
+                                            for (var i = 0; i <= 3; i++) {
+                                              starButton[i] = Icons.star;
+                                            }
+                                            starButton[4] = Icons.star_border;
+                                            updateRating(4);
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                    Container(
+                                      width: 36,
+                                      child: IconButton(
+                                          padding: EdgeInsets.zero,
+                                          icon: Icon(starButton[4]),
+                                          iconSize: 30,
+                                          onPressed: () {
+                                            setState(() {
+                                              for (var i = 0; i <= 4; i++) {
+                                                starButton[i] = Icons.star;
+                                              }
+                                              updateRating(5);
+                                            });
+                                          }),
+                                    ),
+                                    Text('($mitja'),
+                                    Icon(
+                                      Icons.star,
+                                      size: 14,
+                                    ),
+                                    Text(')'),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
+          
           Expanded(
             flex: 80,
             child: Container(
