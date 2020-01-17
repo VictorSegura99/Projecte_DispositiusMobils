@@ -13,11 +13,16 @@ dependencies:
   cloud_firestore: ^0.13.0+1
   email_validator: '^1.0.0'
   url_launcher: ^5.4.1
+  flutter_launcher_icons: ^0.7.4
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
+flutter_icons:
+    android: true
+    ios: true
+    image_path: "assets/images/Logo.png"
 
 flutter:
 
