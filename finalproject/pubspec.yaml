@@ -33,6 +33,7 @@ flutter:
     - assets/images/Logo.png
     - assets/images/Log_ForTheKing.png
     - assets/images/minecraft.png
+    - assets/images/alien_earth.png
     - assets/images/ForTheKing.jpg
     - assets/gridIsaac.jpg
     - assets/gridHollow.jpg
@@ -49,3 +50,16 @@ flutter:
     - assets/introCeleste.jpg
     - assets/introHollow.png
     - assets/images/github.png
+    - assets/images/jeff.png
+    - assets/images/jenny.png
+    - assets/images/jerry.png
+    - assets/images/Hornet.png
+    - assets/images/Zote.png
+    - assets/images/profile_HK.jpg
+    - assets/images/profile_celeste.jpg
+    - assets/images/civ1.jpg
+    - assets/images/civ2.jpg
+    - assets/images/isaac.png
+    - assets/images/cain.png
+    - assets/images/mercy.png
+    - assets/images/tracer.png

@@ -44,6 +44,19 @@ class _SettingsState extends State<Settings> {
       profile_pictures.add('assets/default_image.png');
       profile_pictures.add('assets/creeper.jpg');
       profile_pictures.add('assets/bee_minecraft.png');
+      profile_pictures.add('assets/images/jeff.png');
+      profile_pictures.add('assets/images/jenny.png');
+      profile_pictures.add('assets/images/jerry.png');
+      profile_pictures.add('assets/images/profile_HK.jpg');
+      profile_pictures.add('assets/images/Zote.png'); 
+      profile_pictures.add('assets/images/Hornet.png');
+      profile_pictures.add('assets/images/profile_celeste.jpg');
+      profile_pictures.add('assets/images/civ1.jpg');
+      profile_pictures.add('assets/images/civ2.jpg');
+      profile_pictures.add('assets/images/isaac.png');
+      profile_pictures.add('assets/images/cain.png');
+      profile_pictures.add('assets/images/mercy.png');
+      profile_pictures.add(('assets/images/tracer.png'));
     });
   }
 
