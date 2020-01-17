@@ -242,13 +242,6 @@ class _LogInState extends State<LogIn> {
               ),
             ),
           ),
-          Container(
-            padding: EdgeInsets.fromLTRB(50, 400, 50, 0),
-            child: Image.asset(
-              "assets/images/Logo.png",
-              fit: BoxFit.fitWidth,
-            ),
-          ),
         ],
       ),
     );

@@ -808,7 +808,8 @@ class _SettingsState extends State<Settings> {
                   child: Center(
                     child: Text(
                       title_profile,
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
                   ),
                 ),
@@ -926,7 +927,8 @@ class _SettingsState extends State<Settings> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(
-                            color: Color.fromRGBO(255, 255, 255, 0.9), width: 2),
+                            color: Color.fromRGBO(255, 255, 255, 0.9),
+                            width: 2),
                       ),
                       child: FlatButton(
                         color: Colors.black87,
@@ -936,13 +938,13 @@ class _SettingsState extends State<Settings> {
                             children: <Widget>[
                               Text(
                                 'Change',
-                                style:
-                                    TextStyle(fontSize: 21, color: Colors.white),
+                                style: TextStyle(
+                                    fontSize: 21, color: Colors.white),
                               ),
                               Text(
                                 'Nickname',
-                                style:
-                                    TextStyle(fontSize: 21, color: Colors.white),
+                                style: TextStyle(
+                                    fontSize: 21, color: Colors.white),
                               )
                             ],
                           ),
@@ -1011,8 +1013,8 @@ class _SettingsState extends State<Settings> {
                                 shape: BoxShape.circle,
                                 image: DecorationImage(
                                   fit: BoxFit.fill,
-                                  image:
-                                      ExactAssetImage('assets/images/github.png'),
+                                  image: ExactAssetImage(
+                                      'assets/images/github.png'),
                                 ),
                               ),
                               child: FlatButton(
@@ -1034,7 +1036,8 @@ class _SettingsState extends State<Settings> {
                               )),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
-                                border: Border.all(width: 2, color: Colors.black),
+                                border:
+                                    Border.all(width: 2, color: Colors.black),
                                 color: Colors.white,
                               ),
                             ),
@@ -1052,8 +1055,8 @@ class _SettingsState extends State<Settings> {
                                 shape: BoxShape.circle,
                                 image: DecorationImage(
                                   fit: BoxFit.fill,
-                                  image:
-                                      ExactAssetImage('assets/images/github.png'),
+                                  image: ExactAssetImage(
+                                      'assets/images/github.png'),
                                 ),
                               ),
                               child: FlatButton(
@@ -1075,7 +1078,8 @@ class _SettingsState extends State<Settings> {
                               )),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
-                                border: Border.all(width: 2, color: Colors.black),
+                                border:
+                                    Border.all(width: 2, color: Colors.black),
                                 color: Colors.white,
                               ),
                             ),
@@ -1093,8 +1097,8 @@ class _SettingsState extends State<Settings> {
                                 shape: BoxShape.circle,
                                 image: DecorationImage(
                                   fit: BoxFit.fill,
-                                  image:
-                                      ExactAssetImage('assets/images/github.png'),
+                                  image: ExactAssetImage(
+                                      'assets/images/github.png'),
                                 ),
                               ),
                               child: FlatButton(
@@ -1115,7 +1119,8 @@ class _SettingsState extends State<Settings> {
                               )),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
-                                border: Border.all(width: 2, color: Colors.black),
+                                border:
+                                    Border.all(width: 2, color: Colors.black),
                                 color: Colors.white,
                               ),
                             ),
@@ -1133,8 +1138,8 @@ class _SettingsState extends State<Settings> {
                                 shape: BoxShape.circle,
                                 image: DecorationImage(
                                   fit: BoxFit.fill,
-                                  image:
-                                      ExactAssetImage('assets/images/github.png'),
+                                  image: ExactAssetImage(
+                                      'assets/images/github.png'),
                                 ),
                               ),
                               child: FlatButton(
@@ -1156,7 +1161,8 @@ class _SettingsState extends State<Settings> {
                               )),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
-                                border: Border.all(width: 2, color: Colors.black),
+                                border:
+                                    Border.all(width: 2, color: Colors.black),
                                 color: Colors.white,
                               ),
                             ),
@@ -1166,6 +1172,13 @@ class _SettingsState extends State<Settings> {
                     ],
                   ),
                 ],
+              ),
+              Container(
+                padding: EdgeInsets.all(20),
+                child: Image.asset(
+                  "assets/images/Logo.png",
+                  fit: BoxFit.fitWidth,
+                ),
               ),
             ],
           ),
